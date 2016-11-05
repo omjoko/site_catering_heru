@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests;
 use DB;
 
 class UserController extends Controller
@@ -15,14 +16,14 @@ class UserController extends Controller
     	return view('user', ['users' => $users]);
     }
 
-    public function store() {
+    public function store(Request $request) {
 
     	$data = $request->all();
 
     	DB::table('users')->insert([
             'name' => $data['name'],
-            'email' => $data['username'],
-            'email1' => $data['email'],
+            'email' => $data['email'],
+            'email1' => $data['email1'],
             'password' => bcrypt($data['password']),
             'telepon' => $data['telepon'],
             'no_nrp' => $data['no_nrp'],
@@ -30,7 +31,7 @@ class UserController extends Controller
             'no_sijil' => $data['no_sijil'],
             'sertifikat' => $data['sertifikat'],
             'tgl_valid' => $data['tgl_valid'],
-            'privilege' => $data['privilige'],
+            'privilege' => $data['privilege'],
         ]);    
 
     	return redirect()->action('UserController@index');

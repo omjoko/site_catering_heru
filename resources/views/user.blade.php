@@ -22,428 +22,60 @@
           	<div class="panel-body">
               <div class="container-fluid">
                   <div class="container-fluid">
-                  <span class="pull-right" style="margin-right: 10px;">
-                            <button class="btn btn-success" data-toggle="modal" href="#modalTambah" >
-                              <span class="fa fa-plus-circle"></span> Tambah Data
-                            </button>
+                  <span class="pull-right">
+                    <button class="btn btn-success" data-toggle="modal" href="#modalTambah" >
+                      <span class="fa fa-plus-circle"></span> Tambah Data
+                    </button>
                   </span>
               </div>
               </div>
               <div class="adv-table">
-                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered table-striped table-advance table-hover" id="hidden-table-info">
                     <thead>
                     <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th class="hidden-phone">Platform(s)</th>
-                        <th class="hidden-phone">Engine version</th>
-                        <th class="hidden-phone">CSS grade</th>
+                        <th>Nama</th>
+                        <th>Username</th>
+                        <th>Telepon</th>
+                        <th>Privilege</th>
+                        <th hidden=""></th>
+                        <th hidden=""></th>
+                        <th hidden=""></th>
+                        <th hidden=""></th>
+                        <th hidden=""></th>
+                        <th hidden=""></th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="gradeX">
-                        <td>Trident</td>
-                        <td>Internet
-                            Explorer 4.0</td>
-                        <td class="hidden-phone">Win 95+</td>
-                        <td class="center hidden-phone">4</td>
-                        <td class="center hidden-phone">X</td>
+
+                    @foreach($users as $no => $user)
+                    <tr>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->telepon }}</td>
+                        @if($user->privilege==1)
+                          <td><span class="label label-warning label-mini">steward</span></td>
+                        @elseif($user->privilege==2)
+                          <td><span class="label label-success label-mini">finance</span></td>
+                        @elseif($user->privilege==3)
+                          <td><span class="label label-danger label-mini">captain</span></td>
+                        @elseif($user->privilege==4)
+                          <td><span class="label label-primary label-mini">manager</span></td>
+                        @else
+                          <td><span class="label label-info label-mini">admin</span></td>
+                        @endif
+                        <td hidden="">{{ $user->email1 }}</td>
+                        <td hidden="">{{ $user->no_nrp }}</td>
+                        <td hidden="">{{ $user->no_bk }}</td>
+                        <td hidden="">{{ $user->no_sijil }}</td>
+                        <td hidden="">{{ $user->sertifikat }}</td>
+                        <td hidden="">{{ $user->tgl_valid }}</td>
+                        <td>
+                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                        </td>
                     </tr>
-                    <tr class="gradeC">
-                        <td>Trident</td>
-                        <td>Internet
-                            Explorer 5.0</td>
-                        <td class="hidden-phone">Win 95+</td>
-                        <td class="center hidden-phone">5</td>
-                        <td class="center hidden-phone">C</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Trident</td>
-                        <td>Internet
-                            Explorer 5.5</td>
-                        <td class="hidden-phone">Win 95+</td>
-                        <td class="center hidden-phone">5.5</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Trident</td>
-                        <td>Internet
-                            Explorer 6</td>
-                        <td class="hidden-phone">Win 98+</td>
-                        <td class="center hidden-phone">6</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Trident</td>
-                        <td>Internet Explorer 7</td>
-                        <td class="hidden-phone">Win XP SP2+</td>
-                        <td class="center hidden-phone">7</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Trident</td>
-                        <td>AOL browser (AOL desktop)</td>
-                        <td class="hidden-phone">Win XP</td>
-                        <td class="center hidden-phone">6</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Firefox 1.0</td>
-                        <td class="hidden-phone">Win 98+ / OSX.2+</td>
-                        <td class="center hidden-phone">1.7</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Firefox 1.5</td>
-                        <td class="hidden-phone">Win 98+ / OSX.2+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Firefox 2.0</td>
-                        <td class="hidden-phone">Win 98+ / OSX.2+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Firefox 3.0</td>
-                        <td class="hidden-phone">Win 2k+ / OSX.3+</td>
-                        <td class="center hidden-phone">1.9</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Camino 1.0</td>
-                        <td class="hidden-phone">OSX.2+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Camino 1.5</td>
-                        <td class="hidden-phone">OSX.3+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Netscape 7.2</td>
-                        <td class="hidden-phone">Win 95+ / Mac OS 8.6-9.2</td>
-                        <td class="center hidden-phone">1.7</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Netscape Browser 8</td>
-                        <td class="hidden-phone">Win 98SE+</td>
-                        <td class="center hidden-phone">1.7</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Netscape Navigator 9</td>
-                        <td class="hidden-phone">Win 98+ / OSX.2+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.0</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.1</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.1</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.2</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.2</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.3</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.3</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.4</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.4</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.5</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.5</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.6</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.6</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.7</td>
-                        <td class="hidden-phone">Win 98+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.7</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Mozilla 1.8</td>
-                        <td class="hidden-phone">Win 98+ / OSX.1+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Seamonkey 1.1</td>
-                        <td class="hidden-phone">Win 98+ / OSX.2+</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Gecko</td>
-                        <td>Epiphany 2.20</td>
-                        <td class="hidden-phone">Gnome</td>
-                        <td class="center hidden-phone">1.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>Safari 1.2</td>
-                        <td class="hidden-phone">OSX.3</td>
-                        <td class="center hidden-phone">125.5</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>Safari 1.3</td>
-                        <td class="hidden-phone">OSX.3</td>
-                        <td class="center hidden-phone">312.8</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>Safari 2.0</td>
-                        <td class="hidden-phone">OSX.4+</td>
-                        <td class="center hidden-phone">419.3</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>Safari 3.0</td>
-                        <td class="hidden-phone">OSX.4+</td>
-                        <td class="center hidden-phone">522.1</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>OmniWeb 5.5</td>
-                        <td class="hidden-phone">OSX.4+</td>
-                        <td class="center hidden-phone">420</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>iPod Touch / iPhone</td>
-                        <td class="hidden-phone">iPod</td>
-                        <td class="center hidden-phone">420.1</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Webkit</td>
-                        <td>S60</td>
-                        <td class="hidden-phone">S60</td>
-                        <td class="center hidden-phone">413</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 7.0</td>
-                        <td class="hidden-phone">Win 95+ / OSX.1+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 7.5</td>
-                        <td class="hidden-phone">Win 95+ / OSX.2+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 8.0</td>
-                        <td class="hidden-phone">Win 95+ / OSX.2+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 8.5</td>
-                        <td class="hidden-phone">Win 95+ / OSX.2+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 9.0</td>
-                        <td class="hidden-phone">Win 95+ / OSX.3+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 9.2</td>
-                        <td class="hidden-phone">Win 88+ / OSX.3+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera 9.5</td>
-                        <td class="hidden-phone">Win 88+ / OSX.3+</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Opera for Wii</td>
-                        <td class="hidden-phone">Wii</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Nokia N800</td>
-                        <td class="hidden-phone">N800</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Presto</td>
-                        <td>Nintendo DS browser</td>
-                        <td class="hidden-phone">Nintendo DS</td>
-                        <td class="center hidden-phone">8.5</td>
-                        <td class="center hidden-phone">C/A<sup>1</sup></td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>KHTML</td>
-                        <td>Konqureror 3.1</td>
-                        <td class="hidden-phone">KDE 3.1</td>
-                        <td class="center hidden-phone">3.1</td>
-                        <td class="center hidden-phone">C</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>KHTML</td>
-                        <td>Konqureror 3.3</td>
-                        <td class="hidden-phone">KDE 3.3</td>
-                        <td class="center hidden-phone">3.3</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>KHTML</td>
-                        <td>Konqureror 3.5</td>
-                        <td class="hidden-phone">KDE 3.5</td>
-                        <td class="center hidden-phone">3.5</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeX">
-                        <td>Tasman</td>
-                        <td>Internet Explorer 4.5</td>
-                        <td class="hidden-phone">Mac OS 8-9</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">X</td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>Tasman</td>
-                        <td>Internet Explorer 5.1</td>
-                        <td class="hidden-phone">Mac OS 7.6-9</td>
-                        <td class="center hidden-phone">1</td>
-                        <td class="center hidden-phone">C</td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>Tasman</td>
-                        <td>Internet Explorer 5.2</td>
-                        <td class="hidden-phone">Mac OS 8-X</td>
-                        <td class="center hidden-phone">1</td>
-                        <td class="center hidden-phone">C</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Misc</td>
-                        <td>NetFront 3.1</td>
-                        <td>Embedded devices</td>
-                        <td class="center">-</td>
-                        <td class="center">C</td>
-                    </tr>
-                    <tr class="gradeA">
-                        <td>Misc</td>
-                        <td>NetFront 3.4</td>
-                        <td class="hidden-phone">Embedded devices</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">A</td>
-                    </tr>
-                    <tr class="gradeX">
-                        <td>Misc</td>
-                        <td>Dillo 0.8</td>
-                        <td class="hidden-phone">Embedded devices</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">X</td>
-                    </tr>
-                    <tr class="gradeX">
-                        <td>Misc</td>
-                        <td>Links</td>
-                        <td class="hidden-phone">Text only</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">X</td>
-                    </tr>
-                    <tr class="gradeX">
-                        <td>Misc</td>
-                        <td>Lynx</td>
-                        <td class="hidden-phone">Text only</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">X</td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>Misc</td>
-                        <td>IE Mobile</td>
-                        <td class="hidden-phone">Windows Mobile 6</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">C</td>
-                    </tr>
-                    <tr class="gradeC">
-                        <td>Misc</td>
-                        <td>PSP browser</td>
-                        <td class="hidden-phone">PSP</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">C</td>
-                    </tr>
-                    <tr class="gradeU">
-                        <td>Other browsers</td>
-                        <td>All others</td>
-                        <td class="hidden-phone">-</td>
-                        <td class="center hidden-phone">-</td>
-                        <td class="center hidden-phone">U</td>
-                    </tr>
+                    @endforeach
                     </tbody>
                 </table>
               </div>
@@ -463,7 +95,7 @@
               </div>
               <div class="modal-body">
 
-                <form action="#" class="form-horizontal" method="POST" action="{{ url('/karyawan') }}">
+                <form action="#" class="form-horizontal" method="POST" action="{{ url('/user') }}">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <div class="form-group">
@@ -495,6 +127,7 @@
                         <label class="col-sm-2 control-label">Telepon</label>
                         <div class="col-sm-10">
                             <input name="telepon" type="text" placeholder="" class="form-control">
+                            <span class="help-inline">089693685702</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -545,29 +178,163 @@
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="privilege" id="optionsRadios1" value="3">
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3">
                                     <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="privilege" id="optionsRadios2" value="4">
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4">
                                     <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
                                 </label>
                             </div>
                         </div>
                     </div>
 
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Tambah</button>
+                    </div>
+
                 </form>
 
-              </div>
-              <div class="modal-footer">
-                  <button type="submit" class="btn btn-success">Tambah</button>
               </div>
           </div>
       </div>
   </div>
   <!-- END modal tambah-->
+
+  @foreach($users => $user)
+  <!-- Modal update -->
+  <div class="modal fade" id="modalUbah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Ubah User</h4>
+              </div>
+              <div class="modal-body">
+
+                <form action="#" class="form-horizontal" method="POST" action="{{ url('/user') }}">
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="{{ $user->id }}">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Nama*</label>
+                        <div class="col-sm-10">
+                          <input name="name" type="text" placeholder="" class="form-control" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Username*</label>
+                        <div class="col-sm-10">
+                            <input name="email" type="text" placeholder="" class="form-control" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input name="email1" type="email" placeholder="" class="form-control">
+                            <span class="help-inline">johndoe@domain.com</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Password*</label>
+                        <div class="col-sm-10">
+                            <input name="password" type="password" placeholder="" class="form-control" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Telepon</label>
+                        <div class="col-sm-10">
+                            <input name="telepon" type="text" placeholder="" class="form-control">
+                            <span class="help-inline">089693685702</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">No. NRP</label>
+                        <div class="col-sm-10">
+                            <input name="no_nrp" type="text" placeholder="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">No. BK</label>
+                        <div class="col-sm-10">
+                            <input name="no_bk" type="text" placeholder="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">No. Sijil</label>
+                        <div class="col-sm-10">
+                            <input name="no_sijil" type="text" placeholder="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Sertifikat</label>
+                        <div class="col-sm-10">
+                            <input name="sertifikat" type="text" placeholder="" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Tanggal Valid</label>
+                        <div class="col-sm-10">
+                            <input name="tgl_valid" type="text" placeholder="" data-mask="9999-99-99" class="form-control">
+                            <span class="help-inline">yyyy-mm-dd</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1" checked>
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Tambah</button>
+                    </div>
+
+                </form>
+
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- END modal update-->
 <!-- END MODAL COLLECTIONS -->
 @endsection
 
@@ -614,9 +381,12 @@
   {
       var aData = oTable.fnGetData( nTr );
       var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-      sOut += '<tr><td>Rendering engine:</td><td>'+aData[1]+' '+aData[4]+'</td></tr>';
-      sOut += '<tr><td>Link to source:</td><td>Could provide a link here</td></tr>';
-      sOut += '<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>';
+      sOut += '<tr><td>Email:</td><td>'+aData[5]+'</td></tr>';
+      sOut += '<tr><td>No. NRP:</td><td>'+aData[6]+'</td></tr>';
+      sOut += '<tr><td>No. BK:</td><td>'+aData[7]+'</td></tr>';
+      sOut += '<tr><td>No. Sijil:</td><td>'+aData[8]+'</td></tr>';
+      sOut += '<tr><td>Sertifikat:</td><td>'+aData[9]+'</td></tr>';
+      sOut += '<tr><td>Tanggal Valid:</td><td>'+aData[10]+'</td></tr>';
       sOut += '</table>';
 
       return sOut;
