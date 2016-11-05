@@ -10,7 +10,14 @@
                       </a>
                        <ul class="sub">
                           <li><a href="user">User</a></li>
-                          <li><a href="ingredients">Ingredient</a></li>
+                          <li>
+                              <a href="javascript:;">Ingredient</a>
+                              <ul class="sub">
+                                  <li><a  href="ingredients">Ingredient Table</a></li>
+                                  <li><a  href="ingredients">Kategori Ingredient</a></li>
+                                  <li><a  href="ingredients">Satuan Ingredient</a></li>
+                              </ul>
+                          </li>
                           <li><a>Recipe</a></li>
                           <li><a>Menu</a></li>
                           <li><a>Vendor</a></li>
