@@ -10,7 +10,7 @@
                       </a>
                        <ul class="sub">
                           <li><a href="user">User</a></li>
-                          <li><a>Ingredient</a></li>
+                          <li><a href="ingredients">Ingredient</a></li>
                           <li><a>Recipe</a></li>
                           <li><a>Menu</a></li>
                           <li><a>Vendor</a></li>

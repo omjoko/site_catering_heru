@@ -20,10 +20,12 @@
                 User Management
             </header>
             <div class="panel-body">
-              <div class="container-fluid">
-                  <button class="btn btn-success pull-right" data-toggle="modal" href="#modalTambah" >
-                    <span class="fa fa-plus-circle"></span> Tambah Data
-                </button>
+              <div class="container-fluid">\
+                  <span class="pull-right" style="margin-right: 10px;">
+                            <button class="btn btn-success" data-toggle="modal" href="#modalTambah" >
+                              <span class="fa fa-plus-circle"></span> Tambah Data
+                            </button>
+                  </span>
               </div>
               <div class="adv-table">
                 <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
