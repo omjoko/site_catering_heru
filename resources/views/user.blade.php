@@ -71,8 +71,8 @@
                         <td hidden="">{{ $user->sertifikat }}</td>
                         <td hidden="">{{ $user->tgl_valid }}</td>
                         <td>
-                            <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $user->id }}"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $user->id }}"><i class="fa fa-trash-o "></i></button>
                         </td>
                     </tr>
                     @endforeach
@@ -209,9 +209,9 @@
   </div>
   <!-- END modal tambah-->
 
-  @foreach($users => $user)
+  @foreach($users as $no => $user)
   <!-- Modal update -->
-  <div class="modal fade" id="modalUbah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="modalUbah{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
@@ -228,63 +228,63 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Nama*</label>
                         <div class="col-sm-10">
-                          <input name="name" type="text" placeholder="" class="form-control" required="">
+                          <input name="name" type="text" placeholder="" class="form-control" required="" value="{{ $user->name }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Username*</label>
                         <div class="col-sm-10">
-                            <input name="email" type="text" placeholder="" class="form-control" required="">
+                            <input name="email" type="text" placeholder="" class="form-control" required="" value="{{ $user->email }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-10">
-                            <input name="email1" type="email" placeholder="" class="form-control">
+                            <input name="email1" type="email" placeholder="" class="form-control" value="{{ $user->email1 }}">
                             <span class="help-inline">johndoe@domain.com</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Password*</label>
                         <div class="col-sm-10">
-                            <input name="password" type="password" placeholder="" class="form-control" required="">
+                            <input name="password" type="password" placeholder="" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Telepon</label>
                         <div class="col-sm-10">
-                            <input name="telepon" type="text" placeholder="" class="form-control">
+                            <input name="telepon" type="text" placeholder="" class="form-control" value="{{ $user->telepon }}">
                             <span class="help-inline">089693685702</span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">No. NRP</label>
                         <div class="col-sm-10">
-                            <input name="no_nrp" type="text" placeholder="" class="form-control">
+                            <input name="no_nrp" type="text" placeholder="" class="form-control" value="{{ $user->no_nrp }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">No. BK</label>
                         <div class="col-sm-10">
-                            <input name="no_bk" type="text" placeholder="" class="form-control">
+                            <input name="no_bk" type="text" placeholder="" class="form-control" value="{{ $user->no_bk }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">No. Sijil</label>
                         <div class="col-sm-10">
-                            <input name="no_sijil" type="text" placeholder="" class="form-control">
+                            <input name="no_sijil" type="text" placeholder="" class="form-control" value="{{ $user->no_sijil }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Sertifikat</label>
                         <div class="col-sm-10">
-                            <input name="sertifikat" type="text" placeholder="" class="form-control">
+                            <input name="sertifikat" type="text" placeholder="" class="form-control" value="{{ $user->sertifikat }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Tanggal Valid</label>
                         <div class="col-sm-10">
-                            <input name="tgl_valid" type="text" placeholder="" data-mask="9999-99-99" class="form-control">
+                            <input name="tgl_valid" type="text" placeholder="" data-mask="9999-99-99" class="form-control" value="{{ $user->tgl_valid }}">
                             <span class="help-inline">yyyy-mm-dd</span>
                         </div>
                     </div>
@@ -325,7 +325,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Tambah</button>
+                        <button type="submit" class="btn btn-info">Ubah</button>
                     </div>
 
                 </form>
@@ -335,6 +335,36 @@
       </div>
   </div>
   <!-- END modal update-->
+
+  <!-- Modal Hapus -->
+    <div class="modal fade" id="modalHapus{{ $user->id }}" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header alert alert-danger">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Warning!</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form" method="POST" action="{{ url('/user') }}">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id" value="{{ $user->id }}">
+
+                <center>
+                    <p>Apakah anda yakin ingin menghapus akun <b>{{ $user->email }}</b>?</p>
+                </center>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </div>
+            </form>
+          </div>
+          
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /END modal Hapus -->
+  @endforeach
 <!-- END MODAL COLLECTIONS -->
 @endsection
 

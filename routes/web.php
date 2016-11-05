@@ -29,4 +29,7 @@ Route::get('/logout', 'HomeController@logout');
 
 // Broadwell-23 code...
 // User Management
-Route::resource('/user', 'UserController');
+Route::get('/user', 'UserController@index');
+Route::post('/user', 'UserController@store');
+Route::put('/user', 'UserController@update');
+Route::delete('/user', 'UserController@destroy');
