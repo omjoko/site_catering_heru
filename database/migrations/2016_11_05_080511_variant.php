@@ -15,7 +15,7 @@ class Variant extends Migration
     {
          Schema::create('variants', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_bahan');
+            $table->integer('id_bahan');
             $table->string('nama');
             $table->longText('deskripsi');
             $table->timestamps();
