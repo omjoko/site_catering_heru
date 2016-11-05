@@ -17,7 +17,7 @@ class Recipe extends Migration
             $table->increments('id');
             $table->string('nama');
             $table->longText('deskripsi');
-            $table->string('tipe');
+            $table->integer('tipe');
             $table->longText('petunjuk');
             $table->string('gambar');
             $table->timestamps();

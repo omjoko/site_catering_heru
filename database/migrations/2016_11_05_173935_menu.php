@@ -15,7 +15,12 @@ class Menu extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('measurement');
+            $table->string('nama');
+            $table->integer('tipe');
+            $table->integer('menu_pembuka');
+            $table->integer('menu_utama');
+            $table->integer('menu_penutup');
+            $table->integer('minuman');
             $table->timestamps();
         });
     }

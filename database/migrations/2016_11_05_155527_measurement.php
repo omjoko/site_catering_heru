@@ -15,7 +15,7 @@ class Measurement extends Migration
     {
         Schema::create('measurements', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('measurement');
+            $table->string('satuan');
             $table->timestamps();
         });
     }

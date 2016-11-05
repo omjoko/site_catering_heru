@@ -15,8 +15,8 @@ class DetailRecipe extends Migration
     {
         Schema::create('detail_recipes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_resep');
-            $table->longText('id_bahan');
+            $table->integer('id_resep');
+            $table->integer('id_bahan');
             $table->string('jumlah');
             $table->timestamps();
         });
