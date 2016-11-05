@@ -2,7 +2,7 @@
       <section id="main-content">
           <section class="wrapper site-min-height">
               <!-- page start-->
-              Page content goes here
+              @yield('content')
               <!-- page end-->
           </section>
       </section>
