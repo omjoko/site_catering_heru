@@ -23,8 +23,6 @@
               <a class="btn btn-success" data-toggle="modal" href="#modalTambah" style="float: right;">
                 Tambah Data
               </a>
-            </div>
-            <div class="panel-body">
               <div class="adv-table">
                 <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
                     <thead>
