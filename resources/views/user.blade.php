@@ -33,6 +33,7 @@
                 <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered table-striped table-advance table-hover" id="hidden-table-info">
                     <thead>
                     <tr>
+                        <th>No</th>
                         <th>Nama</th>
                         <th>Username</th>
                         <th>Telepon</th>
@@ -50,6 +51,7 @@
 
                     @foreach($users as $no => $user)
                     <tr>
+                        <td>{{ $no+1 }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->telepon }}</td>

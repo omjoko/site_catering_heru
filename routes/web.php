@@ -33,3 +33,9 @@ Route::get('/user', 'UserController@index');
 Route::post('/user', 'UserController@store');
 Route::put('/user', 'UserController@update');
 Route::delete('/user', 'UserController@destroy');
+
+// Vendor Management
+Route::get('/vendor', 'VendorController@index');
+Route::post('/vendor', 'VendorController@store');
+Route::put('/vendor', 'VendorController@update');
+Route::delete('/vendor', 'VendorController@destroy');
