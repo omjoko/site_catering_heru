@@ -22,5 +22,5 @@ Route::get('/ingredients', 'ingredientsController@sedotData');
 Route::get('/logout', 'HomeController@logout');
 
 // Broadwell-23 code...
-	// User Management
-	Route::resource('/user', 'UserController');
+// User Management
+Route::resource('/user', 'UserController');
