@@ -19,7 +19,7 @@ class Pelabuhans extends Migration
             $table->string('alamat');
             $table->string('telepon');
             $table->string('kota');
-            $table->tinyInteger('terhapus',1);
+            $table->tinyInteger('terhapus');
             $table->timestamps();
         });
     }

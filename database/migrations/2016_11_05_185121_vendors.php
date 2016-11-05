@@ -21,9 +21,9 @@ class Vendors extends Migration
             $table->string('telepon');
             $table->string('kota');
             $table->string('perwakilan');
-            $table->tinyInteger('tipe_pembayaran',1);
+            $table->tinyInteger('tipe_pembayaran');
             $table->string('no_rek');
-            $table->tinyInteger('terhapus',1);
+            $table->tinyInteger('terhapus');
             $table->timestamps();
         });
     }
