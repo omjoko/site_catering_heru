@@ -18,5 +18,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-Route::get('/ingredients', 'HomeController@index');
+Route::get('/ingredients', 'ingredientsController@sedotData');
 Route::get('/logout', 'HomeController@logout');
