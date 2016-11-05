@@ -20,3 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/ingredients', 'ingredientsController@sedotData');
 Route::get('/logout', 'HomeController@logout');
+
+// Broadwell-23 code...
+	// User Management
+	Route::resource('/user', 'UserController');

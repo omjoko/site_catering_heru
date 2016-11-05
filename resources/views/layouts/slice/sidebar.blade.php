@@ -9,10 +9,10 @@
                           <span>Master Data</span>
                       </a>
                        <ul class="sub">
+                          <li><a href="user">User</a></li>
                           <li><a>Ingredient</a></li>
                           <li><a>Recipe</a></li>
                           <li><a>Menu</a></li>
-                          <li><a>User</a></li>
                           <li><a>Vendor</a></li>
                           <li><a>Cruise</a></li>
                           <li><a>Voyage Class</a></li>
