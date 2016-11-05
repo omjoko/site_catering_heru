@@ -12,7 +12,7 @@ class UserController extends Controller
     	$users = DB::table('users')
                     ->get();
 
-    	return view('user.user', ['users' => $users]);
+    	return view('user', ['users' => $users]);
     }
 
     public function store() {
