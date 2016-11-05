@@ -21,6 +21,7 @@ class Ingredients extends Migration
             $table->integer('id_kategori');
             $table->longText('deskripsi');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

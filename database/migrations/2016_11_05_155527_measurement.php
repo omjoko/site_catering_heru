@@ -17,6 +17,7 @@ class Measurement extends Migration
             $table->increments('id');
             $table->string('satuan');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -19,6 +19,7 @@ class Variant extends Migration
             $table->string('nama');
             $table->longText('deskripsi');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

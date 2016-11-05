@@ -19,6 +19,7 @@ class DetailRecipe extends Migration
             $table->integer('id_bahan');
             $table->string('jumlah');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
