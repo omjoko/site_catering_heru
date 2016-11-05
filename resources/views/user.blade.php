@@ -585,6 +585,9 @@
 <!--script for this page-->
 <script src="js/form-component.js"></script>
 
+<script type="text/javascript" language="javascript" src="assets/advanced-datatable/media/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="assets/data-tables/DT_bootstrap.js"></script>
+
 <!-- js placed at the end of the document so the pages load faster -->
 <!--<script src="js/jquery.js"></script>-->
 <script type="text/javascript" language="javascript" src="assets/advanced-datatable/media/js/jquery.js"></script>
