@@ -19,13 +19,12 @@ class ingredientsController extends Controller
 
     public function sedotData(Request $request)
     {
+        // $ingredients = DB::select( DB::raw("SELECT ingredients.id, ingredients.nama, satuan_resep, satuan_pembelian, categorys.nama as kategori, deskripsi FROM `ingredients`, `categorys` WHERE ingredients.id_kategori = categorys.id AND ingredients.deleted_at > now() and ingredients.deleted_at = null"));
         $ingredients = ingredients::with('categorys')->get();
         $resep = ingredients::with('resep')->get();
-        $pembelian = ingredients::with('pembelian')->get();
-        $categorys = categorys::All();
-        $measurements = measurements::All();
+        $pembelian = ingredients::with('pembelian')->get();        
         // DD($pembelian);
-    	return view('ingredients.ingredients', ['ingredients'=>$ingredients, 'resep'=>$resep, 'pembelian'=>$pembelian, 'categorys'=>$categorys, 'measurements'=>$measurements ]);
+    	return view('ingredients.ingredients', ['ingredients'=>$ingredients, 'resep'=>$resep, 'pembelian'=>$pembelian ]);
 
     }
 
@@ -144,25 +143,6 @@ class ingredientsController extends Controller
 
         $url = URL::previous();
         return redirect($url);
-    }
-    public function ubahVariants(Request $request)
-    {
         
-        $variants = variants::find($request->id_varian);
-        $variants->nama = $request->nama;
-        $variants->id_bahan = $request->id;
-        $variants->bahan_utama = $request->bahan_utama;
-        $variants->deskripsi = $request->deskripsi;
-        $variants->save();
-        $url = URL::previous();
-        return redirect($url);
-    }
-
-    public function hapusVariants(Request $request)
-    {
-        $variants = variants::find($request->id_varian);
-        $variants->delete();
-        $url = URL::previous();
-        return redirect($url);
     }
 }

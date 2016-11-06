@@ -50,109 +50,7 @@
                          <td>
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $ingredient->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $ingredient->id }}"><i class="fa fa-trash-o "></i></button>
-                            <a href="new-variants?id={{$ingredient->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-pencil"></i> Varian</button></a>
-
-                            @foreach($ingredients as $ingredient)
-                            <!-- Modal update -->
-                            <div class="modal fade" id="modalUbah{{ $ingredient->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title">Ubah Bahan</h4>
-                                        </div>
-                                        <div class="modal-body">
-
-                                          <form action="#" class="form-horizontal" method="POST" >
-                                              <input type="hidden" name="_method" value="PUT">
-                                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                              <input type="hidden" name="id" value="{{ $ingredient->id }}">
-
-                                                  <label class="control-label">Nama bahan</label>
-                                                  <div class="">
-                                                      <input type="text" class="form-control" name="nama" value="{{$ingredient->nama}}">
-                                                  </div>
-                                                  <label class="control-label">Kategori</label>
-                                                  <div class="">
-                                                      <select class="form-control" name="id_kategori">
-                                                        @foreach($categorys as $category)
-                                                          @if($category->id == $ingredient->id_kategori)
-                                                            <option value="{{$category->id}}" selected>{{$category->nama}}</option>
-                                                          @else
-                                                            <option value="{{$category->id}}">{{$category->nama}}</option>
-                                                          @endif
-                                                        @endforeach
-                                                      </select>
-                                                  </div>
-                                                  <label class="control-label">Satuan Resep</label>
-                                                  <div class="">
-                                                      <select class="form-control" name="satuan_resep">
-                                                        @foreach($measurements as $measurement)
-                                                          @if($measurement->id == $ingredient->satuan_resep)
-                                                            <option value="{{$measurement->id}}" selected>{{$measurement->satuan}}</option>
-                                                          @else
-                                                            <option value="{{$measurement->id}}">{{$measurement->satuan}}</option>
-                                                          @endif
-                                                        @endforeach
-                                                      </select>
-                                                  </div>
-                                                  <label class="control-label">Satuan Pembelian</label>
-                                                  <div class="">
-                                                      <select class="form-control" name="satuan_pembelian">
-                                                        @foreach($measurements as $measurement)
-                                                          @if($measurement->id == $ingredient->satuan_pembelian)
-                                                            <option value="{{$measurement->id}}" selected>{{$measurement->satuan}}</option>
-                                                          @else
-                                                            <option value="{{$measurement->id}}">{{$measurement->satuan}}</option>
-                                                          @endif
-                                                        @endforeach
-                                                      </select>
-                                                  </div>
-                                                  <label class="control-label">Deskripsi</label>
-                                                  <div class="">
-                                                    <textarea class="form-control" name="deskripsi" rows="5">{{$ingredient->deskripsi}}</textarea>
-                                                  </div>
-                                              
-                                              <div class="modal-footer">
-                                                  <button type="submit" class="btn btn-info">Ubah</button>
-                                              </div>
-                                          </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END modal update-->
-
-                            <!-- Modal Hapus -->
-                              <div class="modal fade" id="modalHapus{{ $ingredient->id }}" tabindex="-1" role="dialog">
-                                <div class="modal-dialog modal-sm">
-                                  <div class="modal-content">
-                                    <div class="modal-header alert alert-danger" style="background-color: red;">
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                      <h4 class="modal-title">Warning!</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                      <form class="form-horizontal" role="form" method="POST">
-                                          <input type="hidden" name="_method" value="DELETE">
-                                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                          <input type="hidden" name="id" value="{{ $ingredient->id }}">
-
-                                          <center>
-                                              <p>Apakah anda yakin ingin menghapus bahan : <b>{{ $ingredient->nama }}</b>?</p>
-                                          </center>
-
-                                          <div class="modal-footer">
-                                              <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
-                                              <button type="submit" class="btn btn-danger">Ya</button>
-                                          </div>
-                                      </form>
-                                    </div>
-                                    
-                                  </div><!-- /.modal-content -->
-                                </div><!-- /.modal-dialog -->
-                              </div><!-- /END modal Hapus -->
-                            @endforeach
-                          <!-- END MODAL COLLECTIONS -->
+                            <a href="new-variants?id={{$ingredient->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Varian</button></a>
                         </td>
                     </tr>
                     @endforeach
@@ -160,7 +58,68 @@
                 </table>
               </div>
 
+                @foreach($ingredients as $ingredient)
+  <!-- Modal update -->
+  <div class="modal fade" id="modalUbah{{ $ingredient->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Ubah satuan</h4>
+              </div>
+              <div class="modal-body">
 
+                <form action="#" class="form-horizontal" method="POST" >
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="{{ $ingredient->id }}">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Nama satuan*</label>
+                        <div class="col-sm-10">
+                          <input name="nama" type="text" placeholder="" class="form-control" required="" value="{{ $ingredient->nama }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">Ubah</button>
+                    </div>
+                </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- END modal update-->
+
+  <!-- Modal Hapus -->
+    <div class="modal fade" id="modalHapus{{ $ingredient->id }}" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header alert alert-danger" style="background-color: red;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Warning!</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id" value="{{ $ingredient->id }}">
+
+                <center>
+                    <p>Apakah anda yakin ingin menghapus bahan : <b>{{ $ingredient->nama }}</b>?</p>
+                </center>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </div>
+            </form>
+          </div>
+          
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /END modal Hapus -->
+  @endforeach
+<!-- END MODAL COLLECTIONS -->
             </div>
         </section>
     </div>
