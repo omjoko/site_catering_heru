@@ -21,7 +21,13 @@
                           <li><a>Recipe</a></li>
                           <li><a>Menu</a></li>
                           <li><a href="vendor">Vendor</a></li>
-                          <li><a>Cruise</a></li>
+                          <li>
+                              <a href="javascript:;">Kapal</a>
+                              <ul class="sub">
+                                  <li><a  href="kapal">Kapal</a></li>
+                                  <li><a  href="penyimpanan">Penyimpanan</a></li>
+                              </ul>
+                          </li>
                           <li><a>Voyage Class</a></li>
                           <li><a>Route</a></li>
                       </ul>
