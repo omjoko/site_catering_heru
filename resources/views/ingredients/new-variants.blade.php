@@ -75,7 +75,7 @@
                 </form>
                       <span class="pull-left" style="margin-left: 10px;">
                            <a href="/ingredients"><button type="button" class="btn btn-danger" data-toggle="modal">
-                                    <span class="fa fa-chevron-left"></span> Batal
+                                    <span class="fa fa-chevron-left"></span> Kembali
                                   </button></a>
                          </span>
 	              </div>
@@ -120,6 +120,111 @@
         </section>
     </div>
 </div>
+
+  @foreach($variants as $no => $variant)
+  <!-- Modal update -->
+  <div class="modal fade" id="modalUbah{{ $variant->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Ubah Varian</h4>
+              </div>
+              <div class="modal-body">
+
+                <form action="#" class="form-horizontal" method="POST">
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id_varian" value="{{ $variant->id }}">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Variasi Bahan</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="nama" value="{{$variant->nama}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Bahan Utama</label>
+                            <div class="col-sm-10">
+                              @if($variant->bahan_utama==1)
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="bahan_utama" value="1" checked>
+                                        <span> Ya </span>
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="bahan_utama" value="0">
+                                        <span> Tidak </span>
+                                    </label>
+                                </div>
+                                @else
+                                  <div class="radio">
+                                    <label>
+                                        <input type="radio" name="bahan_utama" value="1">
+                                        <span> Ya </span>
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="bahan_utama" value="0" checked>
+                                        <span> Tidak </span>
+                                    </label>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 col-sm-2 control-label">Deskripsi</label>
+                            <div class="col-sm-10">
+                                <textarea name="deskripsi" class="form-control" rows="5">{{$variant->deskripsi}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">Ubah</button>
+                    </div>
+
+                </form>
+
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- END modal update-->
+
+  <!-- Modal Hapus -->
+    <div class="modal fade" id="modalHapus{{ $variant->id }}" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header alert alert-danger">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Warning!</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form" method="POST" >
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id_varian" value="{{ $variant->id }}">
+
+                <center>
+                    <p>Apakah anda yakin ingin menghapus varian : <b>{{ $variant->nama }}</b>?</p>
+                </center>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </div>
+            </form>
+          </div>
+          
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /END modal Hapus -->
+  @endforeach
+<!-- END MODAL COLLECTIONS -->
 @endsection
 
 @push('js')
