@@ -28,14 +28,14 @@
                   </span>
               </div>
               <div class="adv-table">
-                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info"  style="text-align: center;">
                     <thead>
                     <tr>
                         <th style="width: 5%;">No.</th>
-                        <th>Nama Bahan</th>
-                        <th>Deskripsi</th>
-                        <th>Kategori</th>
-                        <th></th>
+                        <th  style="text-align: center;">Nama Bahan</th>
+                        <th  style="text-align: center;">Deskripsi</th>
+                        <th  style="text-align: center;">Kategori</th>
+                        <th  style="text-align: center;"></th>
                         <th hidden=""></th>
                     </tr>
                     </thead>
@@ -57,12 +57,12 @@
                             <a href="new-variants?id={{$ingredient->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Varian</button></a>
                         </td>
                         <td hidden="">
-                          <table class="display table table-bordered">
+                          <table class="table table-striped">
                             <tr>
-                              <th>No.</th>
-                              <th>Variasi Bahan</th>
-                              <th>Bahan Utama</th>
-                              <th>Deskripsi</th>
+                              <th  style="text-align: center;">No.</th>
+                              <th  style="text-align: center;">Variasi Bahan</th>
+                              <th  style="text-align: center;">Bahan Utama</th>
+                              <th  style="text-align: center;">Deskripsi</th>
                             </tr>
                             <?php $no_var = 0; ?>
                             @foreach($variant as $var)
@@ -70,7 +70,13 @@
                                 <tr>
                                   <td>{{$no_var}}</td>
                                   <td>{{$var->nama}}</td>
-                                  <td>{{$var->bahan_utama}}</td>
+                                  <td>
+                                      @if($var->bahan_utama == 0)
+                                      <span class="label label-danger label-mini"> Tidak</span>
+                                      @else
+                                      <span class="label label-success label-mini"> Ya</span>
+                                      @endif
+                                  </td>
                                   <td>{{$var->deskripsi}}</td>
                                 </tr>
                             @endforeach
@@ -258,6 +264,10 @@
 
       $('#hidden-table-info thead tr').each( function () {
           this.insertBefore( nCloneTh, this.childNodes[0] );
+      } );
+
+      $('#example tr').each( function () {
+
       } );
 
       $('#hidden-table-info tbody tr').each( function () {
