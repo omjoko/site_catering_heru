@@ -31,22 +31,29 @@
                 <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
                     <thead>
                     <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th class="hidden-phone">Platform(s)</th>
-                        <th class="hidden-phone">Engine version</th>
-                        <th class="hidden-phone">CSS grade</th>
+                        <th style="width: 5%;">No.</th>
+                        <th>Nama Resep</th>
+                        <th>Deskripsi</th>
+                        <th>Tipe Resep</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="gradeX">
-                        <td>Trident</td>
-                        <td>Internet
-                            Explorer 4.0</td>
-                        <td class="hidden-phone">Win 95+</td>
-                        <td class="center hidden-phone">4</td>
-                        <td class="center hidden-phone">X</td>
-                    </tr>
+                    <?php $no = 0; ?>
+                    @foreach($recipes as $recipe)
+                    <?php $no++; ?>
+                      <tr class="gradeX">
+                          <td>{{$no}}</td>
+                          <td>{{$recipe->nama}}</td>
+                          <td><?php echo $recipe->deskripsi; ?></td>
+                          <td>{{$recipe->tipe}}</td>
+                          <td>
+                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $recipe->id }}"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $recipe->id }}"><i class="fa fa-trash-o "></i></button>
+                            <a href="new-variants?id={{$recipe->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Detail</button></a>
+                          </td>
+                      </tr>
+                    @endforeach
                     </tbody>
                 </table>
               </div>

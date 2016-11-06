@@ -24,6 +24,8 @@ Route::get('/recipes', 'recipesController@dataResep');
 Route::put('/recipes', 'recipesController@ubah');
 Route::delete('/recipes', 'recipesController@hapus');
 Route::get('/new-recipes', 'recipesController@databaru');
+Route::post('/new-recipes', 'recipesController@tambahResep');
+
 
 
 

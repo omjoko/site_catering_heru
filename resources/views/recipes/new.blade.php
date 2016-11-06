@@ -24,7 +24,8 @@
                 Tambahkan Bahan
             </header>
             <div class="panel-body">
-	              <form class="form-horizontal tasi-form" method="get">
+	              <form class="form-horizontal tasi-form" method="post">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Nama Resep</label>
 	                  <div class="col-sm-10">
@@ -41,10 +42,10 @@
 	                  <label class="col-sm-2 col-sm-2 control-label">Tipe Resep</label>
 	                  <div class="col-sm-10">
 	                      <select class="form-control" name="tipe">
-                          <option>Makanan Pembuka</option>
-                          <option>Makanan Utama</option>                          
-                          <option>Makanan Penutup</option>                          
-                          <option>Minuman</option>                          
+                          <option value="0">Makanan Pembuka</option>
+                          <option value="1">Makanan Utama</option>                          
+                          <option value="2">Makanan Penutup</option>                          
+                          <option value="3">Minuman</option>                          
                         </select>
 	                  </div>
 	              </div>
