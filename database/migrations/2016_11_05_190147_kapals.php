@@ -16,7 +16,7 @@ class Kapals extends Migration
         Schema::create('kapals', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama_kapal');
-            $table->tinyInteger('tipe_pembayaran');
+            $table->tinyInteger('tipe_kapal');
             $table->string('no_imo');
             $table->string('kapasitas');
             $table->integer('id_penyimpanan');

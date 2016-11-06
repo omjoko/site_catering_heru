@@ -54,3 +54,15 @@ Route::get('/vendor', 'VendorController@index');
 Route::post('/vendor', 'VendorController@store');
 Route::put('/vendor', 'VendorController@update');
 Route::delete('/vendor', 'VendorController@destroy');
+
+// Kapal Management
+Route::get('/kapal', 'KapalController@index');
+Route::post('/kapal', 'KapalController@store');
+Route::put('/kapal', 'KapalController@update');
+Route::delete('/kapal', 'KapalController@destroy');
+
+// Penyimpanan Kapal Management
+Route::get('/penyimpanan', 'PenyimpananController@index');
+Route::post('/penyimpanan', 'PenyimpananController@store');
+Route::put('/penyimpanan', 'PenyimpananController@update');
+Route::delete('/penyimpanan', 'PenyimpananController@destroy');
