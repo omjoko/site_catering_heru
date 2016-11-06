@@ -28,7 +28,7 @@
                                   <li><a  href="penyimpanan">Penyimpanan</a></li>
                               </ul>
                           </li>
-                          <li><a>Voyage Class</a></li>
+                          <li><a href="pelabuhan">Pelabuhan</a></li>
                           <li><a>Route</a></li>
                       </ul>
                   </li>

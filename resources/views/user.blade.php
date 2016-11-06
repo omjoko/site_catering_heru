@@ -413,12 +413,12 @@
   {
       var aData = oTable.fnGetData( nTr );
       var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-      sOut += '<tr><td>Email:</td><td>'+aData[5]+'</td></tr>';
-      sOut += '<tr><td>No. NRP:</td><td>'+aData[6]+'</td></tr>';
-      sOut += '<tr><td>No. BK:</td><td>'+aData[7]+'</td></tr>';
-      sOut += '<tr><td>No. Sijil:</td><td>'+aData[8]+'</td></tr>';
-      sOut += '<tr><td>Sertifikat:</td><td>'+aData[9]+'</td></tr>';
-      sOut += '<tr><td>Tanggal Valid:</td><td>'+aData[10]+'</td></tr>';
+      sOut += '<tr><td>Email:</td><td>'+aData[6]+'</td></tr>';
+      sOut += '<tr><td>No. NRP:</td><td>'+aData[7]+'</td></tr>';
+      sOut += '<tr><td>No. BK:</td><td>'+aData[8]+'</td></tr>';
+      sOut += '<tr><td>No. Sijil:</td><td>'+aData[9]+'</td></tr>';
+      sOut += '<tr><td>Sertifikat:</td><td>'+aData[10]+'</td></tr>';
+      sOut += '<tr><td>Tanggal Valid:</td><td>'+aData[11]+'</td></tr>';
       sOut += '</table>';
 
       return sOut;

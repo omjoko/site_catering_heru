@@ -16,7 +16,6 @@ class Penyimpanans extends Migration
         Schema::create('penyimpanans', function (Blueprint $table) {
             $table->increments('id_penyimpanan');
             $table->string('nama_tempat');
-            $table->tinyInteger('terhapus');
             $table->timestamps();
         });
     }

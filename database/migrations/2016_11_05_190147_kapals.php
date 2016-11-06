@@ -20,7 +20,6 @@ class Kapals extends Migration
             $table->string('no_imo');
             $table->string('kapasitas');
             $table->integer('id_penyimpanan');
-            $table->tinyInteger('terhapus');
             $table->timestamps();
         });
     }

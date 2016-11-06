@@ -61,8 +61,15 @@ Route::post('/kapal', 'KapalController@store');
 Route::put('/kapal', 'KapalController@update');
 Route::delete('/kapal', 'KapalController@destroy');
 
-// Penyimpanan Kapal Management
+// Penyimpanan Management
 Route::get('/penyimpanan', 'PenyimpananController@index');
 Route::post('/penyimpanan', 'PenyimpananController@store');
 Route::put('/penyimpanan', 'PenyimpananController@update');
 Route::delete('/penyimpanan', 'PenyimpananController@destroy');
+
+// Pelabuhan Management
+Route::get('/pelabuhan', 'PelabuhanController@index');
+Route::post('/pelabuhan', 'PelabuhanController@store');
+Route::put('/pelabuhan', 'PelabuhanController@update');
+Route::delete('/pelabuhan', 'PelabuhanController@destroy');
+// END Broadwell-23 code
