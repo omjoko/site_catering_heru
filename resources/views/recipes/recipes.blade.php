@@ -28,29 +28,73 @@
                   </span>
               </div>
               <div class="adv-table">
-                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info" style="text-align: center;">
                     <thead>
                     <tr>
                         <th style="width: 5%;">No.</th>
-                        <th>Nama Resep</th>
-                        <th>Deskripsi</th>
-                        <th>Tipe Resep</th>
-                        <th></th>
+                        <th style="text-align: center;">Nama Resep</th>
+                        <th style="text-align: center;">Deskripsi</th>
+                        <th style="text-align: center;">Tipe Resep</th>
+                        <th style="text-align: center;"></th>
+                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0; ?>
+                    <?php $no = 0; use App\Http\Controllers\recipesController;?>
                     @foreach($recipes as $recipe)
                     <?php $no++; ?>
+                    <?php 
+                        $bahan_reseps = recipesController::sedotResep($recipe->id);
+                    ?>
                       <tr class="gradeX">
                           <td>{{$no}}</td>
                           <td>{{$recipe->nama}}</td>
                           <td><?php echo $recipe->deskripsi; ?></td>
-                          <td>{{$recipe->tipe}}</td>
+                          <td>
+                              @if($recipe->tipe == 0)
+                              <span class="label label-danger label-mini"> Makanan Pembuka</span>
+                              @elseif($recipe->tipe==1)
+                              <span class="label label-warning label-mini"> Makanan Utama</span>
+                              @elseif($recipe->tipe==2)
+                              <span class="label label-success label-mini"> Makanan Penutup</span>
+                              @elseif($recipe->tipe==3)
+                              <span class="label label-primary label-mini"> Minuman</span>
+                              @endif
+                          </td>
                           <td>
                              <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $recipe->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $recipe->id }}"><i class="fa fa-trash-o "></i></button>
-                            <a href="new-variants?id={{$recipe->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Detail</button></a>
+                            <a href="new-ingredients-recipe?id={{$recipe->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Bahan</button></a>
+                          </td>
+                          <td hidden="">
+                            <div class="col-md-4">
+                              <table class="table table-striped">
+                                <tr>
+                                  <th  style="text-align: center;">No.</th>
+                                  <th  style="text-align: center;">Bahan</th>
+                                  <th  style="text-align: center;">Jumlah</th>
+                                  <th  style="text-align: center;">Banyak</th>
+                                </tr>
+                                <?php $no_var = 0; ?>
+                                @foreach($bahan_reseps as $bahan_resep)
+                                <?php $no_var++; ?>
+                                    <tr>
+                                      <td>{{$no_var}}</td>
+                                      <td>{{ $bahan_resep->bahan->nama }}</td>
+                                      <td>{{ $bahan_resep->jumlah }}</td>
+                                      <td>{{ $bahan_resep->satuan }}</td>
+                                @endforeach
+                              </table>
+                            </div>
+                            <div class="col-md-4">
+                              <img src="{{$recipe->gambar}}" class="img-responsive">
+                            </div>
+                            <div class="col-md-4 panel">
+                              <div class="panel-heading"><h3><strong>PETUNJUK</strong></h3></div>
+                              <div class="panel-body">
+                              <?php echo $recipe->petunjuk; ?>
+                              </div>
+                            </div>
                           </td>
                       </tr>
                     @endforeach
@@ -61,6 +105,108 @@
         </section>
     </div>
 </div>
+
+@foreach($recipes as $recipe)
+ <!-- Modal update -->
+  <div class="modal fade" id="modalUbah{{ $recipe->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Ubah Varian</h4>
+              </div>
+              <div class="modal-body">
+
+                <form action="#" class="form-horizontal" method="POST" >
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="{{ $recipe->id }}">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Nama Resep</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="nama" class="form-control" value="{{ $recipe->nama }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Deskripsi</label>
+                        <div class="col-sm-10">
+                            <textarea id="deskripsi{{$recipe->id}}" class="form-control" name="deskripsi" rows="5">{{ $recipe->deskripsi }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Tipe Resep</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="tipe" required="">
+                              <option value="0">Makanan Pembuka</option>
+                              <option value="1">Makanan Utama</option>                          
+                              <option value="2">Makanan Penutup</option>                          
+                              <option value="3">Minuman</option>                          
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Petunjuk</label>
+                        <div class="col-sm-10">
+                            <textarea id="petunjuk{{$recipe->id}}" class="form-control" name="petunjuk" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Gambar</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                      <a id="lfm1" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                        <i class="fa fa-picture-o"></i> Pilih
+                                      </a>
+                                    </span>
+                                    <input id="thumbnail" class="form-control" type="text" name="gambar" value="{{ $recipe->gambar }}">
+                                  </div>
+                                  <img id="holder" style="margin-top:15px;max-height:100px;">
+                            </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">Ubah</button>
+                    </div>
+                </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- END modal update-->
+
+  <!-- Modal Hapus -->
+    <div class="modal fade" id="modalHapus{{ $recipe->id }}" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header alert alert-danger" style="background-color: red;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Warning!</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id" value="{{ $recipe->id }}">
+
+                <center>
+                    <p>Apakah anda yakin ingin menghapus Varian bahan : <b>{{ $recipe->nama }}</b>?</p>
+                </center>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </div>
+            </form>
+          </div>
+          
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /END modal Hapus -->
+<!-- END MODAL COLLECTIONS -->
+</td>
+@endforeach
 @endsection
 
 @push('js')
@@ -100,16 +246,31 @@
 <!--common script for all pages-->
 <script src="js/common-scripts.js"></script>
 
+<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+<script src="/vendor/laravel-filemanager/js/lfm.js"></script>
+<script>
+@foreach($recipes as $recipe)
+        CKEDITOR.replace( 'petunjuk{{$recipe->id}}' , {
+          filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+          filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+          filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+          filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
+        });
+        CKEDITOR.replace( 'deskripsi{{$recipe->id}}' , {
+          filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+          filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{csrf_token()}}',
+          filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+          filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
+        });
+@endforeach
+        $('#lfm1').filemanager('image');
+    </script>
 <script type="text/javascript">
   /* Formating function for row details */
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-      sOut += '<tr><td>Rendering engine:</td><td>'+aData[1]+' '+aData[4]+'</td></tr>';
-      sOut += '<tr><td>Link to source:</td><td>Could provide a link here</td></tr>';
-      sOut += '<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>';
-      sOut += '</table>';
+      var sOut = aData[6];
 
       return sOut;
   }

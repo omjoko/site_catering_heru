@@ -40,7 +40,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0; $i=0; use App\Http\Controllers\ingredientsController;?>
+                    <?php $no = 0; use App\Http\Controllers\ingredientsController;?>
                     @foreach($ingredients as $ingredient)
                     <?php $no++; ?>
                     <?php 

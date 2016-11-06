@@ -25,43 +25,40 @@
                       <tr>
                         <td><h4>Nama bahan</h4></td>
                         <td style="padding-left: 15px; padding-right: 15px;"><h4>:</h4></td>
-                        <td style="color: red;"><h4><strong>{{$ingredients->nama}}</strong></h4></td>
+                        <td style="color: red;"><h4><strong>{{$recipes->nama}}</strong></h4></td>
                       </tr>
                       <tr>
                         <td><h4>Deskripsi</h4></td>
                         <td style="padding-left: 15px; padding-right: 15px;"><h4>:</h4></td>
-                        <td style="color: red;"><h4><strong>{{$ingredients->deskripsi}}</strong></h4></td>
+                        <td style="color: red;"><h4><strong><?php echo $recipes->deskripsi; ?></strong></h4></td>
                       </tr>
                     </table>
                 </div>
 	              <form class="form-horizontal tasi-form" method="post">
 	              <div class="form-group">
-	                  <label class="col-sm-2 col-sm-2 control-label">Variasi Bahan</label>
+	                  <label class="col-sm-2 col-sm-2 control-label">Nama Bahan</label>
 	                  <div class="col-sm-10">
-	                      <input type="text" class="form-control" name="nama">
+                      <select name="id_bahan" class="form-control">
+                        @foreach($reseps as $resep)
+                            <option value="{{$resep->id}}">{{$resep->nama}}</option>
+                        @endforeach
+                      </select>
 	                  </div>
 	              </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Bahan Utama</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
                     <div class="col-sm-10">
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="bahan_utama" value="1" checked>
-                                <span> Ya </span>
-                            </label>
-                        </div>
-                        <div class="radio">
-                            <label>
-                                <input type="radio" name="bahan_utama" value="0">
-                                <span> Tidak </span>
-                            </label>
-                        </div>
+                        <input type="number" name="jumlah" class="form-control" min="0">
                     </div>
                 </div>
 	              <div class="form-group">
-	                  <label class="col-sm-2 col-sm-2 control-label">Deskripsi</label>
+	                  <label class="col-sm-2 col-sm-2 control-label">Satuan</label>
 	                  <div class="col-sm-10">
-                        <textarea name="deskripsi" class="form-control" rows="5"></textarea>
+                      <select name="satuan" class="form-control">
+                        @foreach($reseps as $resep)
+                            <option value="{{$resep->resep->satuan}}">{{$resep->resep->satuan}}</option>
+                        @endforeach
+                      </select>                    
 	                  </div>
 	              </div>
 	              <div class="form-group">
@@ -71,10 +68,10 @@
                             </button>
                       </span>
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                      <input type="hidden" name="id_bahan" value="{{$ingredients->id}}">
+                      <input type="hidden" name="id_bahan" value="{{$recipes->id}}">
                 </form>
                       <span class="pull-left" style="margin-left: 10px;">
-                           <a href="/ingredients"><button type="button" class="btn btn-danger" data-toggle="modal">
+                           <a href="/recipes"><button type="button" class="btn btn-danger" data-toggle="modal">
                                     <span class="fa fa-chevron-left"></span> Batal
                                   </button></a>
                          </span>
@@ -84,33 +81,26 @@
                           <thead>
                           <tr>
                               <th style="width: 5%;">No.</th>
-                              <th>Variasi bahan</th>
-                              <th>Bahan utama</th>
-                              <th>Deskripsi</th>
+                              <th>Nama Bahan</th>
+                              <th>Jumlah</th>
+                              <th>Satuan</th>
                               <th style="width: 10%"></th>
                           </tr>
                           </thead>
                           <tbody>
                           <?php $no = 0; ?>
-                          @foreach($variants as $variant)
+                          @foreach($detail_recipes as $recipe)
                           <?php $no++ ?>
                           <tr>
                               <td>{{ $no }}</td>
-                              <td>{{ $variant->nama }}</td>
+                              <td>{{ $recipe->bahan->nama }}</td>
+                              <td>{{ $recipe->jumlah }}</td>
+                              <td>{{ $recipe->satuan }}</td>
                               <td>
-                                  @if($variant->bahan_utama == 0)
-                                  <span class="label label-danger label-mini"> Tidak</span>
-                                  @else
-                                  <span class="label label-success label-mini"> Ya</span>
-                                  @endif
-                              </td>
-                              <td>{{ $variant->deskripsi }}</td>
-                              <td>
-                                  <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{$variant->id}}"><i class="fa fa-pencil"></i></button>
-                                  <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{$variant->id}}"><i class="fa fa-trash-o "></i></button>
-                              </td>
+                                  <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{$recipe->id}}"><i class="fa fa-pencil"></i></button>
+                                  <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{$recipe->id}}"><i class="fa fa-trash-o "></i></button>
                                 <!-- Modal update -->
-                                <div class="modal fade" id="modalUbah{{ $variant->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalUbah{{ $recipe->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -122,46 +112,36 @@
                                               <form action="#" class="form-horizontal" method="POST" >
                                                   <input type="hidden" name="_method" value="PUT">
                                                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                  <input type="hidden" name="id_varian" value="{{ $variant->id }}">
+                                                  <input type="hidden" name="id_resep" value="{{ $recipe->id }}">
 
-                                                      <label class="control-label">Variasi Bahan</label>
-                                                      <div class="">
-                                                          <input type="text" class="form-control" name="nama" value="{{$variant->nama}}">
-                                                      </div>
-                                                      <label class="control-label">Bahan Utama</label>
-                                                      <div class="">
-                                                      @if($variant->bahan_utama==1)
-                                                          <div class="radio">
-                                                              <label>
-                                                                  <input type="radio" name="bahan_utama" value="1" checked>
-                                                                  <span> Ya </span>
-                                                              </label>
-                                                          </div>
-                                                          <div class="radio">
-                                                              <label>
-                                                                  <input type="radio" name="bahan_utama" value="0">
-                                                                  <span> Tidak </span>
-                                                              </label>
-                                                          </div>
-                                                      @else
-                                                          <div class="radio">
-                                                              <label>
-                                                                  <input type="radio" name="bahan_utama" value="1" >
-                                                                  <span> Ya </span>
-                                                              </label>
-                                                          </div>
-                                                          <div class="radio">
-                                                              <label>
-                                                                  <input type="radio" name="bahan_utama" value="0" checked>
-                                                                  <span> Tidak </span>
-                                                              </label>
-                                                          </div>
-                                                      @endif
-                                                      </div>
-                                                      <label class="control-label">Deskripsi</label>
-                                                      <div class="">
-                                                          <textarea name="deskripsi" class="form-control" rows="5">{{$variant->deskripsi}}</textarea>
-                                                      </div>
+                                                            <label class="control-label">Nama Bahan</label>
+                                                            <div class="">
+                                                              <select name="id_bahan" class="form-control">
+                                                                @foreach($reseps as $resep)
+                                                                  @if($resep->id==$recipe->id)
+                                                                    <option value="{{$resep->id}}" selected="">{{$resep->nama}}</option>
+                                                                  @else
+                                                                    <option value="{{$resep->id}}">{{$resep->nama}}</option>
+                                                                  @endif
+                                                                @endforeach
+                                                              </select>
+                                                            </div>
+                                                            <label class="control-label">Jumlah</label>
+                                                            <div class="">
+                                                                <input type="number" name="jumlah" class="form-control" min="0" value="{{$recipe->jumlah}}">
+                                                            </div>
+                                                            <label class="control-label">Satuan</label>
+                                                            <div class="">
+                                                              <select name="satuan" class="form-control">
+                                                                @foreach($reseps as $resep)
+                                                                  @if($resep->resep->satuan==$recipe->satuan)
+                                                                    <option value="{{$resep->resep->satuan}}" selected="">{{$resep->resep->satuan}}</option>
+                                                                  @else
+                                                                    <option value="{{$resep->resep->satuan}}" >{{$resep->resep->satuan}}</option>
+                                                                  @endif
+                                                                @endforeach
+                                                              </select>                    
+                                                            </div>
 
                                                   <div class="modal-footer">
                                                       <button type="submit" class="btn btn-info">Ubah</button>
@@ -174,7 +154,7 @@
                                 <!-- END modal update-->
 
                                 <!-- Modal Hapus -->
-                                  <div class="modal fade" id="modalHapus{{ $variant->id }}" tabindex="-1" role="dialog">
+                                  <div class="modal fade" id="modalHapus{{ $recipe->id }}" tabindex="-1" role="dialog">
                                     <div class="modal-dialog modal-sm">
                                       <div class="modal-content">
                                         <div class="modal-header alert alert-danger" style="background-color: red;">
@@ -185,10 +165,10 @@
                                           <form class="form-horizontal" role="form" method="POST">
                                               <input type="hidden" name="_method" value="DELETE">
                                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                              <input type="hidden" name="id_varian" value="{{ $variant->id }}">
+                                              <input type="hidden" name="id_resep" value="{{ $recipe->id }}">
 
                                               <center>
-                                                  <p>Apakah anda yakin ingin menghapus Varian bahan : <b>{{ $variant->nama }}</b>?</p>
+                                                  <p>Apakah anda yakin ingin menghapus Varian bahan : <b>{{ $recipe->nama }}</b>?</p>
                                               </center>
 
                                               <div class="modal-footer">
@@ -202,6 +182,7 @@
                                     </div><!-- /.modal-dialog -->
                                   </div><!-- /END modal Hapus -->
                               <!-- END MODAL COLLECTIONS -->
+                              </td>
                           </tr>
                           @endforeach
                           </tbody>

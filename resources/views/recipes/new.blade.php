@@ -41,7 +41,7 @@
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Tipe Resep</label>
 	                  <div class="col-sm-10">
-	                      <select class="form-control" name="tipe">
+	                      <select class="form-control" name="tipe" >
                           <option value="0">Makanan Pembuka</option>
                           <option value="1">Makanan Utama</option>                          
                           <option value="2">Makanan Penutup</option>                          
@@ -52,7 +52,7 @@
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Petunjuk</label>
 	                  <div class="col-sm-10">
-	                      <textarea id="petunjuk" class="form-control" name="petunjuk" rows="5"></textarea>
+	                      <textarea id="petunjuk" class="form-control" name="petunjuk" rows="5" ></textarea>
 	                  </div>
 	              </div>
                 <div class="form-group">
@@ -64,19 +64,20 @@
                                     <i class="fa fa-picture-o"></i> Pilih
                                   </a>
                                 </span>
-                                <input id="thumbnail" class="form-control" type="text" name="gambar" required="">
+                                <input id="thumbnail" class="form-control" type="text" name="gambar" >
                               </div>
                               <img id="holder" style="margin-top:15px;max-height:100px;">
                         </div>
                 </div>
+                <div></div>
 	              <div class="form-group">
 	              		 <span class="pull-left" style="margin-left: 10px;">
-	              		 <button class="btn btn-danger" data-toggle="modal">
+	              		 <a href="recipes"><button class="btn btn-danger" type="button">
                               <span class="fa fa-chevron-left"></span> Batal
-                            </button>
+                            </button></a>
                          </span>
 	              		 <span class="pull-right" style="margin-right: 10px;">
-	              		 <button class="btn btn-success" data-toggle="modal">
+	              		 <button class="btn btn-success" type="submit">
                                Tambah Data <span class="fa fa-chevron-right"></span>
                             </button>
 	              </div>

@@ -23,8 +23,12 @@ Route::get('/home', 'ingredientsController@sedotData');
 Route::get('/recipes', 'recipesController@dataResep');
 Route::put('/recipes', 'recipesController@ubah');
 Route::delete('/recipes', 'recipesController@hapus');
-Route::get('/new-recipes', 'recipesController@databaru');
-Route::post('/new-recipes', 'recipesController@tambahResep');
+Route::get('/new-recipes', function(){return view('recipes.new');	});
+Route::post('/new-recipes', 'recipesController@tambah');
+Route::get('/new-ingredients-recipe', 'recipesController@dataRecipe');
+Route::post('/new-ingredients-recipe', 'recipesController@tambahRecipe');
+Route::put('/new-ingredients-recipe', 'recipesController@ubahRecipe');
+Route::delete('/new-ingredients-recipe', 'recipesController@hapusRecipe');
 
 
 
@@ -39,7 +43,6 @@ Route::get('/new-variants', 'ingredientsController@dataVariants');
 Route::post('/new-variants', 'ingredientsController@tambahVariants');
 Route::put('/new-variants', 'ingredientsController@ubahVariants');
 Route::delete('/new-variants', 'ingredientsController@hapusVariants');
-Route::post('/ambildataVarian', 'ingredientsController@sedotVariants');
 
 
 

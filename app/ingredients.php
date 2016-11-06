@@ -26,4 +26,8 @@ class ingredients extends Model
      {
           return $this->hasMany('App\variants', 'id_bahan', 'id');
      }
+     public function detail_resep()
+     {
+          return $this->hasOne('App\ingredients', 'id_bahan', 'id');
+     }
 }

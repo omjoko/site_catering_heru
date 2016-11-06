@@ -10,4 +10,8 @@ class recipes extends Model
 {
     use SoftDeletes;
      protected $dates = ['deleted_at'];
+     public function detail_recipes()
+     {
+          return $this->hasMany('App\detail_recipes', 'id_resep', 'id');
+     }
 }
