@@ -36,10 +36,12 @@
                         <th>Deskripsi</th>
                         <th>Kategori</th>
                         <th></th>
+                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0; ?>
+                    <?php $no = 0;?>
+
                     @foreach($ingredients as $ingredient)
                     <?php $no++; ?>
                     <tr>
@@ -47,25 +49,26 @@
                         <td>{{$ingredient->nama}}</td>
                         <td>{{$ingredient->deskripsi}}</td>
                         <td>{{$ingredient->categorys->nama}}</td>
-                         <td>
+                        <td>
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $ingredient->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $ingredient->id }}"><i class="fa fa-trash-o "></i></button>
                             <a href="new-variants?id={{$ingredient->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Varian</button></a>
                         </td>
+                        <td hidden="">{{$ingredient->id}}</td>
                     </tr>
                     @endforeach
                     </tbody>
                 </table>
               </div>
 
-                @foreach($ingredients as $ingredient)
+@foreach($ingredients as $ingredient)
   <!-- Modal update -->
   <div class="modal fade" id="modalUbah{{ $ingredient->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Ubah satuan</h4>
+                  <h4 class="modal-title">Ubah Bahan</h4>
               </div>
               <div class="modal-body">
 
@@ -75,9 +78,58 @@
                     <input type="hidden" name="id" value="{{ $ingredient->id }}">
 
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Nama satuan*</label>
+                        <label class="col-sm-2 col-sm-2 control-label">Nama bahan</label>
                         <div class="col-sm-10">
-                          <input name="nama" type="text" placeholder="" class="form-control" required="" value="{{ $ingredient->nama }}">
+                            <input type="text" class="form-control" name="nama" value="{{$ingredient->nama}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="id_kategori">
+                              @foreach($categorys as $category)
+                                @if($category->id == $ingredient->id_kategori)
+                                  <option value="{{$category->id}}" selected="true">{{$category->nama}}</option>
+                                @else
+                                  <option value="{{$category->id}}">{{$category->nama}}</option>
+                                @endif
+                              @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Satuan Resep</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="satuan_resep">
+                              @foreach($measurements as $measurement)
+                                @if($measurement->id == $ingredient->satuan_resep)
+                                  <option value="{{$measurement->id}}" selected="">{{$measurement->satuan}}</option>
+                                @else
+                                  <option value="{{$measurement->id}}">{{$measurement->satuan}}</option>
+                                @endif
+                              @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Satuan Pembelian</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" name="satuan_pembelian">
+                              @foreach($measurements as $measurement)
+                               @if($measurement->id == $ingredient->satuan_pembelian)
+                                  <option value="{{$measurement->id}}" selected="">{{$measurement->satuan}}</option>
+
+                                @else
+                                  <option value="{{$measurement->id}}">{{$measurement->satuan}}</option>
+                                @endif
+                              @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Deskripsi</label>
+                        <div class="col-sm-10">
+                          <textarea class="form-control" name="deskripsi" rows="5">{{$ingredient->deskripsi}}</textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -120,6 +172,7 @@
     </div><!-- /END modal Hapus -->
   @endforeach
 <!-- END MODAL COLLECTIONS -->
+
             </div>
         </section>
     </div>
@@ -164,15 +217,30 @@
 <script src="js/common-scripts.js"></script>
 
 <script type="text/javascript">
+
   /* Formating function for row details */
-  function fnFormatDetails ( oTable, nTr )
+  function fnFormatDetails ( oTable, nTr, id_bahan )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-      sOut += '<tr><td>Rendering engine:</td><td>'+aData[1]+' '+aData[4]+'</td></tr>';
-      sOut += '<tr><td>Link to source:</td><td>Could provide a link here</td></tr>';
-      sOut += '<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>';
-      sOut += '</table>';
+      var myData = [];
+      var sOut = '<table cellpadding="5" cellspacing="0" border="1" style="padding-left:50px;">';
+      sOut += '<tr><th>Nama</th><th>Bahan Utama</th><th>Deskripsi</th></tr>';
+      $.ajax({
+          type: "post",
+          url: "ambildataVarian",
+          data: {id_ing : aData[6]},
+          success: function(response) {
+            myData = response;
+            console.log('myData');
+            var i = 0;
+            while(i=myData.length){
+                sOut += '<tr><td>'+myData[nama]+'</td><td>'+myData[bahan_utama]+'</td><td>'+myData[deskripsi]+'</td></tr>';
+                sOut += '</table>';
+                i++;
+            }
+          }
+       });;
+      
 
       return sOut;
   }

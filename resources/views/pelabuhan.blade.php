@@ -168,7 +168,7 @@
   <!-- END modal update-->
 
   <!-- Modal Hapus -->
-    <div class="modal fade" id="modalHapus{{ $pelabuhan->id }}" tabindex="-1" role="dialog">
+    <div class="modal fade" id="modalHapus{{ $pelabuhan->id_pelabuhan }}" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header alert alert-danger">
