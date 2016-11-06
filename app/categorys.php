@@ -10,4 +10,8 @@ class categorys extends Model
 {
      use SoftDeletes;
      protected $dates = ['deleted_at'];
+     public function ingredients()
+     {
+      	return $this->hasMany('App\ingredients', 'id_kategori', 'id');
+     }
 }

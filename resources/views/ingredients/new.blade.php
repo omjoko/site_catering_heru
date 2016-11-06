@@ -24,43 +24,63 @@
                 Tambahkan Bahan
             </header>
             <div class="panel-body">
-	              <form class="form-horizontal tasi-form" method="get">
+	              <form class="form-horizontal tasi-form" method="post">
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Nama bahan</label>
 	                  <div class="col-sm-10">
-	                      <input type="text" class="form-control">
+	                      <input type="text" class="form-control" name="nama">
 	                  </div>
 	              </div>
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
 	                  <div class="col-sm-10">
-	                      <input type="text" class="form-control">
+                        <select class="form-control" name="id_kategori">
+                          @foreach($categorys as $category)
+                            <option value="{{$category->id}}">{{$category->nama}}</option>
+                          @endforeach
+                        </select>
 	                  </div>
 	              </div>
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Satuan Resep</label>
 	                  <div class="col-sm-10">
-	                      <input type="text" class="form-control">
+                        <select class="form-control" name="satuan_resep">
+                          @foreach($measurements as $measurement)
+                            <option value="{{$measurement->id}}">{{$measurement->satuan}}</option>
+                          @endforeach
+                        </select>
 	                  </div>
 	              </div>
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Satuan Pembelian</label>
 	                  <div class="col-sm-10">
-	                      <input type="text" class="form-control">
+                        <select class="form-control" name="satuan_pembelian">
+                          @foreach($measurements as $measurement)
+                            <option value="{{$measurement->id}}">{{$measurement->satuan}}</option>
+                          @endforeach
+                        </select>
 	                  </div>
 	              </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Deskripsi</label>
+                    <div class="col-sm-10">
+                      <textarea class="form-control" name="deskripsi" rows="5"></textarea>
+                    </div>
+                </div>
 	              <div class="form-group">
-	              		 <span class="pull-left" style="margin-left: 10px;">
-	              		 <button class="btn btn-danger" data-toggle="modal">
-                              <span class="fa fa-chevron-left"></span> Batal
-                            </button>
-                         </span>
 	              		 <span class="pull-right" style="margin-right: 10px;">
-	              		 <button class="btn btn-success" data-toggle="modal">
+	              		 <button class="btn btn-success" type="submit" data-toggle="modal">
                                Tambah Data <span class="fa fa-chevron-right"></span>
                             </button>
+                      </span>
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                </form>
+                      <span class="pull-left" style="margin-left: 10px;">
+                           <a href="/ingredients"><button type="button" class="btn btn-danger" data-toggle="modal">
+                                    <span class="fa fa-chevron-left"></span> Batal
+                                  </button></a>
+                         </span>
 	              </div>
-	              </form>
             </div>
             </div>
             </div>

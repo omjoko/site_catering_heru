@@ -14,8 +14,8 @@
                               <a href="javascript:;">Ingredient</a>
                               <ul class="sub">
                                   <li><a  href="ingredients">Ingredient Table</a></li>
-                                  <li><a  href="ingredients">Kategori Ingredient</a></li>
-                                  <li><a  href="ingredients">Satuan Ingredient</a></li>
+                                  <li><a  href="categorys">Kategori Ingredient</a></li>
+                                  <li><a  href="measurements">Satuan Ingredient</a></li>
                               </ul>
                           </li>
                           <li><a>Recipe</a></li>

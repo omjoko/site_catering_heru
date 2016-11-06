@@ -31,25 +31,94 @@
                 <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
                     <thead>
                     <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th class="hidden-phone">Platform(s)</th>
-                        <th class="hidden-phone">Engine version</th>
-                        <th class="hidden-phone">CSS grade</th>
+                        <th style="width: 5%;">No.</th>
+                        <th>Nama Bahan</th>
+                        <th>Deskripsi</th>
+                        <th>Kategori</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="gradeX">
-                        <td>Trident</td>
-                        <td>Internet
-                            Explorer 4.0</td>
-                        <td class="hidden-phone">Win 95+</td>
-                        <td class="center hidden-phone">4</td>
-                        <td class="center hidden-phone">X</td>
+                    <?php $no = 0; ?>
+                    @foreach($ingredients as $ingredient)
+                    <?php $no++; ?>
+                    <tr>
+                        <td>{{$no}}</td>
+                        <td>{{$ingredient->nama}}</td>
+                        <td>{{$ingredient->deskripsi}}</td>
+                        <td>{{$ingredient->categorys->nama}}</td>
+                         <td>
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $ingredient->id }}"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $ingredient->id }}"><i class="fa fa-trash-o "></i></button>
+                        </td>
                     </tr>
+                    @endforeach
                     </tbody>
                 </table>
               </div>
+
+                @foreach($ingredients as $ingredient)
+  <!-- Modal update -->
+  <div class="modal fade" id="modalUbah{{ $ingredient->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Ubah satuan</h4>
+              </div>
+              <div class="modal-body">
+
+                <form action="#" class="form-horizontal" method="POST" >
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="{{ $ingredient->id }}">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Nama satuan*</label>
+                        <div class="col-sm-10">
+                          <input name="nama" type="text" placeholder="" class="form-control" required="" value="{{ $ingredient->nama }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">Ubah</button>
+                    </div>
+                </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- END modal update-->
+
+  <!-- Modal Hapus -->
+    <div class="modal fade" id="modalHapus{{ $ingredient->id }}" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header alert alert-danger" style="background-color: red;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Warning!</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id" value="{{ $ingredient->id }}">
+
+                <center>
+                    <p>Apakah anda yakin ingin menghapus bahan : <b>{{ $ingredient->nama }}</b>?</p>
+                </center>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </div>
+            </form>
+          </div>
+          
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /END modal Hapus -->
+  @endforeach
+<!-- END MODAL COLLECTIONS -->
             </div>
         </section>
     </div>

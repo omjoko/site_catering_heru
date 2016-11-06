@@ -20,9 +20,21 @@ Auth::routes();
 Route::get('/home', 'ingredientsController@sedotData');
 //ingredient
 Route::get('/ingredients', 'ingredientsController@sedotData');
-Route::get('/new-ingredients', function(){
-	return view('ingredients.new');
-});
+Route::put('/ingredients', 'ingredientsController@ubah');
+Route::delete('/ingredients', 'ingredientsController@hapus');
+Route::get('/new-ingredients', 'ingredientsController@DataIngredients');
+Route::post('/new-ingredients', 'ingredientsController@tambah');
+
+Route::get('/categorys', 'ingredientsController@sedotKategori');
+Route::post('/categorys', 'ingredientsController@tambahKategori');
+Route::put('/categorys', 'ingredientsController@ubahKategori');
+Route::delete('/categorys', 'ingredientsController@hapusKategori');
+
+Route::get('/measurements', 'ingredientsController@sedotSatuan');
+Route::post('/measurements', 'ingredientsController@tambahSatuan');
+Route::put('/measurements', 'ingredientsController@ubahSatuan');
+Route::delete('/measurements', 'ingredientsController@hapusSatuan');
+
 
 Route::get('/logout', 'HomeController@logout');
 
