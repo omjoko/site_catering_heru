@@ -22,4 +22,8 @@ class ingredients extends Model
      {
      	return $this->belongsTo('App\measurements', 'satuan_pembelian');
      }
+     public function variants()
+     {
+          return $this->hasMany('App\variants', 'id_bahan', 'id');
+     }
 }

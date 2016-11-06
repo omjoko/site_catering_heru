@@ -9,4 +9,9 @@ class variants extends Model
 {
     use SoftDeletes;
      protected $dates = ['deleted_at'];
+
+     public function ingredients()
+     {
+     	return $this->belongsTo('App\ingredients', 'id_bahan');
+     }
 }

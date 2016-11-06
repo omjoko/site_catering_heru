@@ -50,6 +50,7 @@
                          <td>
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $ingredient->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $ingredient->id }}"><i class="fa fa-trash-o "></i></button>
+                            <a href="new-variants?id={{$ingredient->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Varian</button></a>
                         </td>
                     </tr>
                     @endforeach

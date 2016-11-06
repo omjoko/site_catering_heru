@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\ingredients;
 use App\categorys;
 use App\measurements;
+use App\variants;
 use DB; 
+use URL;
 
 class ingredientsController extends Controller
 {
@@ -122,14 +124,25 @@ class ingredientsController extends Controller
         return redirect()->action('ingredientsController@sedotSatuan');
     }
 
-    public function sedotVarian(Request $request)
+    public function dataVariants(Request $request)
     {
-        $variants = variants::All();
-        return view('ingredients.variants', ['variants'=>$variants]);
+        $ingredients = ingredients::find($request->id);
+        $variants = variants::with('ingredients')->where('id_bahan', $request->id)->get();
+        // DD($variants);
+        return view('ingredients.new-variants', ['ingredients'=>$ingredients, 'variants'=>$variants]);
     }
-
-    public function TambahVarian(Request $request)
+    public function tambahVariants(Request $request)
     {
-        # code...
+        
+        $variants = new variants;
+        $variants->nama = $request->nama;
+        $variants->id_bahan = $request->id_bahan;
+        $variants->bahan_utama = $request->bahan_utama;
+        $variants->deskripsi = $request->deskripsi;
+        $variants->save();
+
+        $url = URL::previous();
+        return redirect($url);
+        
     }
 }

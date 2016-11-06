@@ -24,6 +24,9 @@ Route::put('/ingredients', 'ingredientsController@ubah');
 Route::delete('/ingredients', 'ingredientsController@hapus');
 Route::get('/new-ingredients', 'ingredientsController@DataIngredients');
 Route::post('/new-ingredients', 'ingredientsController@tambah');
+Route::get('/new-variants', 'ingredientsController@dataVariants');
+Route::post('/new-variants', 'ingredientsController@tambahVariants');
+
 
 Route::get('/categorys', 'ingredientsController@sedotKategori');
 Route::post('/categorys', 'ingredientsController@tambahKategori');
