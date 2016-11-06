@@ -18,6 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'ingredientsController@sedotData');
+
+//recipe
+Route::get('/recipes', 'recipesController@dataResep');
+Route::put('/recipes', 'recipesController@ubah');
+Route::delete('/recipes', 'recipesController@hapus');
+Route::get('/new-recipes', 'recipesController@databaru');
+
+
+
 //ingredient
 Route::get('/ingredients', 'ingredientsController@sedotData');
 Route::put('/ingredients', 'ingredientsController@ubah');
