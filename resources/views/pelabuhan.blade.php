@@ -133,25 +133,25 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Nama Pelabuhan*</label>
                         <div class="col-sm-10">
-                          <input name="nama_pelabuhan" type="text" placeholder="" class="form-control" required="">
+                          <input name="nama_pelabuhan" type="text" placeholder="" class="form-control" required="" value="{{ $pelabuhan->nama_pelabuhan }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Alamat</label>
                         <div class="col-sm-10">
-                            <input name="alamat" type="text" placeholder="" class="form-control">
+                            <input name="alamat" type="text" placeholder="" class="form-control" value="{{ $pelabuhan->alamat }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Telepon</label>
                         <div class="col-sm-10">
-                            <input name="telepon" type="text" placeholder="" class="form-control"  required="">
+                            <input name="telepon" type="text" placeholder="" class="form-control" required="" value="{{ $pelabuhan->telepon }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Kota</label>
                         <div class="col-sm-10">
-                            <input name="kota" type="text" placeholder="" class="form-control">
+                            <input name="kota" type="text" placeholder="" class="form-control" value="{{ $pelabuhan->kota }}">
                         </div>
                     </div>
 
@@ -168,7 +168,7 @@
   <!-- END modal update-->
 
   <!-- Modal Hapus -->
-    <div class="modal fade" id="modalHapus{{ $kapal->id }}" tabindex="-1" role="dialog">
+    <div class="modal fade" id="modalHapus{{ $pelabuhan->id }}" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header alert alert-danger">
@@ -176,13 +176,13 @@
             <h4 class="modal-title">Warning!</h4>
           </div>
           <div class="modal-body">
-            <form class="form-horizontal" role="form" method="POST" action="{{ url('/kapal') }}">
+            <form class="form-horizontal" role="form" method="POST" action="{{ url('/pelabuhan') }}">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="id" value="{{ $kapal->id }}">
+                <input type="hidden" name="id" value="{{ $pelabuhan->id_pelabuhan }}">
 
                 <center>
-                    <p>Apakah anda yakin ingin menghapus akun <b>{{ $kapal->nama_kapal }}</b>?</p>
+                    <p>Apakah anda yakin ingin menghapus akun <b>{{ $pelabuhan->nama_pelabuhan }}</b>?</p>
                 </center>
 
                 <div class="modal-footer">
