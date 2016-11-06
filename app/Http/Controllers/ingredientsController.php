@@ -168,9 +168,9 @@ class ingredientsController extends Controller
         return redirect($url);
         
     }
-    public function sedotVariants()
+    public static function sedotVariants($value)
     {
-        $variants = variants::with('ingredients')->where('id_bahan', 'id_ing')->get();
+        $variants = variants::with('ingredients')->where('id_bahan', $value)->get();
         return $variants;
     }
 }

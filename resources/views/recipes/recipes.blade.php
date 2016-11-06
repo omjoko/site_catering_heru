@@ -22,7 +22,7 @@
             <div class="panel-body">
               <div class="container-fluid">
                   <span class="pull-right" style="margin-right: 10px;">
-                            <a href="new-ingredients"><button class="btn btn-success" data-toggle="modal">
+                            <a href="new-recipes"><button class="btn btn-success" data-toggle="modal">
                               <span class="fa fa-plus-circle"></span> Tambah Data
                             </button></a>
                   </span>

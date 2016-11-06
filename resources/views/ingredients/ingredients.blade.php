@@ -40,10 +40,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0;?>
-
+                    <?php $no = 0; $i=0; use App\Http\Controllers\ingredientsController;?>
                     @foreach($ingredients as $ingredient)
                     <?php $no++; ?>
+                    <?php 
+                        $variant = ingredientsController::sedotVariants($ingredient->id);
+                    ?>
                     <tr>
                         <td>{{$no}}</td>
                         <td>{{$ingredient->nama}}</td>
@@ -54,7 +56,26 @@
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $ingredient->id }}"><i class="fa fa-trash-o "></i></button>
                             <a href="new-variants?id={{$ingredient->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Varian</button></a>
                         </td>
-                        <td hidden="">{{$ingredient->id}}</td>
+                        <td hidden="">
+                          <table class="display table table-bordered">
+                            <tr>
+                              <th>No.</th>
+                              <th>Variasi Bahan</th>
+                              <th>Bahan Utama</th>
+                              <th>Deskripsi</th>
+                            </tr>
+                            <?php $no_var = 0; ?>
+                            @foreach($variant as $var)
+                            <?php $no_var++; ?>
+                                <tr>
+                                  <td>{{$no_var}}</td>
+                                  <td>{{$var->nama}}</td>
+                                  <td>{{$var->bahan_utama}}</td>
+                                  <td>{{$var->deskripsi}}</td>
+                                </tr>
+                            @endforeach
+                          </table>
+                        </td>
                     </tr>
                     @endforeach
                     </tbody>
@@ -222,26 +243,7 @@
   function fnFormatDetails ( oTable, nTr, id_bahan )
   {
       var aData = oTable.fnGetData( nTr );
-      var myData = [];
-      var sOut = '<table cellpadding="5" cellspacing="0" border="1" style="padding-left:50px;">';
-      sOut += '<tr><th>Nama</th><th>Bahan Utama</th><th>Deskripsi</th></tr>';
-      $.ajax({
-          type: "post",
-          url: "ambildataVarian",
-          data: {id_ing : aData[6]},
-          success: function(response) {
-            myData = response;
-            console.log('myData');
-            var i = 0;
-            while(i=myData.length){
-                sOut += '<tr><td>'+myData[nama]+'</td><td>'+myData[bahan_utama]+'</td><td>'+myData[deskripsi]+'</td></tr>';
-                sOut += '</table>';
-                i++;
-            }
-          }
-       });;
-      
-
+      var sOut = aData[6];
       return sOut;
   }
 

@@ -18,7 +18,7 @@
                                   <li><a  href="measurements">Satuan Ingredient</a></li>
                               </ul>
                           </li>
-                          <li><a>Recipe</a></li>
+                          <li><a href="recipes">Recipe</a></li>
                           <li><a>Menu</a></li>
                           <li><a href="vendor">Vendor</a></li>
                           <li>
