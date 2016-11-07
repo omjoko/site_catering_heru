@@ -11,9 +11,6 @@ class RuteController extends Controller
     public function index()	{
 
         $rutes = DB::table('rutes')
-    				->join('pelabuhans', 'rutes.id_pelabuhan', '=', 'pelabuhans.id_pelabuhan')
-    				->join('transits', 'rutes.id_transit', '=', 'transits.id_transit')
-                    ->select('rutes.*', 'pelabuhans.nama_pelabuhan as nama_pelabuhan', 'transits.est_transit as est_transit')
                     ->get();
 
         $transits = DB::table('transits')
@@ -21,16 +18,22 @@ class RuteController extends Controller
         			->select('transits.*', 'pelabuhans.nama_pelabuhan as nama_pelabuhan')
         			->get();
 
-    	return view('rute', ['rutes' => $rutes, 'transits' => $transits]);
+        $pelabuhans = DB::table('pelabuhans')
+        			->get();
+
+    	return view('rute', ['rutes' => $rutes, 
+    						 'transits' => $transits, 
+    						 'pelabuhans' => $pelabuhans,
+    						]);
     }
 
     public function store(Request $request) {
 
     	$data = $request->all();
 
-    	DB::table('rutes')->insert([
-            'id_pelabuhan' => $data['id_pelabuhan'],
-            'id_transit' => $data['id_transit'],
+		DB::table('rutes')->insert([
+            'asal' => $data['id_pelabuhan0'],
+            'tujuan' => $data['id_pelabuhan1'],
             'est_rute' => $data['est_rute'],
         ]);    
 

@@ -4,12 +4,12 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
                   <li class="sub-menu">
-                      <a href="javascript:;">
+                      <a href="javascript:;" class="{{ Request::is('user', 'recipes', 'ingredients') ? 'active' : '' }}">
                           <i class="fa fa-list"></i>
                           <span>Master Data</span>
                       </a>
                        <ul class="sub">
-                          <li><a href="user">User</a></li>
+                          <li class="{{ Request::is('user') ? 'active' : '' }}"><a href="user">User</a></li>
                           <li>
                               <a href="javascript:;">Ingredient</a>
                               <ul class="sub">
@@ -18,7 +18,7 @@
                                   <li><a  href="measurements">Satuan Ingredient</a></li>
                               </ul>
                           </li>
-                          <li><a href="recipes">Recipe</a></li>
+                          <li class="{{ Request::is('recipes') ? 'active' : '' }}"><a href="recipes">Recipe</a></li>
                           <li><a href="menus">Menu</a></li>
                           <li><a href="vendors">Vendor</a></li>
                           <li>
@@ -29,7 +29,7 @@
                               </ul>
                           </li>
                           <li><a href="pelabuhan">Pelabuhan</a></li>
-                          <li><a>Route</a></li>
+                          <li><a href="rute">Rute</a></li>
                       </ul>
                   </li>
                   <li>
