@@ -99,85 +99,103 @@
                           @foreach($transits as $no => $transit)
                           <tr>
                               <td>{{ $no+1 }}</td>
-                              <td>{{ $transit->nama_pemberhentian }}</td>
+                              <td>
+                                @foreach($pelabuhans as $pelabuhan)
+                                  @if($transit->id_pelabuhan==$pelabuhan->id_pelabuhan)
+                                    {{ $pelabuhan->nama_pelabuhan }}
+                                  @endif
+                                @endforeach
+                              </td>
                               <td>{{ $transit->est_transit }}</td>
                               <td>
-                                  <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $transit->id_transit }}"><i class="fa fa-pencil"></i></button>
-                                  <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $transit->id_transit }}"><i class="fa fa-trash-o "></i></button>
+                                  <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $transit->id }}"><i class="fa fa-pencil"></i></button>
+                                  <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $transit->id }}"><i class="fa fa-trash-o "></i></button>
                               </td>
-                                <!-- Modal update -->
-                                <div class="modal fade" id="modalUbah{{ $transit->id_transit }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                <h4 class="modal-title">Ubah</h4>
-                                            </div>
-                                            <div class="modal-body">
-
-                                              <form action="#" class="form-horizontal" method="POST" >
-                                                  <input type="hidden" name="_method" value="PUT">
-                                                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                  <input type="hidden" name="id_varian" value="{{ $transit->id_transit }}">
-
-                                                      <div class="form-group">
-                                                          <label class="col-sm-2 col-sm-2 control-label">Pemberhentian</label>
-                                                          <div class="col-sm-10">
-                                                                <input type="text" class="form-control" name="id_pelabuhan" value="{{ $transit->id_pelabuhan }}" disabled="">
-                                                              </select>
-                                                          </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                          <label class="col-sm-2 col-sm-2 control-label">Estimasi</label>
-                                                          <div class="col-sm-10">
-                                                              <input type="text" class="form-control" name="est_transit" value="{{ $transit->est_transit }}">
-                                                          </div>
-                                                      </div>
-
-                                                  <div class="modal-footer">
-                                                      <button type="submit" class="btn btn-info">Ubah</button>
-                                                  </div>
-                                              </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- END modal update-->
-
-                                <!-- Modal Hapus -->
-                                  <div class="modal fade" id="modalHapus{{ $transit->id_transit }}" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog modal-sm">
-                                      <div class="modal-content">
-                                        <div class="modal-header alert alert-danger" style="background-color: red;">
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                          <h4 class="modal-title">Warning!</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                          <form class="form-horizontal" role="form" method="POST">
-                                              <input type="hidden" name="_method" value="DELETE">
-                                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                              <input type="hidden" name="id_transit" value="{{ $transit->id_transit }}">
-
-                                              <center>
-                                                  <p>Apakah anda yakin ingin menghapus pemberhentian: <b>{{ $transit->id_transit }}</b>?</p>
-                                              </center>
-
-                                              <div class="modal-footer">
-                                                  <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
-                                                  <button type="submit" class="btn btn-danger">Ya</button>
-                                              </div>
-                                          </form>
-                                        </div>
-                                        
-                                      </div><!-- /.modal-content -->
-                                    </div><!-- /.modal-dialog -->
-                                  </div><!-- /END modal Hapus -->
-                              <!-- END MODAL COLLECTIONS -->
                           </tr>
                           @endforeach
                           </tbody>
                       </table>                  
                 </div>
+@foreach($transits as $transit)
+<!-- Modal update -->
+<div class="modal fade" id="modalUbah{{ $transit->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Ubah</h4>
+            </div>
+            <div class="modal-body">
+              <form action="#" class="form-horizontal" method="POST" >
+                  <input type="hidden" name="_method" value="PUT">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="id_transit" value="{{ $transit->id }}">
+
+                      <div class="form-group">
+                          <label class="col-sm-2 col-sm-2 control-label">Pemberhentian</label>
+                          <div class="col-sm-10">
+                                  <select name="id_pelabuhan" class="form-control">
+                                  @foreach($pelabuhans as $pelabuhan)
+                                  @if($transit->id_pelabuhan==$pelabuhan->id_pelabuhan)
+                                    <option value="{{ $pelabuhan->id_pelabuhan }}" selected="">{{ $pelabuhan->nama_pelabuhan }}</option>
+                                    @else
+                                    <option value="{{ $pelabuhan->id_pelabuhan }}">{{ $pelabuhan->nama_pelabuhan }}</option>
+                                  @endif
+                                @endforeach
+                                </select>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="col-sm-2 col-sm-2 control-label">Estimasi</label>
+                          <div class="col-sm-10">
+                              <input type="text" class="form-control" name="est_transit" value="{{ $transit->est_transit }}">
+                          </div>
+                      </div>
+
+                  <div class="modal-footer">
+                      <button type="submit" class="btn btn-info">Ubah</button>
+                  </div>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END modal update-->
+
+<!-- Modal Hapus -->
+  <div class="modal fade" id="modalHapus{{ $transit->id }}" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header alert alert-danger" style="background-color: red;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Warning!</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" role="form" method="POST">
+              <input type="hidden" name="_method" value="DELETE">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+              <input type="hidden" name="id_transit" value="{{ $transit->id }}">
+
+              <center>
+                  <p>Apakah anda yakin ingin menghapus pemberhentian: <b>                               @foreach($pelabuhans as $pelabuhan)
+                                  @if($transit->id_pelabuhan==$pelabuhan->id_pelabuhan)
+                                    {{ $pelabuhan->nama_pelabuhan }}
+                                  @endif
+                                @endforeach</b>?</p>
+              </center>
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                  <button type="submit" class="btn btn-danger">Ya</button>
+              </div>
+          </form>
+        </div>
+        
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /END modal Hapus -->
+<!-- END MODAL COLLECTIONS -->
+@endforeach
             </div>
             </div>
             </div>

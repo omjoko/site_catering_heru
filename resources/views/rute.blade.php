@@ -40,7 +40,11 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <?php use App\Http\Controllers\RuteController;?>
                     @foreach($rutes as $no => $rute)
+                    <?php 
+                        $transits = RuteController::sedotTransit($rute->id);
+                    ?>
                     <tr>
                         <td>{{ $no+1 }}</td>
                         <td>
@@ -59,12 +63,11 @@
                         </td>
                         <td>{{ $rute->est_rute }}</td>
                         <td>
-                            <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $rute->id_rute }}"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $rute->id_rute }}"><i class="fa fa-trash-o "></i></button>
-                            <a href="transit?id={{ $rute->id_rute }}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Pemberhentian</button></a>
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $rute->id }}"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $rute->id }}"><i class="fa fa-trash-o "></i></button>
+                            <a href="transit?id={{ $rute->id }}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Transit</button></a>
                         </td>
                         <td hidden="">
-                        <input type="hidden" name="id_rute" value="{{ $rute->id_rute }}">
                           <table class="table table-striped">
                             <tr>
                               <th  style="text-align: center;">No</th>
@@ -74,7 +77,13 @@
                             @foreach($transits as $no => $transit)
                                 <tr>
                                   <td>{{ $no+1 }}</td>
-                                  <td>{{ $transit->nama_pelabuhan }}</td>
+                                  <td>
+                                      @foreach($pelabuhans as $pelabuhan)
+                                        @if($transit->id_pelabuhan==$pelabuhan->id_pelabuhan)
+                                          {{ $pelabuhan->nama_pelabuhan }}
+                                        @endif
+                                      @endforeach                                        
+                                  </td>
                                   <td>{{ $transit->est_transit }}</td>
                                 </tr>
                             @endforeach
@@ -103,7 +112,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Asal</label>
                         <div class="col-sm-10">
-                            <select class="form-control m-bot15" name="id_pelabuhan0">
+                            <select class="form-control m-bot15" name="asal">
                               @foreach($pelabuhans as $pelabuhan)
                               <option value="{{ $pelabuhan->id_pelabuhan }}">{{ $pelabuhan->nama_pelabuhan }}</option>
                               @endforeach
@@ -113,7 +122,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Tujuan</label>
                         <div class="col-sm-10">
-                            <select class="form-control m-bot15" name="id_pelabuhan1">
+                            <select class="form-control m-bot15" name="tujuan">
                               @foreach($pelabuhans as $pelabuhan)
                               <option value="{{ $pelabuhan->id_pelabuhan }}">{{ $pelabuhan->nama_pelabuhan }}</option>
                               @endforeach
@@ -141,7 +150,7 @@
 
 @foreach($rutes as $rute)
   <!-- Modal update -->
-  <div class="modal fade" id="modalUbah{{ $rute->id_rute }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="modalUbah{{ $rute->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
@@ -153,25 +162,41 @@
                 <form action="#" class="form-horizontal" method="POST" >
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="id" value="{{ $rute->id_rute }}">
+                    <input type="hidden" name="id" value="{{ $rute->id }}">
 
                     
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Asal</label>
-                        <div class="col-sm-10">
-                          <input name="asal" type="text" placeholder="" class="form-control" required="" value="{{ $rute->asal }}" disabled="">
+                        <div class="col-sm-10">                              
+                              <select class="form-control" name="asal">
+                              @foreach($pelabuhans as $pelabuhan)
+                                @if($rute->asal==$pelabuhan->id_pelabuhan)
+                                  <option value="{{ $pelabuhan->id_pelabuhan }}" selected="">{{ $pelabuhan->nama_pelabuhan }}</option>
+                                @else
+                                  <option value="{{ $pelabuhan->id_pelabuhan }}">{{ $pelabuhan->nama_pelabuhan }}</option>
+                                @endif
+                              @endforeach
+                              </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Tujuan</label>
                         <div class="col-sm-10">
-                          <input name="tujuan" type="text" placeholder="" class="form-control" required="" value="{{ $rute->tujuan }}" disabled="">
+                            <select class="form-control" name="tujuan">
+                            @foreach($pelabuhans as $pelabuhan)
+                                @if($rute->tujuan==$pelabuhan->id_pelabuhan)
+                                  <option value="{{ $pelabuhan->id_pelabuhan }}" selected="">{{ $pelabuhan->nama_pelabuhan }}</option>
+                                @else
+                                  <option value="{{ $pelabuhan->id_pelabuhan }}">{{ $pelabuhan->nama_pelabuhan }}</option>
+                                @endif
+                              @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Estimasi Total</label>
                         <div class="col-sm-10">
-                          <input name="est_rute" type="text" placeholder="" class="form-control" required="" value="{{ $rute->est_rute }}">
+                          <input name="est_rute" type="text" class="form-control" required="" value="{{ $rute->est_rute }}">
                         </div>
                     </div>
 
@@ -186,7 +211,7 @@
   <!-- END modal update-->
 
   <!-- Modal Hapus -->
-    <div class="modal fade" id="modalHapus{{ $rute->id_rute }}" tabindex="-1" role="dialog">
+    <div class="modal fade" id="modalHapus{{ $rute->id }}" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header alert alert-danger" style="background-color: red;">
@@ -197,10 +222,22 @@
             <form class="form-horizontal" role="form" method="POST">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="id" value="{{ $rute->id_rute }}">
+                <input type="hidden" name="id" value="{{ $rute->id }}">
 
                 <center>
-                    <p>Apakah anda yakin ingin menghapus rute <b>{{ $rute->id_rute }}</b>?</p>
+                    <p>Apakah anda yakin ingin menghapus rute
+                          <b>
+                          @foreach($pelabuhans as $pelabuhan)
+                            @if($rute->asal==$pelabuhan->id_pelabuhan)
+                              {{ $pelabuhan->nama_pelabuhan }}
+                            @endif
+                          @endforeach
+                          =>                        
+                        @foreach($pelabuhans as $pelabuhan)
+                          @if($rute->tujuan==$pelabuhan->id_pelabuhan)
+                            {{ $pelabuhan->nama_pelabuhan }}
+                          @endif
+                        @endforeach</b>?</p>
                 </center>
 
                 <div class="modal-footer">

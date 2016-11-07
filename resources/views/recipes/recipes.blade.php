@@ -142,7 +142,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Petunjuk</label>
                         <div class="col-sm-10">
-                            <textarea id="petunjuk{{$recipe->id}}" class="form-control" name="petunjuk" rows="5"></textarea>
+                            <textarea id="petunjuk{{$recipe->id}}" class="form-control" name="petunjuk" rows="5">{{ $recipe->petunjuk }}</textarea>
                         </div>
                     </div>
                     <div class="form-group">

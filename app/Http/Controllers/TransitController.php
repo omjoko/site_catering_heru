@@ -4,22 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use DB;
+use App\pelabuhans;
+use App\Transit;
 use App\Rute;
+use URL;
 
 class TransitController extends Controller
 {
-    public function index()	{
+    public function index(Request $request)	{
 
-        $transits = DB::table('transits')
-        			->join('pelabuhans', 'transits.id_pelabuhan', '=', 'pelabuhans.id_pelabuhan')
-        			->select('transits.*', 'pelabuhans.nama_pelabuhan as nama_pemberhentian')
-        			->get();
+        $rutes = Rute::find($request->id);
+        $pelabuhans = pelabuhans::all();
+        $transits = Transit::with('rutes')->where('id_rute',$request->id)->get();
 
-        $pelabuhans = DB::table('pelabuhans')
-        			->get();
-
-        $rutes = Rute::all()->first();
 
     	return view('transit', ['transits' => $transits,
     							'pelabuhans' => $pelabuhans,
@@ -29,38 +26,34 @@ class TransitController extends Controller
 
     public function store(Request $request) {
 
-    	$data = $request->all();
+        $transits = new Transit;
+        $transits->id_pelabuhan = $request->id_pelabuhan;
+        $transits->est_transit = $request->est_transit;
+        $transits->id_rute = $request->id;
+        $transits->save();
 
-    	DB::table('transits')->insert([
-            'id_pelabuhan' => $data['id_pelabuhan'],
-            'id_rute' => $data['id_rutes'],
-            'est_transit' => $data['est_transit'],
-        ]);    
-
-    	return redirect()->action('TransitController@index');
+        $url = URL::previous();
+        return redirect($url);   
     }
 
     public function update(Request $request) {
 
-    	$data = $request->all();
+    	$transits = Transit::find($request->id_transit);
+        $transits->id_pelabuhan = $request->id_pelabuhan;
+        $transits->est_transit = $request->est_transit;
+        $transits->id_rute = $request->id;
+        $transits->save();
 
-        DB::table('transits')
-                ->where('id_transit', $data['id'])
-                ->update([
-		            'est_transit' => $data['est_transit'],
-                    ]);
-
-    	return redirect()->action('TransitController@index');
+        $url = URL::previous();
+        return redirect($url); 
     }
 
     public function destroy(Request $request) {
 
-    	$id = $request->id;
+        $transits = Transit::find($request->id_transit);
+        $transits->delete();
 
-        DB::table('transits')
-                ->where('id_transit', $id)
-                ->delete();
-
-    	return redirect()->action('TransitController@index');
+        $url = URL::previous();
+        return redirect($url);
     }
 }
