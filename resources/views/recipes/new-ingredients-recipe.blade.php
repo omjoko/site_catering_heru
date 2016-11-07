@@ -17,7 +17,7 @@
     <div class="col-lg-12">
         <section class="panel">
            <header class="panel-heading">
-                Tambahkan Variasi Bahan
+                Tambahkan Bahan-bahan dari Resep
             </header>
             <div class="panel-body">
                 <div class="form-group" style="margin-bottom: 50px;">
@@ -105,8 +105,8 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                <h4 class="modal-title">Ubah Varian</h4>
-                                            </div>
+                                                <h4 class="modal-title">Ubah Bahan-Bahan  resep</h4>
+                                            </div>dari
                                             <div class="modal-body">
 
                                               <form action="#" class="form-horizontal" method="POST" >
@@ -168,7 +168,7 @@
                                               <input type="hidden" name="id_resep" value="{{ $recipe->id }}">
 
                                               <center>
-                                                  <p>Apakah anda yakin ingin menghapus Varian bahan : <b>{{ $recipe->nama }}</b>?</p>
+                                                  <p>Apakah anda yakin ingin menghapus bahan-bahan : <b>{{ $recipe->nama }}</b>?</p>
                                               </center>
 
                                               <div class="modal-footer">

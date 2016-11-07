@@ -17,7 +17,7 @@
     <div class="col-lg-12">
         <section class="panel">
            <header class="panel-heading">
-                Manajemen Bahan
+                Manajemen Resep
             </header>
             <div class="panel-body">
               <div class="container-fluid">
@@ -113,7 +113,7 @@
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Ubah Varian</h4>
+                  <h4 class="modal-title">Ubah Resep</h4>
               </div>
               <div class="modal-body">
 
@@ -191,7 +191,7 @@
                 <input type="hidden" name="id" value="{{ $recipe->id }}">
 
                 <center>
-                    <p>Apakah anda yakin ingin menghapus Varian bahan : <b>{{ $recipe->nama }}</b>?</p>
+                    <p>Apakah anda yakin ingin menghapus Resep : <b>{{ $recipe->nama }}</b>?</p>
                 </center>
 
                 <div class="modal-footer">
@@ -205,7 +205,6 @@
       </div><!-- /.modal-dialog -->
     </div><!-- /END modal Hapus -->
 <!-- END MODAL COLLECTIONS -->
-</td>
 @endforeach
 @endsection
 

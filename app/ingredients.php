@@ -28,6 +28,10 @@ class ingredients extends Model
      }
      public function detail_resep()
      {
-          return $this->hasOne('App\ingredients', 'id_bahan', 'id');
+          return $this->hasOne('App\detail_recipes', 'id_bahan', 'id');
+     }
+     public function menus()
+     {
+          return $this->hasOne('App\menus', 'minuman', 'id');
      }
 }

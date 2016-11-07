@@ -19,8 +19,8 @@
                               </ul>
                           </li>
                           <li><a href="recipes">Recipe</a></li>
-                          <li><a>Menu</a></li>
-                          <li><a href="vendor">Vendor</a></li>
+                          <li><a href="menus">Menu</a></li>
+                          <li><a href="vendors">Vendor</a></li>
                           <li>
                               <a href="javascript:;">Kapal</a>
                               <ul class="sub">

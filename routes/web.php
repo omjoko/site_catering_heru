@@ -19,6 +19,14 @@ Auth::routes();
 
 Route::get('/home', 'ingredientsController@sedotData');
 
+
+//menu
+Route::get('/menus', 'menusController@sedotDataMenu');
+Route::post('/menus', 'menusController@tambah');
+Route::put('/menus', 'menusController@ubah');
+Route::delete('/menus', 'menusController@hapus');
+
+
 //recipe
 Route::get('/recipes', 'recipesController@dataResep');
 Route::put('/recipes', 'recipesController@ubah');
@@ -30,21 +38,17 @@ Route::post('/new-ingredients-recipe', 'recipesController@tambahRecipe');
 Route::put('/new-ingredients-recipe', 'recipesController@ubahRecipe');
 Route::delete('/new-ingredients-recipe', 'recipesController@hapusRecipe');
 
-
-
-
 //ingredient
 Route::get('/ingredients', 'ingredientsController@sedotData');
 Route::put('/ingredients', 'ingredientsController@ubah');
 Route::delete('/ingredients', 'ingredientsController@hapus');
 Route::get('/new-ingredients', 'ingredientsController@DataIngredients');
 Route::post('/new-ingredients', 'ingredientsController@tambah');
+
 Route::get('/new-variants', 'ingredientsController@dataVariants');
 Route::post('/new-variants', 'ingredientsController@tambahVariants');
 Route::put('/new-variants', 'ingredientsController@ubahVariants');
 Route::delete('/new-variants', 'ingredientsController@hapusVariants');
-
-
 
 Route::get('/categorys', 'ingredientsController@sedotKategori');
 Route::post('/categorys', 'ingredientsController@tambahKategori');
@@ -68,10 +72,10 @@ Route::put('/user', 'UserController@update');
 Route::delete('/user', 'UserController@destroy');
 
 // Vendor Management
-Route::get('/vendor', 'VendorController@index');
-Route::post('/vendor', 'VendorController@store');
-Route::put('/vendor', 'VendorController@update');
-Route::delete('/vendor', 'VendorController@destroy');
+Route::get('/vendors', 'VendorController@index');
+Route::post('/vendors', 'VendorController@store');
+Route::put('/vendors', 'VendorController@update');
+Route::delete('/vendors', 'VendorController@destroy');
 
 // Kapal Management
 Route::get('/kapal', 'KapalController@index');

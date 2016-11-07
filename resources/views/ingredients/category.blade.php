@@ -17,7 +17,7 @@
   	<div class="col-lg-12">
       	<section class="panel">
          	 <header class="panel-heading">
-              	Category ingredient Management
+              	Manajemen Kategori Bahan
           	</header>
           	<div class="panel-body">
               <div class="container-fluid">

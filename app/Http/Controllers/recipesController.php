@@ -12,6 +12,11 @@ use URL;
 
 class recipesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function dataResep(Request $request)
     {
     	$recipes = recipes::all();
