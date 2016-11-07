@@ -87,7 +87,7 @@
                               </table>
                             </div>
                             <div class="pull-right">
-                              <img src="{{$recipe->gambar}}" class="img-responsive">
+                              <img src="{{$recipe->gambar}}" class="img-responsive" width="640" height="320">
                             </div>
                           </td>
                       </tr>
