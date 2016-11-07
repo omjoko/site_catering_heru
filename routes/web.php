@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'ingredientsController@sedotData');
+Route::get('/home', 'HomeController@index');
 
 //invoice
 Route::get('/invoices', 'invoicesController@sedotData');
