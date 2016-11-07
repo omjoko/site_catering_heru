@@ -94,4 +94,14 @@ Route::get('/pelabuhan', 'PelabuhanController@index');
 Route::post('/pelabuhan', 'PelabuhanController@store');
 Route::put('/pelabuhan', 'PelabuhanController@update');
 Route::delete('/pelabuhan', 'PelabuhanController@destroy');
+
+// Rute Management
+Route::get('/rute', 'RuteController@index');
+Route::post('/rute', 'RuteController@store');
+Route::put('/rute', 'RuteController@update');
+Route::delete('/rute', 'RuteController@destroy');
+	Route::get('/transit', 'TransitController@index');
+	Route::post('/transit', 'TransitController@store');
+	Route::put('/transit', 'TransitController@update');
+	Route::delete('/transit', 'TransitController@destroy');
 // END Broadwell-23 code
