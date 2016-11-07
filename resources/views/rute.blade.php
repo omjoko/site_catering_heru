@@ -61,9 +61,10 @@
                         <td>
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $rute->id_rute }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $rute->id_rute }}"><i class="fa fa-trash-o "></i></button>
-                            <a href="transit?id={{ $rute->id_rute }}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Transit</button></a>
+                            <a href="transit?id={{ $rute->id_rute }}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Pemberhentian</button></a>
                         </td>
                         <td hidden="">
+                        <input type="hidden" name="id_rute" value="{{ $rute->id_rute }}">
                           <table class="table table-striped">
                             <tr>
                               <th  style="text-align: center;">No</th>

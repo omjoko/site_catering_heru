@@ -16,6 +16,7 @@ class Transits extends Migration
         Schema::create('transits', function (Blueprint $table) {
             $table->increments('id_transit');
             $table->integer('id_pelabuhan');
+            $table->integer('id_rute');
             $table->integer('est_transit');
             $table->timestamps();
         });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use DB;
+use App\Rute;
 
 class TransitController extends Controller
 {
@@ -12,18 +13,27 @@ class TransitController extends Controller
 
         $transits = DB::table('transits')
         			->join('pelabuhans', 'transits.id_pelabuhan', '=', 'pelabuhans.id_pelabuhan')
-        			->select('transits.*', 'pelabuhans.nama_pelabuhan as nama_pelabuhan')
+        			->select('transits.*', 'pelabuhans.nama_pelabuhan as nama_pemberhentian')
         			->get();
 
-    	return view('transit', ['transits' => $transits]);
+        $pelabuhans = DB::table('pelabuhans')
+        			->get();
+
+        $rutes = Rute::all()->first();
+
+    	return view('transit', ['transits' => $transits,
+    							'pelabuhans' => $pelabuhans,
+    							'rutes' => $rutes,
+    							]);
     }
 
     public function store(Request $request) {
 
     	$data = $request->all();
 
-    	DB::table('transit')->insert([
+    	DB::table('transits')->insert([
             'id_pelabuhan' => $data['id_pelabuhan'],
+            'id_rute' => $data['id_rutes'],
             'est_transit' => $data['est_transit'],
         ]);    
 
@@ -34,7 +44,7 @@ class TransitController extends Controller
 
     	$data = $request->all();
 
-        DB::table('transit')
+        DB::table('transits')
                 ->where('id_transit', $data['id'])
                 ->update([
 		            'est_transit' => $data['est_transit'],
@@ -47,7 +57,7 @@ class TransitController extends Controller
 
     	$id = $request->id;
 
-        DB::table('transit')
+        DB::table('transits')
                 ->where('id_transit', $id)
                 ->delete();
 
