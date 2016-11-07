@@ -15,6 +15,8 @@ class Rutes extends Migration
     {
         Schema::create('rutes', function (Blueprint $table) {
             $table->increments('id_rute');
+            $table->integer('asal');
+            $table->integer('tujuan');
             $table->integer('id_pelabuhan');
             $table->integer('id_transit');
             $table->integer('est_rute');
