@@ -150,7 +150,7 @@
                             <div class="col-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                      <a id="lfm1" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                      <a id="lfm{{$recipe->id}}" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
                                         <i class="fa fa-picture-o"></i> Pilih
                                       </a>
                                     </span>
@@ -255,8 +255,8 @@
           filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
           filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{csrf_token()}}'
         });
+        $('#lfm{{$recipe->id}}').filemanager('image');
 @endforeach
-        $('#lfm1').filemanager('image');
     </script>
 <script type="text/javascript">
   /* Formating function for row details */
