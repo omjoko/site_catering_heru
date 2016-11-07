@@ -72,7 +72,6 @@ class UserController extends Controller
 		            'no_bk' => $data['no_bk'],
 		            'no_sijil' => $data['no_sijil'],
 		            'sertifikat' => $data['sertifikat'],
-		            'tgl_valid' => $data['tgl_valid'],
 		            'privilege' => $data['privilege'],
                     ]);
 
