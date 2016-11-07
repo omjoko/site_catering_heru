@@ -63,7 +63,7 @@
                       </a>
                   </li>
                   <li>
-                      <a href="/">
+                      <a href="waste" class="{{ Request::is('waste') ? 'active' : '' }}">
                           <i class="fa fa-leaf"></i>
                           <span>Waste</span>
                       </a>

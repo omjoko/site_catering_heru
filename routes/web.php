@@ -20,9 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 //invoice
-Route::get('/invoices', 'invoicesController@sedotData');
-Route::post('/invoices', 'invoicesController@tambahData');
-
+Route::get('/invoices', 'invoicesController@index');
+Route::post('/invoices', 'invoicesController@store');
+Route::put('/invoices', 'invoicesController@update');
+Route::delete('/invoices', 'invoicesController@destroy');
 
 //menu
 Route::get('/menus', 'menusController@sedotDataMenu');
@@ -107,4 +108,10 @@ Route::delete('/rute', 'RuteController@destroy');
 	Route::post('/transit', 'TransitController@store');
 	Route::put('/transit', 'TransitController@update');
 	Route::delete('/transit', 'TransitController@destroy');
+
+// Sampah Management
+Route::get('/waste', 'WasteController@index');
+Route::post('/waste', 'WasteController@store');
+Route::put('/waste', 'WasteController@update');
+Route::delete('/waste', 'WasteController@destroy');
 // END Broadwell-23 code

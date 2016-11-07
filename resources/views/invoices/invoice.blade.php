@@ -39,7 +39,6 @@
                         <th hidden=""></th>
                         <th hidden=""></th>
                         <th hidden=""></th>
-
                     </tr>
                     </thead>
                     <tbody>
