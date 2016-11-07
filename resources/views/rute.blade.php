@@ -28,7 +28,7 @@
                   </span>
               </div>
               <div class="adv-table">
-                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info"  style="text-align: center;">
+                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered table-striped table-advance table-hover" id="hidden-table-info"  style="text-align: center;">
                     <thead>
                     <tr>
                         <th style="width: 5%;">No</th>
@@ -43,15 +43,28 @@
                     @foreach($rutes as $no => $rute)
                     <tr>
                         <td>{{ $no+1 }}</td>
-                        <td>{{ $rute->asal }}</td>
-                        <td>{{ $rute->tujuan }}</td>
+                        <td>
+                        @foreach($pelabuhans as $pelabuhan)
+                          @if($rute->asal==$pelabuhan->id_pelabuhan)
+                            {{ $pelabuhan->nama_pelabuhan }}
+                          @endif
+                        @endforeach
+                        </td>
+                        <td>
+                        @foreach($pelabuhans as $pelabuhan)
+                          @if($rute->tujuan==$pelabuhan->id_pelabuhan)
+                            {{ $pelabuhan->nama_pelabuhan }}
+                          @endif
+                        @endforeach
+                        </td>
                         <td>{{ $rute->est_rute }}</td>
                         <td>
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $rute->id_rute }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $rute->id_rute }}"><i class="fa fa-trash-o "></i></button>
-                            <a href="transit?id={{ $rute->id_rute }}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Transit</button></a>
+                            <a href="transit?id={{ $rute->id_rute }}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Pemberhentian</button></a>
                         </td>
                         <td hidden="">
+                        <input type="hidden" name="id_rute" value="{{ $rute->id_rute }}">
                           <table class="table table-striped">
                             <tr>
                               <th  style="text-align: center;">No</th>
@@ -187,7 +200,7 @@
                 <input type="hidden" name="id" value="{{ $rute->id_rute }}">
 
                 <center>
-                    <p>Apakah anda yakin ingin menghapus bahan : <b>{{ $rute->id_rute }}</b>?</p>
+                    <p>Apakah anda yakin ingin menghapus rute <b>{{ $rute->id_rute }}</b>?</p>
                 </center>
 
                 <div class="modal-footer">
