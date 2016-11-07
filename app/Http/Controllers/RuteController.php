@@ -23,7 +23,7 @@ class RuteController extends Controller
 
     	return view('rute', ['rutes' => $rutes, 
     						 'transits' => $transits, 
-    						 'pelabuhans' => $pelabuhans,
+    						 'pelabuhans' => $pelabuhans
     						]);
     }
 
