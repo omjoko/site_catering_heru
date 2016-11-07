@@ -4,7 +4,7 @@
               <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-bars tooltips"></div>
           </div>
           <!--logo start-->
-          <a href="index.html" class="logo" >Catering<span>Apps</span></a>
+          <a href="/" class="logo" >Catering<span>Apps</span></a>
           <!--logo end-->
           <div class="nav notify-row" id="top_menu">
             <!--  notification start -->

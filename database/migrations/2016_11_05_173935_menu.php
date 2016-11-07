@@ -13,7 +13,7 @@ class Menu extends Migration
      */
     public function up()
     {
-        Schema::create('menus', function (Blueprint $table) {
+        Schema::create('menuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
             $table->tinyInteger('tipe');
@@ -33,6 +33,6 @@ class Menu extends Migration
      */
     public function down()
     {
-        Schema::drop('menus');
+        Schema::drop('menuses');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DetailRecipe extends Migration
+class FoodPlan extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class DetailRecipe extends Migration
      */
     public function up()
     {
-        Schema::create('detail_recipes', function (Blueprint $table) {
+         Schema::create('food_plans', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_resep');
-            $table->integer('id_bahan');
-            $table->integer('jumlah');
-            $table->string('satuan');
+            $table->integer('id_rencanalayar');
+            $table->integer('id_kelas_makan');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +29,6 @@ class DetailRecipe extends Migration
      */
     public function down()
     {
-        Schema::drop('detail_recipes');
+        Schema::drop('food_plans');
     }
 }

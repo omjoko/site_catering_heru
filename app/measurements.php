@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class measurements extends Model
 {
-    use SoftDeletes;
+     use SoftDeletes;
      protected $dates = ['deleted_at'];
+
      public function resep()
      {
       	return $this->hasMany('App\ingredients', 'satuan_resep', 'id');

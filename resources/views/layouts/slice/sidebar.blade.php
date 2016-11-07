@@ -37,11 +37,23 @@
                           <i class="fa fa-paper-plane"></i>
                           <span>Voyage Planning</span>
                       </a>
+                  </li> 
+                  <li>
+                      <a href="/food-plannings">
+                          <i class="fa fa-spoon"></i>
+                          <span>Food Planning</span>
+                      </a>
                   </li>                  
                   <li>
                       <a href="/">
                           <i class="fa fa-cube"></i>
                           <span>Draft PO / Requisition</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="/invoices">
+                          <i class="fa fa-file-text"></i>
+                          <span>Invoice</span>
                       </a>
                   </li>                  
                   <li>
@@ -52,7 +64,7 @@
                   </li>
                   <li>
                       <a href="/">
-                          <i class="fa fa-spoon"></i>
+                          <i class="fa fa-leaf"></i>
                           <span>Waste</span>
                       </a>
                   </li>
