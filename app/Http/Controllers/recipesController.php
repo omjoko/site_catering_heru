@@ -57,8 +57,9 @@ class recipesController extends Controller
     {
         $recipes = recipes::find($request->id);
         $reseps = ingredients::with('resep')->get();
+        $ingredients = ingredients::all();
         $detail_recipes = detail_recipes::with('recipes')->where('id_resep', $request->id)->get();        
-        return view('recipes.new-ingredients-recipe', ['recipes'=>$recipes,'reseps'=>$reseps, 'detail_recipes'=>$detail_recipes]);
+        return view('recipes.new-ingredients-recipe', ['recipes'=>$recipes,'reseps'=>$reseps, 'detail_recipes'=>$detail_recipes,'ingredients'=>$ingredients]);
     }
 
     public function tambahRecipe(Request $request)
@@ -98,7 +99,7 @@ class recipesController extends Controller
 
     public static function sedotResep($value)
     {
-        $detail_recipes = detail_recipes::with('recipes')->where('id_resep', $value)->get();
+        $detail_recipes = detail_recipes::with('bahan')->where('id_resep', $value)->get();
         return $detail_recipes;
     }
 }

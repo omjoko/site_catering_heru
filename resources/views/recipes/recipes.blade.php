@@ -80,20 +80,14 @@
                                 <?php $no_var++; ?>
                                     <tr>
                                       <td>{{$no_var}}</td>
-                                      <td>{{ $bahan_resep->bahan->nama }}</td>
+                                      <td>{{ $bahan_resep->bahan['nama'] }}</td>
                                       <td>{{ $bahan_resep->jumlah }}</td>
                                       <td>{{ $bahan_resep->satuan }}</td>
                                 @endforeach
                               </table>
                             </div>
-                            <div class="col-md-4">
+                            <div class="pull-right">
                               <img src="{{$recipe->gambar}}" class="img-responsive">
-                            </div>
-                            <div class="col-md-4 panel">
-                              <div class="panel-heading"><h3><strong>PETUNJUK</strong></h3></div>
-                              <div class="panel-body">
-                              <?php echo $recipe->petunjuk; ?>
-                              </div>
                             </div>
                           </td>
                       </tr>

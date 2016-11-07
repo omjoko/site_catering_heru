@@ -68,7 +68,6 @@
                             </button>
                       </span>
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                      <input type="hidden" name="id_bahan" value="{{$recipes->id}}">
                 </form>
                       <span class="pull-left" style="margin-left: 10px;">
                            <a href="/recipes"><button type="button" class="btn btn-danger" data-toggle="modal">
@@ -76,6 +75,7 @@
                                   </button></a>
                          </span>
 	              </div>
+
                 <div class="container-fluid">
                     <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered table-striped table-advance table-hover" id="hidden-table-info">
                           <thead>
@@ -93,12 +93,19 @@
                           <?php $no++ ?>
                           <tr>
                               <td>{{ $no }}</td>
-                              <td>{{ $recipe->bahan->nama }}</td>
+                              <td>
+                                  @foreach($ingredients as $ingredient)
+                                    @if($ingredient->id==$recipe->id_bahan)
+                                      {{ $ingredient->nama }}
+                                    @endif
+                                  @endforeach
+                              </td>
                               <td>{{ $recipe->jumlah }}</td>
                               <td>{{ $recipe->satuan }}</td>
                               <td>
                                   <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{$recipe->id}}"><i class="fa fa-pencil"></i></button>
                                   <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{$recipe->id}}"><i class="fa fa-trash-o "></i></button>
+
                                 <!-- Modal update -->
                                 <div class="modal fade" id="modalUbah{{ $recipe->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -106,7 +113,7 @@
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                 <h4 class="modal-title">Ubah Bahan-Bahan  resep</h4>
-                                            </div>dari
+                                            </div>
                                             <div class="modal-body">
 
                                               <form action="#" class="form-horizontal" method="POST" >
@@ -168,7 +175,7 @@
                                               <input type="hidden" name="id_resep" value="{{ $recipe->id }}">
 
                                               <center>
-                                                  <p>Apakah anda yakin ingin menghapus bahan-bahan : <b>{{ $recipe->nama }}</b>?</p>
+                                                  <p>Apakah anda yakin ingin menghapus bahan-bahan : <b>{{ $resep->nama }}</b>?</p>
                                               </center>
 
                                               <div class="modal-footer">
