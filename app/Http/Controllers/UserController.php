@@ -13,20 +13,12 @@ class UserController extends Controller
     	$users = DB::table('users')
                     ->get();
 
-        $counts = DB::table('users')
-                    ->select(DB::raw('count(privilege) as privilege_count'))
-                    ->where('privilege', 5)
-                    ->first();
-
-    	return view('user', ['users' => $users, 'counts' => $counts]);
+    	return view('user', ['users' => $users]);
     }
 
     public function store(Request $request) {
 
     	$data = $request->all();
-
-        $requestDate = $data['tgl_valid'];
-        $newDate = date("Y-m-d", strtotime($requestDate));
 
     	DB::table('users')->insert([
             'name' => $data['name'],
@@ -38,7 +30,7 @@ class UserController extends Controller
             'no_bk' => $data['no_bk'],
             'no_sijil' => $data['no_sijil'],
             'sertifikat' => $data['sertifikat'],
-            'tgl_valid' => $newDate,
+            'tgl_valid' => $data['tgl_valid'],
             'privilege' => $data['privilege'],
         ]);    
 
@@ -66,7 +58,6 @@ class UserController extends Controller
                     'name' => $data['name'],
 		            'email' => $data['email'],
 		            'email1' => $data['email1'],
-                    'password' => $pass,
 		            'telepon' => $data['telepon'],
 		            'no_nrp' => $data['no_nrp'],
 		            'no_bk' => $data['no_bk'],
