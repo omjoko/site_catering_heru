@@ -10,6 +10,15 @@
 <!-- Custom styles for this template -->
 <link href="css/style.css" rel="stylesheet">
 <link href="css/style-responsive.css" rel="stylesheet" />
+
+<link rel="stylesheet" type="text/css" href="assets/bootstrap-fileupload/bootstrap-fileupload.css" />
+<link rel="stylesheet" type="text/css" href="assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+<link rel="stylesheet" type="text/css" href="assets/bootstrap-datepicker/css/datepicker.css" />
+<link rel="stylesheet" type="text/css" href="assets/bootstrap-timepicker/compiled/timepicker.css" />
+<link rel="stylesheet" type="text/css" href="assets/bootstrap-colorpicker/css/colorpicker.css" />
+<link rel="stylesheet" type="text/css" href="assets/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+<link rel="stylesheet" type="text/css" href="assets/bootstrap-datetimepicker/css/datetimepicker.css" />
+<link rel="stylesheet" type="text/css" href="assets/jquery-multi-select/css/multi-select.css" />
 @endpush
 
 @section('content')
@@ -64,7 +73,7 @@
                         @elseif($user->privilege==4)
                           <td><span class="label label-primary label-mini">manager</span></td>
                         @else
-                          <td><span class="label label-info label-mini">admin</span></td>
+                          <td><span class="label label-inverse label-mini">admin</span></td>
                         @endif
                         <td hidden="">{{ $user->email1 }}</td>
                         <td hidden="">{{ $user->no_nrp }}</td>
@@ -73,8 +82,22 @@
                         <td hidden="">{{ $user->sertifikat }}</td>
                         <td hidden="">{{ $user->tgl_valid }}</td>
                         <td>
+                            @if($user->privilege==5 && $counts->privilege_count==1)
+                            <center>
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $user->id }}"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $user->id }}" disabled=""><i class="fa fa-trash-o "></i></button>
+                            </center>
+                            @elseif($user->privilege==5 && $counts->privilege_count>1)
+                            <center>
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $user->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $user->id }}"><i class="fa fa-trash-o "></i></button>
+                            </center>
+                            @else
+                            <center>
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $user->id }}"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $user->id }}"><i class="fa fa-trash-o "></i></button>
+                            </center>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -129,7 +152,7 @@
                         <label class="col-sm-2 control-label">Telepon</label>
                         <div class="col-sm-10">
                             <input name="telepon" type="text" placeholder="" class="form-control">
-                            <span class="help-inline">089693685702</span>
+                            <span class="help-inline">089123456789</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -159,8 +182,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Tanggal Valid</label>
                         <div class="col-sm-10">
-                            <input name="tgl_valid" type="text" placeholder="" data-mask="9999-99-99" class="form-control">
-                            <span class="help-inline">yyyy-mm-dd</span>
+                            <input name="tgl_valid" class="form-control form-control-inline input-medium default-date-picker" size="16" type="text"/>
+                            <span class="help-block">Select date</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -256,7 +279,7 @@
                         <label class="col-sm-2 control-label">Telepon</label>
                         <div class="col-sm-10">
                             <input name="telepon" type="text" placeholder="" class="form-control" value="{{ $user->telepon }}">
-                            <span class="help-inline">089693685702</span>
+                            <span class="help-inline">089123456789</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -286,10 +309,195 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Tanggal Valid</label>
                         <div class="col-sm-10">
-                            <input name="tgl_valid" type="text" placeholder="" data-mask="9999-99-99" class="form-control" value="{{ $user->tgl_valid }}">
-                            <span class="help-inline">yyyy-mm-dd</span>
+                            <input disabled="" class="form-control form-control-inline input-medium default-date-picker" size="16" type="text" value="" />
+                            <span class="help-block">Select date</span>
                         </div>
                     </div>
+
+            @if($user->privilege==5 && $counts->privilege_count==1)    
+                @if($user->privilege==1)
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1" checked disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @elseif($user->privilege==2)
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2" checked disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @elseif($user->privilege==3)
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3" checked disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @elseif($user->privilege==4)
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4" checked disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4" disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5" checked disabled="">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @elseif($user->privilege==5 && $counts->privilege_count>1)
+                @if($user->privilege==1)
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Privilege*</label>
                         <div class="col-sm-10">
@@ -325,7 +533,334 @@
                             </div>
                         </div>
                     </div>
-
+                @elseif($user->privilege==2)
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2" checked>
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @elseif($user->privilege==3)
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3" checked>
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @elseif($user->privilege==4)
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4" checked>
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5" checked>
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @else
+                @if($user->privilege==1)
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1" checked>
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @elseif($user->privilege==2)
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2" checked>
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @elseif($user->privilege==3)
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3" checked>
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @elseif($user->privilege==4)
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4" checked>
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Privilege*</label>
+                        <div class="col-sm-10">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios1" value="1">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Requisition, PO, and Voyage Planning | Input: Waste"> Steward </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios2" value="2">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage: Invoice"> Finance </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios3" value="3">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="View: Inventory and Waste | Input: Invoice | Approve: Inventory Out"> Captain </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios4" value="4">
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Approve: Requisition, PO and Invoice | View: Report"> Manager </span>
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="privilege" id="optionsRadios5" value="5" checked>
+                                    <span class="tooltips" data-toggle="tooltip" data-placement="right" data-original-title="Manage & View: All"> Admin </span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endif
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-info">Ubah</button>
                     </div>
@@ -406,6 +941,21 @@
 
 <!--common script for all pages-->
 <script src="js/common-scripts.js"></script>
+
+<script type="text/javascript" src="assets/fuelux/js/spinner.min.js"></script>
+<script type="text/javascript" src="assets/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+<script type="text/javascript" src="assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+<script type="text/javascript" src="assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+<script type="text/javascript" src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="assets/bootstrap-daterangepicker/moment.min.js"></script>
+<script type="text/javascript" src="assets/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+<script type="text/javascript" src="assets/jquery-multi-select/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="assets/jquery-multi-select/js/jquery.quicksearch.js"></script>
+
+<script src="js/advanced-form-components.js"></script>
 
 <script type="text/javascript">
   /* Formating function for row details */
