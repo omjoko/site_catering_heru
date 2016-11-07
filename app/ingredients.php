@@ -30,4 +30,8 @@ class ingredients extends Model
      {
           return $this->hasOne('App\ingredients', 'id_bahan', 'id');
      }
+     public function menus()
+     {
+          return $this->hasOne('App\menus', 'minuman', 'id');
+     }
 }

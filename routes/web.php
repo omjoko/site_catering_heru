@@ -19,6 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'ingredientsController@sedotData');
 
+//menu
+Route::get('/menus', 'menusController@sedotDataMenu');
+Route::post('/menus', 'menusController@tambah');
+Route::put('/menus', 'menusController@ubah');
+Route::delete('/menus', 'menusController@hapus');
+
 //recipe
 Route::get('/recipes', 'recipesController@dataResep');
 Route::put('/recipes', 'recipesController@ubah');
