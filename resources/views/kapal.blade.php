@@ -38,12 +38,16 @@
                         <th>Tipe Kapal</th>
                         <th>No. IMO</th>
                         <th>Kapasitas</th>
-                        <th hidden="">Nama Penyimpanan</th>
                         <th></th>
+                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php use App\Http\Controllers\KapalController; ?>
                     @foreach($kapals as $no => $kapal)
+                    <?php 
+                        $storages = KapalController::storageData($kapal->id);
+                    ?>
                     <tr>
                         <td>{{ $no+1 }}</td>
                         <td>{{ $kapal->nama_kapal }}</td>
@@ -56,10 +60,32 @@
                         @endif
                         <td>{{ $kapal->no_imo }}</td>
                         <td>{{ $kapal->kapasitas }}</td>
-                        <td hidden="">{{ $kapal->nama_tempat }}</td>
                         <td>
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $kapal->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $kapal->id }}"><i class="fa fa-trash-o "></i></button>
+                            <a href="/storages?id={{ $kapal->id }}"><button class="btn btn-success btn-xs" data-toggle="modal"><i class="fa fa-plus"></i> Penyimpanan</button></a>
+                        </td>
+                        <td hidden="">
+                        <table class="display table table-bordered table-striped table-advance table-hover">
+                          <tr>
+                            <th>No.</th>
+                            <th>Nama Penyimpanan</th>
+                            <th>Tipe Penyimpanan</th>
+                          </tr>
+                          @foreach($storages as $no=> $storage)
+                              <tr>
+                                <td>{{$no+1}}</td>
+                                <td>{{$storage->nama}}</td>
+                                    @if($storage->tipe==0)
+                                      <td><span class="label label-primary label-mini">Kapal Feri</span></td>
+                                    @elseif($storage->tipe==1)
+                                      <td><span class="label label-info label-mini">Kapal Diesel</span></td>
+                                    @elseif($storage->tipe==2)
+                                      <td><span class="label label-inverse label-mini">Kapal Tanker</span></td>
+                                    @endif
+                              </tr>
+                          @endforeach
+                        </table>
                         </td>
                     </tr>
                     @endforeach
@@ -121,19 +147,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Kapasistas</label>
+                        <label class="col-sm-2 control-label">Kapasitas</label>
                         <div class="col-sm-10">
                             <input name="kapasitas" type="text" placeholder="" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Tempat Penyimpanan</label>
-                        <div class="col-sm-10">
-                            <select class="form-control m-bot15" name="id_penyimpanan">
-                              @foreach($penyimpanans as $penyimpanan)
-                              <option value="{{ $penyimpanan->id_penyimpanan }}">{{ $penyimpanan->nama_tempat }}</option>
-                              @endforeach
-                            </select>
                         </div>
                     </div>
 
@@ -174,24 +190,64 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Tipe Kapal</label>
                         <div class="col-sm-10">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="tipe_kapal" id="optionsRadios1" value="1" checked>
-                                    <span class="tooltips" data-toggle="tooltip"> Kapal Feri </span>
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="tipe_kapal" id="optionsRadios2" value="2">
-                                    <span class="tooltips" data-toggle="tooltip"> Kapal Diesel </span>
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="tipe_kapal" id="optionsRadios3" value="3">
-                                    <span class="tooltips" data-toggle="tooltip"> Kapal Tanker </span>
-                                </label>
-                            </div>
+                            @if($kapal->tipe_kapal==1)
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="tipe_kapal" id="optionsRadios1" value="1" checked>
+                                          <span class="tooltips" data-toggle="tooltip"> Kapal Feri </span>
+                                      </label>
+                                  </div>
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="tipe_kapal" id="optionsRadios2" value="2">
+                                          <span class="tooltips" data-toggle="tooltip"> Kapal Diesel </span>
+                                      </label>
+                                  </div>
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="tipe_kapal" id="optionsRadios3" value="3">
+                                          <span class="tooltips" data-toggle="tooltip"> Kapal Tanker </span>
+                                      </label>
+                                  </div>                            
+                            @elseif($kapal->tipe_kapal==2)
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="tipe_kapal" id="optionsRadios1" value="1">
+                                          <span class="tooltips" data-toggle="tooltip"> Kapal Feri </span>
+                                      </label>
+                                  </div>
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="tipe_kapal" id="optionsRadios2" value="2" checked="">
+                                          <span class="tooltips" data-toggle="tooltip"> Kapal Diesel </span>
+                                      </label>
+                                  </div>
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="tipe_kapal" id="optionsRadios3" value="3">
+                                          <span class="tooltips" data-toggle="tooltip"> Kapal Tanker </span>
+                                      </label>
+                                  </div>     
+                            @elseif($kapal->tipe_kapal==3)
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="tipe_kapal" id="optionsRadios1" value="1">
+                                          <span class="tooltips" data-toggle="tooltip"> Kapal Feri </span>
+                                      </label>
+                                  </div>
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="tipe_kapal" id="optionsRadios2" value="2">
+                                          <span class="tooltips" data-toggle="tooltip"> Kapal Diesel </span>
+                                      </label>
+                                  </div>
+                                  <div class="radio">
+                                      <label>
+                                          <input type="radio" name="tipe_kapal" id="optionsRadios3" value="3" checked="">
+                                          <span class="tooltips" data-toggle="tooltip"> Kapal Tanker </span>
+                                      </label>
+                                  </div>     
+                            @endif
                         </div>
                     </div>
                     <div class="form-group">
@@ -206,13 +262,6 @@
                             <input name="kapasitas" type="text" placeholder="" class="form-control" value="{{ $kapal->kapasitas }}">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Tempat Penyimpanan</label>
-                        <div class="col-sm-10">
-                            <input name="nama_tempat" type="text" placeholder="" class="form-control" value="{{ $kapal->nama_tempat }}" disabled="">
-                        </div>
-                    </div>
-
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-info">Ubah</button>
                     </div>
@@ -299,9 +348,7 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-      sOut += '<tr><td>Tempat Penyimpanan:</td><td>'+aData[6]+'</td></tr>';
-      sOut += '</table>';
+      var sOut = aData[7]
 
       return sOut;
   }

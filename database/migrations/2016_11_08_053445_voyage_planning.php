@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Wastes extends Migration
+class VoyagePlanning extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class Wastes extends Migration
      */
     public function up()
     {
-        Schema::create('wastes', function (Blueprint $table) {
+        Schema::create('voyages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nama_sampah');
-            $table->integer('jenis_sampah');
-            $table->integer('berat');
+            $table->integer('id_rute');
+            $table->dateTime('keberangkatan');
+            $table->integer('id_kapal');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +30,6 @@ class Wastes extends Migration
      */
     public function down()
     {
-        Schema::drop('wastes');
+        Schema::drop('voyages');
     }
 }

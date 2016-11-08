@@ -87,6 +87,12 @@ Route::post('/kapal', 'KapalController@store');
 Route::put('/kapal', 'KapalController@update');
 Route::delete('/kapal', 'KapalController@destroy');
 
+Route::get('/storages', 'KapalController@sedotStorages');
+Route::post('/storages', 'KapalController@tambahStorages');
+Route::put('/storages', 'KapalController@ubahStorages');
+Route::delete('/storages', 'KapalController@hapusStorages');
+
+
 // Penyimpanan Management
 Route::get('/penyimpanan', 'PenyimpananController@index');
 Route::post('/penyimpanan', 'PenyimpananController@store');

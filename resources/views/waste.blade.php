@@ -51,7 +51,7 @@
                         @else
                           <td><span class="label label-danger label-mini">Sampah Makan</span></td>
                         @endif
-                        <td>{{ $waste->berat }}</td>
+                        <td>{{ $waste->berat }} Kg</td>
                         <td>
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $waste->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $waste->id }}"><i class="fa fa-trash-o "></i></button>
@@ -106,7 +106,10 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Berat Sampah</label>
                         <div class="col-sm-10">
-                          <input name="berat" type="text" placeholder="" class="form-control" required="">
+                          <div class="input-group">
+                            <input name="berat" type="number" placeholder="" class="form-control" required="">
+                            <div class="input-group-addon">Kg</div>
+                          </div>
                         </div>
                     </div>
 

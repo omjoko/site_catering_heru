@@ -132,10 +132,27 @@
                         <label class="col-sm-2 col-sm-2 control-label">Tipe Resep</label>
                         <div class="col-sm-10">
                             <select class="form-control" name="tipe" required="">
+                              @if($recipe->tipe==0)
+                              <option value="0" selected="">Makanan Pembuka</option>
+                              <option value="1">Makanan Utama</option>                          
+                              <option value="2">Makanan Penutup</option>                          
+                              <option value="3">Minuman</option>
+                              @elseif($recipe->tipe==1)
+                              <option value="0">Makanan Pembuka</option>
+                              <option value="1" selected="">Makanan Utama</option>                          
+                              <option value="2">Makanan Penutup</option>                          
+                              <option value="3">Minuman</option>                              
+                              @elseif($recipe->tipe==2)
+                              <option value="0">Makanan Pembuka</option>
+                              <option value="1">Makanan Utama</option>                          
+                              <option value="2" selected="">Makanan Penutup</option>                          
+                              <option value="3">Minuman</option>                              
+                              @elseif($recipe->tipe==3)
                               <option value="0">Makanan Pembuka</option>
                               <option value="1">Makanan Utama</option>                          
                               <option value="2">Makanan Penutup</option>                          
-                              <option value="3">Minuman</option>                          
+                              <option value="3" selected="">Minuman</option>                              
+                              @endif
                             </select>
                         </div>
                     </div>
@@ -150,13 +167,13 @@
                             <div class="col-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                      <a id="lfm{{$recipe->id}}" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                      <a id="lfm{{$recipe->id}}" data-input="thumbnail{{ $recipe->id }}" data-preview="holder" class="btn btn-primary">
                                         <i class="fa fa-picture-o"></i> Pilih
                                       </a>
                                     </span>
-                                    <input id="thumbnail" class="form-control" type="text" name="gambar" value="{{ $recipe->gambar }}">
+                                    <input id="thumbnail{{ $recipe->id }}" class="form-control" type="text" name="gambar" value="{{ $recipe->gambar }}">
                                   </div>
-                                  <img id="holder" style="margin-top:15px;max-height:100px;">
+                                  <img id="holder{{ $recipe->id }}" style="margin-top:15px;max-height:100px;">
                             </div>
                     </div>
 

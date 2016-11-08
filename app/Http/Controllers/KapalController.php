@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use DB;
+use URL;
+use storages;
 
 class KapalController extends Controller
 {
@@ -16,15 +18,9 @@ class KapalController extends Controller
 
     public function index()	{
 
-    	$kapals = DB::table('kapals')
-    				->join('penyimpanans', 'kapals.id_penyimpanan', '=', 'penyimpanans.id_penyimpanan')
-                    ->select('kapals.*', 'penyimpanans.nama_tempat as nama_tempat')
-                    ->get();
+    	$kapals = DB::table('kapals')->get();
 
-        $penyimpanans = DB::table('penyimpanans')
-                    ->get();
-
-    	return view('kapal', ['kapals' => $kapals, 'penyimpanans' => $penyimpanans]);
+    	return view('kapal', ['kapals' => $kapals]);
     }
 
     public function store(Request $request) {
@@ -36,7 +32,6 @@ class KapalController extends Controller
             'tipe_kapal' => $data['tipe_kapal'],
             'no_imo' => $data['no_imo'],
             'kapasitas' => $data['kapasitas'],
-            'id_penyimpanan' => $data['id_penyimpanan'],
         ]);    
 
     	return redirect()->action('KapalController@index');
@@ -50,7 +45,7 @@ class KapalController extends Controller
                 ->where('id', $data['id'])
                 ->update([
                     'nama_kapal' => $data['nama_kapal'],
-		            'tipe_kapal' => $data['tipe_kapal'],
+                    'tipe_kapal' => $data['tipe_kapal'],
 		            'no_imo' => $data['no_imo'],
 		            'kapasitas' => $data['kapasitas'],
                     ]);
@@ -67,5 +62,62 @@ class KapalController extends Controller
                 ->delete();
 
     	return redirect()->action('KapalController@index');
+    }
+
+
+    public static function storageData($value)
+    {
+        $storages = DB::table('storages')->join('kapals','storages.id_kapal','=','kapals.id')->where('id_kapal', $value)->get();
+        return $storages;
+        
+    }
+    public function sedotStorages(Request $request)
+    {
+        $kapals = DB::table('kapals')->where('id', $request->id)->first();
+        $storages = DB::table('storages')->join('kapals','storages.id_kapal','=','kapals.id')->where('id_kapal', $request->id)->get();
+        // DD($storages);
+        return view('storages',['kapals'=>$kapals,'storages'=>$storages]);
+    }
+
+    public function tambahStorages(Request $request)
+    {
+        $data = $request->all();
+        // DD($data);
+        DB::table('storages')->insert([
+            'nama' => $data['nama_kapal'],
+            'tipe' => $data['tipe'],
+            'id_kapal' => $data['id'],
+        ]);    
+
+        $url = URL::previous();
+        return redirect($url);   
+    }
+
+    public function hapusStorages(Request $request)
+    {
+        $data = $request->all();
+
+        DB::table('storages')
+        ->where('id_storages',$data['id_storages'])
+        ->delete();
+
+        $url = URL::previous();
+        return redirect($url);   
+    }
+
+    public function ubahStorages(Request $request)
+    {
+        $data = $request->all();
+
+        DB::table('storages')
+        ->where('id_storages',$data['id_storages'])
+        ->update([
+            'nama' => $data['nama_kapal'],
+            'tipe' => $data['tipe'],
+            'id_kapal' => $data['id'],
+        ]);   
+
+        $url = URL::previous();
+        return redirect($url);   
     }
 }

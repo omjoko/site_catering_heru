@@ -249,7 +249,7 @@
                         <div class="col-sm-10">
                             <select name="menu_utama" class="form-control">
                                 @foreach($menu_utamas as $menu_utama)
-                                    @if($menu->menu_utama==$menu_penutup->id)
+                                    @if($menu->menu_utama==$menu_utama->id)
                                         <option value="{{$menu_utama->id}}" selected="">{{$menu_utama->nama}}</option>
                                     @else
                                         <option value="{{$menu_utama->id}}" >{{$menu_utama->nama}}</option>

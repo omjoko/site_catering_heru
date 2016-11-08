@@ -21,13 +21,7 @@
                           <li class="{{ Request::is('recipes') ? 'active' : '' }}"><a href="recipes">Recipe</a></li>
                           <li class="{{ Request::is('menus') ? 'active' : '' }}"><a href="menus">Menu</a></li>
                           <li class="{{ Request::is('vendors') ? 'active' : '' }}"><a href="vendors">Vendor</a></li>
-                          <li>
-                              <a href="javascript:;" class="{{ Request::is('kapal', 'penyimpanan') ? 'active' : '' }}">Kapal</a>
-                              <ul class="sub">
-                                  <li class="{{ Request::is('kapal') ? 'active' : '' }}"><a  href="kapal">Kapal</a></li>
-                                  <li class="{{ Request::is('penyimpanan') ? 'active' : '' }}"><a  href="penyimpanan">Penyimpanan</a></li>
-                              </ul>
-                          </li>
+                          <li class="{{ Request::is('kapal') ? 'active' : '' }}"><a href="kapal">Kapal</a></li>
                           <li class="{{ Request::is('pelabuhan') ? 'active' : '' }}"><a href="pelabuhan">Pelabuhan</a></li>
                           <li class="{{ Request::is('rute') ? 'active' : '' }}"><a href="rute">Rute</a></li>
                       </ul>
