@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class pelabuhans extends Model
 {
-    public function rute()
+    public function asal_rute()
     {
-     	return $this->belongsToMany('App\Rute');
-    	
+		return $this->belongsTo('App\voyages', 'asal', 'id_pelabuhan');
+    }
+
+    public function tujuan_rute()
+    {
+		return $this->belongsTo('App\voyages', 'tujuan', 'id_pelabuhan');
     }
 
     public function transit()

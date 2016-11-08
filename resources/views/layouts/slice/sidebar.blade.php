@@ -27,7 +27,7 @@
                       </ul>
                   </li>
                   <li>
-                      <a href="/">
+                      <a href="/voyages?success=1">
                           <i class="fa fa-paper-plane"></i>
                           <span>Voyage Planning</span>
                       </a>

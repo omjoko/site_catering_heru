@@ -28,7 +28,7 @@ class ingredientsController extends Controller
 
     }
 
-    public function DataIngredients($value='')
+    public function DataIngredients()
     {
         $categorys = categorys::All();
         $measurements = measurements::All();

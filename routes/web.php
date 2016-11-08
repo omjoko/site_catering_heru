@@ -19,6 +19,15 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+//voyages
+Route::get('/voyages', 'voyagesController@DataVoyages');
+Route::put('/voyages', 'voyagesController@ubah');
+Route::delete('/voyages', 'voyagesController@hapus');
+Route::get('/class-manifest', 'voyagesController@dataPenumpang');
+
+Route::get('/new-voyages', 'voyagesController@DataNew');
+Route::post('/new-voyages', 'voyagesController@tambah');
+
 //invoice
 Route::get('/invoices', 'invoicesController@index');
 Route::post('/invoices', 'invoicesController@store');

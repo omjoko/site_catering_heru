@@ -15,9 +15,12 @@ class VoyagePlanning extends Migration
     {
         Schema::create('voyages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_rute');
+            $table->integer('id_rute')->unsigned();
             $table->dateTime('keberangkatan');
-            $table->integer('id_kapal');
+            $table->integer('eksekutif');
+            $table->integer('bisnis');
+            $table->integer('ekonomi1');
+            $table->integer('ekonomi2');
             $table->timestamps();
             $table->softDeletes();
         });
