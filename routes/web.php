@@ -19,11 +19,21 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+//food-plan
+Route::get('/food-plans', 'foodplansController@dataFP');
+Route::put('/food-plans', 'foodplansController@ubah');
+Route::delete('/food-plans', 'foodplansController@hapus');
+
+Route::get('/edit-food-plans', 'foodplansController@editPlan');
+Route::post('/edit-food-plans', 'foodplansController@ubah');
+Route::get('/delete-food-plans', 'foodplansController@hapus');
+Route::get('/new-food-plans', 'foodplansController@DataNew');
+Route::post('/new-food-plans', 'foodplansController@tambah');
+
 //voyages
 Route::get('/voyages', 'voyagesController@DataVoyages');
 Route::put('/voyages', 'voyagesController@ubah');
 Route::delete('/voyages', 'voyagesController@hapus');
-Route::get('/class-manifest', 'voyagesController@dataPenumpang');
 
 Route::get('/new-voyages', 'voyagesController@DataNew');
 Route::post('/new-voyages', 'voyagesController@tambah');

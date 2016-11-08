@@ -16,4 +16,9 @@ class voyages extends Model
      	return $this->hasOne('App\Rute','id', 'id_rute');
      }
 
+    public function voyages()
+    {
+    	return $this->haasOne('App\voyages', 'id_pelayaran', 'id');
+    }
+
 }

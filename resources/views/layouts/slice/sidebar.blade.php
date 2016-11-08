@@ -26,14 +26,14 @@
                           <li class="{{ Request::is('rute') ? 'active' : '' }}"><a href="rute">Rute</a></li>
                       </ul>
                   </li>
-                  <li>
+                  <li  class="{{ Request::is('voyages') ? 'active' : '' }}">
                       <a href="/voyages?success=1">
                           <i class="fa fa-paper-plane"></i>
                           <span>Voyage Planning</span>
                       </a>
                   </li> 
-                  <li class="{{ Request::is('food-plannings') ? 'active' : '' }}">
-                      <a href="food-plannings">
+                  <li class="{{ Request::is('food-plans') ? 'active' : '' }}">
+                      <a href="/food-plans?success=1">
                           <i class="fa fa-spoon"></i>
                           <span>Food Planning</span>
                       </a>
@@ -44,8 +44,8 @@
                           <span>Draft PO / Requisition</span>
                       </a>
                   </li>
-                  <li class="{{ Request::is('invoices') ? 'active' : '' }}">
-                      <a href="invoices">
+                  <li class="{{ Request::is('home') ? 'active' : '' }}">
+                      <a href="home">
                           <i class="fa fa-file-text"></i>
                           <span>Invoice</span>
                       </a>

@@ -113,7 +113,7 @@
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 </form>
                       <span class="pull-left" style="margin-left: 10px;">
-                           <a href="/voyages"><button type="button" class="btn btn-danger" data-toggle="modal">
+                           <a href="/voyages?success=1"><button type="button" class="btn btn-danger" data-toggle="modal">
                                     <span class="fa fa-chevron-left"></span> Batal
                                   </button></a>
                          </span>

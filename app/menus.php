@@ -23,4 +23,9 @@ class menus extends Model
      	return $this->belongsTo('App\recipes', 'menu_penutup');
      	return $this->belongsTo('App\recipes', 'menu_penutup');
      }
+
+     public function food_plans()
+    {
+        return $this->morphToMany('App\food_plans', 'id');
+    }
 }

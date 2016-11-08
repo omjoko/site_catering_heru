@@ -90,6 +90,9 @@
                           <td>
                              <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $voyage->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $voyage->id }}"><i class="fa fa-trash-o "></i></button>
+                            @if($_GET['success']==2)
+                                <a href="/new-food-plans?id={{ $voyage->id }}"><button class="btn btn-success btn-xs"><i class="fa fa-star"></i> Perencanaan Makanan</button></a>
+                            @endif
                           </td>
                           <td hidden="">
                               {{$voyage->eksekutif}}                           
@@ -106,7 +109,7 @@
                           <td hidden="">
                               <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="pull-left">
                                 <tr>
-                                  <td colspan="2">DAFTAR PEMBERHENTIAN</d>
+                                  <td colspan="2"><b><u>DAFTAR PEMBERHENTIAN</u></b></d>
                                 </tr>
                                 <tr>
                                   <th style="text-align:center;">Pemberhentian</th>
