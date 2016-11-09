@@ -112,6 +112,61 @@
                           </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Pelayaran</label>
+                        <div class="col-sm-10">
+                          <table class="display table table-bordered table-hover">
+                             <thead>
+                                 <tr>
+                                     <th>No</th>
+                                     <th>Asal</th>
+                                     <th>Tujuan</th>
+                                     <th>Keberangkatan</th>
+                                     <th>Kapal</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
+                                 @foreach($voyages as $no => $voyage)
+                                 <tr>
+                                     <td>
+                                       <div class="radio">
+                                           <label><input type="radio" id='regular' name="id_voyages">{{ $no+1 }}</label>
+                                       </div>
+                                     </td>
+                                     <td>
+                                       <div class="radiotext">
+                                           <label for='regular'>
+                                              @foreach($pelabuhans as $pelabuhan)
+                                                @foreach($rutes as rute)
+                                                  @if($pelabuhan->id_pelabuhan==$voyage->rute['asal'])
+                                                   {{ $pelabuhan->nama_pelabuhan }}
+                                                  @endif
+                                                @endforeach
+                                              @endforeach
+                                           </label>
+                                       </div>
+                                     </td>
+                                     <td>
+                                       <div class="radiotext">
+                                           <label for='regular'>Jakarta</label>
+                                       </div>
+                                     </td>
+                                     <td>
+                                       <div class="radiotext">
+                                           <label for='regular'>2016-11-09 01:05:00</label>
+                                       </div>
+                                     </td>
+                                     <td>
+                                       <div class="radiotext">
+                                           <label for='regular'>Lauser</label>
+                                       </div>
+                                     </td>
+                                 </tr>
+                                 @endforeach
+                             </tbody>
+                          </table>
+                        </div>
+                    </div>
 
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success">Tambah</button>
@@ -187,7 +242,10 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Berat Sampah</label>
                         <div class="col-sm-10">
-                          <input name="berat" type="text" placeholder="" class="form-control" required="" value="{{ $waste->berat }}">
+                          <div class="input-group">
+                            <input name="berat" type="number" placeholder="" class="form-control" required="" value="{{ $waste->berat }}">
+                            <div class="input-group-addon">Kg</div>
+                          </div>
                         </div>
                     </div>
 

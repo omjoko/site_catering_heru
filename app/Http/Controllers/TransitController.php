@@ -22,7 +22,6 @@ class TransitController extends Controller
         $pelabuhans = pelabuhans::all();
         $transits = Transit::with('rutes')->where('id_rute',$request->id)->get();
 
-
     	return view('transit', ['transits' => $transits,
     							'pelabuhans' => $pelabuhans,
     							'rutes' => $rutes,

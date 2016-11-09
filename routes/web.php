@@ -37,8 +37,6 @@ Route::post('/new-ingredients-requisitions', 'requisitionsController@tambahBahan
 Route::put('/new-ingredients-requisitions', 'requisitionsController@ubahBahan');
 Route::delete('/new-ingredients-requisitions', 'requisitionsController@hapusBahan');
 
-
-
 //food-plan
 Route::get('/food-plans', 'foodplansController@dataFP');
 Route::post('/food-plans', 'requisitionsController@tambah');

@@ -134,8 +134,8 @@
                       <div class="form-group">
                           <label class="col-sm-2 col-sm-2 control-label">Pemberhentian</label>
                           <div class="col-sm-10">
-                                  <select name="id_pelabuhan" class="form-control">
-                                  @foreach($pelabuhans as $pelabuhan)
+                                <select name="id_pelabuhan" class="form-control">
+                                @foreach($pelabuhans as $pelabuhan)
                                   @if($transit->id_pelabuhan==$pelabuhan->id_pelabuhan)
                                     <option value="{{ $pelabuhan->id_pelabuhan }}" selected="">{{ $pelabuhan->nama_pelabuhan }}</option>
                                     @else
@@ -177,7 +177,8 @@
               <input type="hidden" name="id_transit" value="{{ $transit->id }}">
 
               <center>
-                  <p>Apakah anda yakin ingin menghapus pemberhentian: <b>                               @foreach($pelabuhans as $pelabuhan)
+                  <p>Apakah anda yakin ingin menghapus pemberhentian: <b>                               
+                                @foreach($pelabuhans as $pelabuhan)
                                   @if($transit->id_pelabuhan==$pelabuhan->id_pelabuhan)
                                     {{ $pelabuhan->nama_pelabuhan }}
                                   @endif

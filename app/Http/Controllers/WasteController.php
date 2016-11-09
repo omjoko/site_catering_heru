@@ -18,7 +18,19 @@ class WasteController extends Controller
     	$wastes = DB::table('wastes')
                     ->get();
 
-    	return view('waste', ['wastes' => $wastes]);
+        $voyages = DB::table('voyages')
+        			->get();
+
+        $pelabuhans = DB::table('pelabuhans')
+        			->get();
+
+        $rutes =DB::table('rutes')
+        			->get();
+
+    	return view('waste', ['wastes' => $wastes,
+    						  'voyages' => $voyages,
+    						  'pelabuhans' => $pelabuhans
+    						  'rutes' => $rutes]);
     }
 
     public function store(Request $request) {
@@ -28,7 +40,8 @@ class WasteController extends Controller
     	DB::table('wastes')->insert([
             'nama_sampah' => $data['nama_sampah'],
             'jenis_sampah' => $data['jenis_sampah'],
-            'berat' => $data['berat']
+            'berat' => $data['berat'],
+            'id_voyages' => $data['id_voyages']
         ]);   
 
     	return redirect()->action('WasteController@index');
@@ -43,7 +56,8 @@ class WasteController extends Controller
                 ->update([
                     'nama_sampah' => $data['nama_sampah'],
 		            'jenis_sampah' => $data['jenis_sampah'],
-		            'berat' => $data['berat']
+		            'berat' => $data['berat'],
+		            'id_voyages' => $data['id_voyages']
                     ]);
 
     	return redirect()->action('WasteController@index');
