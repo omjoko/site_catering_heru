@@ -34,6 +34,13 @@
                         </button>
                         <strong> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Data Sudah Ada , Silahkan Periksa Pada tabel</strong>
                     </div>
+                    @elseif($_GET['success']==3)
+                    <div class="alert alert-block alert-info fade in">
+                        <button data-dismiss="alert" class="close close-sm" type="button">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        <strong> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Silahkan Pilih <strong>PERENCANAAN MAKANAN</strong> yang akan di <strong>Requisition!</strong>
+                    </div>
                     @endif
 
               <div class="container-fluid">
@@ -63,6 +70,7 @@
                     <?php $no++; ?>
                     <?php 
                         $FP = foodplansController::sedotFP($voyage->id);
+                        $vendors = foodplansController::sedotVendor();
                     ?>                                            
                       <tr class="gradeX">
                           <td>{{$no}}</td>
@@ -87,7 +95,9 @@
                              @if($_GET['success']==0)
                                 <a href="/new-food-plans?id={{ $voyage->id }}"><button class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Perencanaan Makanan</button></a>
                             @endif
-                            <a href="/new-food-plans?id={{ $voyage->id }}"><button class="btn btn-success btn-xs"><i class="fa fa-star"></i> Requisition</button></a>
+                            @if($_GET['success']==3)
+                            <button class="btn btn-success btn-xs" data-toggle="modal" href="#ModalTambah{{ $voyage->id }}"><i class="fa fa-star "></i> Requisition</button>
+                            @endif
                           </td>
                           <td hidden="">
                                 <table cellpadding="0" cellspacing="0" border="10" class="display table table-bordered" id="hidden-table-info" style="text-align: center;">
@@ -212,6 +222,54 @@
         </section>
     </div>
 </div>
+
+@foreach($voyages as $voyage)
+ <!-- Modal Tambah -->
+  <div class="modal fade" id="ModalTambah{{ $voyage->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Tambah Requisition</h4>
+              </div>
+              <div class="modal-body">
+
+                <form class="form-horizontal" method="POST">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                  <input type="hidden" name="id_pelayaran" value="{{$voyage->id}}">
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Vendor</label>
+                        <div class="col-sm-10">
+                          <select name="vendor" class="form-control">
+                          @foreach($vendors as $vendor)
+                            <option value="{{$vendor->id}}">{{$vendor->nama_vendor}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Deskripsi</label>
+                        <div class="col-sm-10">
+                          <textarea name="deskripsi" type="text" class="form-control" rows="5" required=""></textarea>
+                        </div>
+                    </div>
+                    <!-- status masih menunggu -->
+                    <input type="hidden" name="status" value="0">
+                    <!-- status masih menunggu -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Tambah</button>
+                    </div>
+                </form>
+
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- END modal tambah-->
+  @endforeach
+
 @endsection
 
 @push('js')

@@ -11,6 +11,11 @@ use App\Rute;
 class RuteController extends Controller
 {
 
+        public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public static function sedotTransit($value)
     {
         $transits = Transit::with('rutes')->where('id_rute', $value)->get();

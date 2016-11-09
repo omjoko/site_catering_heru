@@ -7,10 +7,15 @@ use App\pelabuhans;
 use App\Rute;
 use App\kapals;
 use App\voyages;
-use App\transit;
+use App\Transit;
 
 class voyagesController extends Controller
 {
+
+        public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 	public function DataVoyages(Request $request)
 	{
@@ -23,7 +28,7 @@ class voyagesController extends Controller
 
 	public static function DataTransit($value)
 	{
-		$transits = transit::where('id_rute',$value)->get();
+		$transits = Transit::where('id_rute',$value)->get();
 		// DD($transits);
 		return $transits;
 	}

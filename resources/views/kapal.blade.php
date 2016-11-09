@@ -77,11 +77,11 @@
                                 <td>{{$no+1}}</td>
                                 <td>{{$storage->nama}}</td>
                                     @if($storage->tipe==0)
-                                      <td><span class="label label-primary label-mini">Kapal Feri</span></td>
+                                      <td><span class="label label-primary label-mini">Freezer</span></td>
                                     @elseif($storage->tipe==1)
-                                      <td><span class="label label-info label-mini">Kapal Diesel</span></td>
+                                      <td><span class="label label-info label-mini">Gudang Utama</span></td>
                                     @elseif($storage->tipe==2)
-                                      <td><span class="label label-inverse label-mini">Kapal Tanker</span></td>
+                                      <td><span class="label label-inverse label-mini">Gudang Biasa</span></td>
                                     @endif
                               </tr>
                           @endforeach

@@ -38,8 +38,8 @@
                           <span>Food Planning</span>
                       </a>
                   </li>                  
-                  <li>
-                      <a href="/">
+                  <li class="{{ Request::is('requisitions') ? 'active' : '' }}">
+                      <a href="requisitions">
                           <i class="fa fa-cube"></i>
                           <span>Draft PO / Requisition</span>
                       </a>

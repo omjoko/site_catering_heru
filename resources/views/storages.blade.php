@@ -54,9 +54,9 @@
                       <label class="col-sm-2 col-sm-2 control-label">Tipe Penyimpanan</label>
                       <div class="col-sm-10">
                           <select name="tipe" class="form-control">
-                            <option value="0">Kapal Feri</option>
-                            <option value="1">Kapal Diesel</option>
-                            <option value="2">Kapal Tanker</option>
+                            <option value="0">Freezer</option>
+                            <option value="1">Gudang Utama</option>
+                            <option value="2">Gudang Biasa</option>
                           </select>
                       </div>
                   </div>
@@ -94,11 +94,11 @@
                                 {{$storage->nama}}
                               </td>
                                 @if($storage->tipe==0)
-                                  <td><span class="label label-primary label-mini">Kapal Feri</span></td>
+                                  <td><span class="label label-primary label-mini">Freezer</span></td>
                                 @elseif($storage->tipe==1)
-                                  <td><span class="label label-info label-mini">Kapal Diesel</span></td>
+                                  <td><span class="label label-info label-mini">Gudang Utama</span></td>
                                 @elseif($storage->tipe==2)
-                                  <td><span class="label label-inverse label-mini">Kapal Tanker</span></td>
+                                  <td><span class="label label-inverse label-mini">Gudang Biasa</span></td>
                                 @endif
                               <td>
                                   <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{$storage->id_storages}}"><i class="fa fa-pencil"></i></button>
@@ -135,18 +135,18 @@
                           <div class="col-sm-10">
                               <select name="tipe" class="form-control">
                               @if($storage->tipe==0)
-                                <option value="0" selected="">Kapal Feri</option>
-                                <option value="1" >Kapal Diesel</option>
-                                <option value="2" >Kapal Tanker</option>
+                                <option value="0" selected="">Freezer</option>
+                                <option value="1" >Gudang Utama</option>
+                                <option value="2" >Gudang Biasa</option>
 
                               @elseif($storage->tipe==1)
-                                <option value="0" >Kapal Feri</option>
-                                <option value="1" selected="">Kapal Diesel</option>
-                                <option value="2" >Kapal Tanker</option>
+                                <option value="0" >Freezer</option>
+                                <option value="1" selected="">Gudang Utama</option>
+                                <option value="2" >Gudang Biasa</option>
                               @elseif($storage->tipe==2)
-                                <option value="0" >Kapal Feri</option>
-                                <option value="1" >Kapal Diesel</option>
-                                <option value="2" selected="">Kapal Tanker</option>
+                                <option value="0" >Freezer</option>
+                                <option value="1" >Gudang Utama</option>
+                                <option value="2" selected="">Gudang Biasa</option>
                               @endif
                               </select>
                           </div>

@@ -19,8 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+//requiusitions
+Route::get('/requisitions', 'requisitionsController@tampil');
+Route::get('/new-ingredients-requisitions', 'requisitionsController@newIng');
+
 //food-plan
 Route::get('/food-plans', 'foodplansController@dataFP');
+Route::post('/food-plans', 'requisitionsController@tambah');
 Route::put('/food-plans', 'foodplansController@ubah');
 Route::delete('/food-plans', 'foodplansController@hapus');
 

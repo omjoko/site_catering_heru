@@ -8,10 +8,16 @@ use App\voyages;
 use App\pelabuhans;
 use App\kapals;
 use App\menus;
+use App\vendors;
 use URL;
 
 class foodplansController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function editPlan(Request $request)
     {
@@ -23,6 +29,13 @@ class foodplansController extends Controller
         $makanmalams = menus::where('tipe', 2)->get();
         // DD($food_plans);
         return view('foodplans.editform',['food_plans'=>$food_plans,'voyages'=>$voyages, 'pelabuhans'=>$pelabuhans, 'sarapans'=>$sarapans,'makansiangs'=>$makansiangs,'makanmalams'=>$makanmalams]);
+    }
+
+    public static function sedotVendor()
+    {
+        $vendors = vendors::all();
+        // DD($vendors);
+        return $vendors;
     }
 
 	public function dataFP(Request $request)

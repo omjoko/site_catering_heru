@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Requisition extends Migration
+class DetailRequisition extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class Requisition extends Migration
      */
     public function up()
     {
-        Schema::create('requisitions', function (Blueprint $table) {
+        Schema::create('detail_requisitions', function (Blueprint $table) {
             $table->increments('id');
-            $table->longText('deskripsi');
-            $table->integer('vendor')->unsigned();
-            $table->integer('total');
-            $table->tinyInteger('status');
-            $table->integer('id_pelayaran')->unsigned();
+            $table->integer('id_req')->unsigned();
+            $table->integer('id_bahan')->unsigned();
+            $table->integer('jumlah');
+            $table->integer('harga');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +31,6 @@ class Requisition extends Migration
      */
     public function down()
     {
-        Schema::drop('requisitions');
+        Schema::drop('detail_requisitions');
     }
 }
