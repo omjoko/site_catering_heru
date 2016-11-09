@@ -44,14 +44,14 @@
                           <span>Draft PO / Requisition</span>
                       </a>
                   </li>
-                  <li class="{{ Request::is('home') ? 'active' : '' }}">
-                      <a href="home">
+                  <li class="{{ Request::is('invoices') ? 'active' : '' }}">
+                      <a href="invoices">
                           <i class="fa fa-file-text"></i>
                           <span>Invoice</span>
                       </a>
                   </li>                  
-                  <li>
-                      <a href="/">
+                  <li class="{{ Request::is('inventory') ? 'active' : '' }}">
+                      <a href="inventory">
                           <i class="fa fa-sign-out"></i>
                           <span>Inventory Out</span>
                       </a>

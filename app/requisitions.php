@@ -20,4 +20,9 @@ class requisitions extends Model
     {
     	return $this->belongsTo('App\invoices' , 'id_requisitions');
     }
+
+    public function requisitions()
+     {
+        return $this->hasmany('App\inventorys', 'id_req', 'id');
+     }
 }

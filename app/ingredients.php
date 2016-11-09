@@ -35,8 +35,13 @@ class ingredients extends Model
           return $this->hasOne('App\menus', 'minuman', 'id');
      }
 
-     public function ingredients()
+     public function detail_requisitions()
       {
           return $this->belongsTo('App\detail_requisitions', 'id_bahan' , 'id');
-      }      
+      }
+
+      public function inventorys()
+     {
+          return $this->hasOne('App\inventorys', 'id_bahan', 'id');
+     }
 }
