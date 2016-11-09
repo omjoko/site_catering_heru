@@ -168,4 +168,5 @@ Route::delete('/waste', 'WasteController@destroy');
 
 // Laporan
 Route::get('/laporan_requisition', 'LaporanController@laporanRequisition');
+Route::get('/laporan_waste', 'LaporanController@laporanWaste');
 // END Broadwell-23 code
