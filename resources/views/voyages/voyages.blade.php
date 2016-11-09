@@ -40,6 +40,7 @@
                     <thead>
                     <tr>
                         <th style="width: 5%;">No.</th>
+                        <th style="text-align: center;">Nama Pelayaran</th>
                         <th style="text-align: center;">Asal</th>
                         <th style="text-align: center;">Tujuan</th>
                         <th style="text-align: center;">Keberangkatan</th>
@@ -63,6 +64,7 @@
                     ?>                    
                       <tr class="gradeX">
                           <td>{{$no}}</td>
+                          <td>{{$voyage->nama}}</td>
                           <td>
                               @foreach($pelabuhans as $pelabuhan)
                                 @if($pelabuhan->id_pelabuhan==$voyage->rutes['asal'])
@@ -157,35 +159,34 @@
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="id" value="{{ $voyage->id }}">
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Rute</label>
+                    <div class="col-sm-10">
+                        <select name="id_rute" class="form-control">
+                        @foreach($rutes as $rute)
+                            <?php $asal; $tujuan; ?>
+                            @foreach($pelabuhans as $pelabuhan)
+                              @if($pelabuhan->id_pelabuhan==$rute->asal)
+                               {{$asal = $pelabuhan->nama_pelabuhan}}
+                              @endif
+                              @if($pelabuhan->id_pelabuhan==$rute->tujuan)
+                               {{$tujuan = $pelabuhan->nama_pelabuhan}}
+                              @endif
+                            @endforeach
 
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Asal</label>
-                        <div class="col-sm-10">
-                            <select name="asal" class="form-control">
-                            @foreach($pelabuhans as $pelabuhan)
-                                @if($pelabuhan->id_pelabuhan==$voyage->rutes['asal'])
-                                 <option value="{{$pelabuhan->id_pelabuhan}}" selected="">{{$pelabuhan->nama_pelabuhan}}</option>
-                                @else
-                                 <option value="{{$pelabuhan->id_pelabuhan}}">{{$pelabuhan->nama_pelabuhan}}</option>
-                                @endif
-                              @endforeach
-                            </select>
-                        </div>
+                            @if($voyage->id_rute==$rute->id)
+                            <option value="{{$rute->id}}" selected="">
+                              {{$asal}} => {{$tujuan}}
+                            </option>
+                            @else
+                            <option value="{{$rute->id}}" >
+                              {{$asal}} => {{$tujuan}}
+                            </option>
+                            @endif
+                          @endforeach
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Tujuan</label>
-                        <div class="col-sm-10">
-                            <select name="tujuan" class="form-control">
-                            @foreach($pelabuhans as $pelabuhan)
-                                @if($pelabuhan->id_pelabuhan==$voyage->rutes['tujuan'])
-                                 <option value="{{$pelabuhan->id_pelabuhan}}" selected="">{{$pelabuhan->nama_pelabuhan}}</option>
-                                @else
-                                 <option value="{{$pelabuhan->id_pelabuhan}}">{{$pelabuhan->nama_pelabuhan}}</option>
-                                @endif
-                              @endforeach
-                            </select>
-                        </div>
-                    </div>
+                </div>
                     <?php $tgl = date("Y-m-d", strtotime($voyage->keberangkatan)) ?>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Tanggal Berangkat</label>
@@ -198,6 +199,12 @@
                         <label class="col-sm-2 col-sm-2 control-label">Jam Berangkat</label>
                         <div class="col-sm-10">
                             <input type="time" name="jam_keberangkatan" class="form-control" value="{{$jam}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Nama Pelayaran</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="nama" class="form-control" value="{{$voyage->nama}}">
                         </div>
                     </div>
                     <div class="form-group">

@@ -65,9 +65,10 @@
                   <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Estimasi</label>
                       <div class="col-sm-10">
-                          <input type="text" class="form-control" name="est_transit">
+                          <input type="number" class="form-control" name="est_transit">
                       </div>
                   </div>
+                  {{ $rutes->id_rutes }}
   	              <div class="form-group">
   	              		 <span class="pull-right" style="margin-right: 10px;">
   	              		 <button class="btn btn-success" type="submit" data-toggle="modal">
@@ -96,6 +97,7 @@
                           </tr>
                           </thead>
                           <tbody>
+                          <?php $total = array(); ?>
                           @foreach($transits as $no => $transit)
                           <tr>
                               <td>{{ $no+1 }}</td>
@@ -112,9 +114,13 @@
                                   <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $transit->id }}"><i class="fa fa-trash-o "></i></button>
                               </td>
                           </tr>
+                          <?php $total[] = $transit->est_transit;  ?>
                           @endforeach
                           </tbody>
                       </table>                  
+                </div>
+                <div class="pull-right">
+                       <a href="update-rute?id={{$_GET['id']}}&est={{array_sum($total)}}"><button class="btn btn-warning" type="button">Update Estimasi</button></a>
                 </div>
 @foreach($transits as $transit)
 <!-- Modal update -->

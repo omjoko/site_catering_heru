@@ -23,7 +23,8 @@ class voyagesController extends Controller
 		$voyages = voyages::with('rutes')->get();
 		$pelabuhans = pelabuhans::all();
 		$kapals = kapals::all();
-		return view('voyages.voyages' , ['voyages'=>$voyages, 'pelabuhans'=>$pelabuhans, 'kapals'=>$kapals]);
+        $rutes = Rute::all();
+		return view('voyages.voyages' , ['voyages'=>$voyages, 'pelabuhans'=>$pelabuhans, 'kapals'=>$kapals, 'rutes'=>$rutes]);
 	}
 
 	public static function DataTransit($value)
@@ -43,14 +44,12 @@ class voyagesController extends Controller
 
     public function tambah(Request $request)
     {
-    	$id_rute = Rute::where([['asal', $request->asal],['tujuan', $request->tujuan]])->first();
-    	if ($id_rute==null) {
-	    	return redirect('/new-voyages?success=0');
-    	} else {
+    	
     	$tanggal = date("Y-m-d", strtotime($request->tgl_keberangkatan));
     	$keberangkatan= $tanggal." ".$request->jam_keberangkatan;
     	$voyages = new voyages;
-    	$voyages->id_rute = $id_rute->id;
+    	$voyages->id_rute = $request->id_rute;
+        $voyages->nama = $request->nama;
     	$voyages->id_kapal = $request->id_kapal;
     	$voyages->keberangkatan = $keberangkatan;
     	$voyages->eksekutif = $request->eksekutif;
@@ -58,31 +57,27 @@ class voyagesController extends Controller
     	$voyages->ekonomi1 = $request->ekonomi1;
     	$voyages->ekonomi2 = $request->ekonomi2;
     	$voyages->save();
+        return redirect('voyages?success=1');
 
-    	return redirect()->action('voyagesController@DataVoyages');
-    	}
     }
 
     public function ubah(Request $request)
     {
-    	$id_rute = Rute::where([['asal', $request->asal],['tujuan', $request->tujuan]])->first();
-    	if ($id_rute==null) {
-	    	return redirect('/voyages?success=0');
-    	} else {
     	$tanggal = date("Y-m-d", strtotime($request->tgl_keberangkatan));
     	$keberangkatan= $tanggal." ".$request->jam_keberangkatan;
     	$voyages = voyages::find($request->id);
-    	$voyages->id_rute = $id_rute->id;
-    	$voyages->id_kapal = $request->id_kapal;
-    	$voyages->keberangkatan = $keberangkatan;
-		$voyages->eksekutif = $request->eksekutif;
-    	$voyages->bisnis = $request->bisnis;
-    	$voyages->ekonomi1 = $request->ekonomi1;
-    	$voyages->ekonomi2 = $request->ekonomi2;
+    	$voyages->id_rute = $request->id_rute;
+        $voyages->nama = $request->nama;
+        $voyages->id_kapal = $request->id_kapal;
+        $voyages->keberangkatan = $keberangkatan;
+        $voyages->eksekutif = $request->eksekutif;
+        $voyages->bisnis = $request->bisnis;
+        $voyages->ekonomi1 = $request->ekonomi1;
+        $voyages->ekonomi2 = $request->ekonomi2;
     	$voyages->save();
 
-    	return redirect()->action('voyagesController@DataVoyages');
-    	}
+    	return redirect('voyages?success=1');
+    	
     }
 
     public function hapus(Request $request)
@@ -90,6 +85,6 @@ class voyagesController extends Controller
     	$voyages = voyages::find($request->id);
     	$voyages->delete();
 
-    	return redirect()->action('voyagesController@DataVoyages');
+        return redirect('voyages?success=1');
     }
 }

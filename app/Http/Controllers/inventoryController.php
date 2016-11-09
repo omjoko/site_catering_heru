@@ -13,8 +13,9 @@ class inventoryController extends Controller
     {
     	$inventorys = inventorys::with('ingredients.pembelian')->get();
         $ingredients = ingredients::all();
-        $requisitions = requisitions::all();
-        // DD($inventorys);
+        $requisitions = requisitions::where('status', 2)->get();
+
+        // DD($requisitions);
     	return view('inventorys.inventory', ['inventorys'=>$inventorys,'requisitions'=>$requisitions,'ingredients'=>$ingredients]);
     }
 

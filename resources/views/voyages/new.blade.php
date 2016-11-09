@@ -1,19 +1,18 @@
 @extends('layouts.layouts')
 
 @push('css')
-<!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-reset.css" rel="stylesheet">
-<!--external css-->
-<link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 
-<link rel="stylesheet" type="text/css" href="assets/bootstrap-datepicker/css/datepicker.css" />
-<link rel="stylesheet" type="text/css" href="assets/bootstrap-colorpicker/css/colorpicker.css" />
-<link rel="stylesheet" type="text/css" href="assets/bootstrap-daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-timepicker/compiled/timepicker.css" />
 
-<!-- Custom styles for this template -->
-<link href="css/style.css" rel="stylesheet">
-<link href="css/style-responsive.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -34,21 +33,22 @@
                     @endif
 	              <form class="form-horizontal tasi-form" method="post">
 	              <div class="form-group">
-	                  <label class="col-sm-2 col-sm-2 control-label">Asal</label>
+	                  <label class="col-sm-2 col-sm-2 control-label">Rute</label>
 	                  <div class="col-sm-10">
-                        <select name="asal" class="form-control">
-	                      @foreach($pelabuhans as $pelabuhan)
-                            <option value="{{$pelabuhan->id_pelabuhan}}">{{$pelabuhan->nama_pelabuhan}}</option>
-                          @endforeach
-                        </select>
-	                  </div>
-	              </div>
-	              <div class="form-group">
-	                  <label class="col-sm-2 col-sm-2 control-label">Tujuan</label>
-	                  <div class="col-sm-10">
-                        <select class="form-control" name="tujuan">
-                          @foreach($pelabuhans as $pelabuhan)
-                            <option value="{{$pelabuhan->id_pelabuhan}}">{{$pelabuhan->nama_pelabuhan}}</option>
+                        <select name="id_rute" class="form-control">
+                        @foreach($rutes as $rute)
+                            <?php $asal; $tujuan; ?>
+                            @foreach($pelabuhans as $pelabuhan)
+                              @if($pelabuhan->id_pelabuhan==$rute->asal)
+                               {{$asal = $pelabuhan->nama_pelabuhan}}
+                              @endif
+                              @if($pelabuhan->id_pelabuhan==$rute->tujuan)
+                               {{$tujuan = $pelabuhan->nama_pelabuhan}}
+                              @endif
+                            @endforeach
+                            <option value="{{$rute->id}}">
+                              {{$asal}} => {{$tujuan}}
+                            </option>
                           @endforeach
                         </select>
 	                  </div>
@@ -56,13 +56,24 @@
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Tanggal Berangkat</label>
 	                  <div class="col-sm-10">
-                        <input type="date" name="tgl_keberangkatan" class="form-control">
+                        <input type="text" name="tgl_keberangkatan" class="form-control form-control-inline input-medium default-date-picker" size="16">
 	                  </div>
 	              </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Jam Berangkat</label>
                     <div class="col-sm-10">
-                        <input type="time" name="jam_keberangkatan" class="form-control">
+                        <div class="input-group bootstrap-timepicker">
+                            <input type="text" class="form-control timepicker-24" name="jam_keberangkatan">
+                              <span class="input-group-btn">
+                              <button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
+                              </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Nama Pelayaran</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="nama" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
@@ -131,33 +142,29 @@
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="js/jquery.scrollTo.min.js"></script>
     <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="js/respond.min.js" ></script>
+  
+    <!--this page plugins-->
 
-    <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
-    <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
-
-  <!--custom switch-->
-  <script src="js/bootstrap-switch.js"></script>
-  <!--custom tagsinput-->
-  <script src="js/jquery.tagsinput.js"></script>
-  <!--custom checkbox & radio-->
-  <script type="text/javascript" src="js/ga.js"></script>
-
+  <script type="text/javascript" src="assets/fuelux/js/spinner.min.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
   <script type="text/javascript" src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-daterangepicker/date.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-daterangepicker/moment.min.js"></script>
   <script type="text/javascript" src="assets/bootstrap-daterangepicker/daterangepicker.js"></script>
   <script type="text/javascript" src="assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
-  <script type="text/javascript" src="assets/ckeditor/ckeditor.js"></script>
-
-  <script type="text/javascript" src="assets/bootstrap-inputmask/bootstrap-inputmask.min.js"></script>
-  <script src="js/respond.min.js" ></script>
-
+  <script type="text/javascript" src="assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+  <script type="text/javascript" src="assets/jquery-multi-select/js/jquery.multi-select.js"></script>
+  <script type="text/javascript" src="assets/jquery-multi-select/js/jquery.quicksearch.js"></script>
 
   <!--common script for all pages-->
     <script src="js/common-scripts.js"></script>
-
-  <!--script for this page-->
-  <script src="js/form-component.js"></script>
+    <!--this page  script only-->
+    <script src="js/advanced-form-components.js"></script>
 
 @endpush

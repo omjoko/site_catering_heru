@@ -52,6 +52,16 @@ class TransitController extends Controller
         return redirect($url); 
     }
 
+    public function ubahEstimasi(Request $request)
+    {
+        $rute = Rute::find($request->id);
+        $rute->est_rute = $request->est;
+        // DD($rute);
+        $rute->save();
+
+        return redirect()->action('RuteController@index');
+    }
+
     public function destroy(Request $request) {
 
         $transits = Transit::find($request->id_transit);

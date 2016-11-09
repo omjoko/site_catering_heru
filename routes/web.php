@@ -30,7 +30,8 @@ Route::post('/new-invoices', 'invoicesController@tambahInvoices');
 Route::put('/new-invoices', 'invoicesController@ubahInvoices');
 Route::delete('/new-invoices', 'invoicesController@hapusInvoices');
 
-
+//update rute
+Route::get('/update-rute', 'TransitController@ubahEstimasi');
 
 //inventory
 Route::get('/inventory', 'inventoryController@tampil');
