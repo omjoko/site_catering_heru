@@ -54,7 +54,7 @@
                     @foreach($requisitions as $requisition)
                     <?php $no++; ?>
                     <?php 
-                        $DR = requisitionsController::sedot_detail($requisition->id_pelayaran);
+                        $DR = requisitionsController::sedot_detail($requisition->id);
                     ?>                                            
                       <tr class="gradeX">
                           <td>{{$no}}</td>
@@ -110,8 +110,12 @@
                           <td>
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $requisition->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $requisition->id }}"><i class="fa fa-trash-o "></i></button>
+                            <button class="btn btn-warning btn-xs" data-toggle="modal" href="#modalStatus{{ $requisition->id }}"><i class="fa fa-pencil "></i> Status</button>
                             <a href="/new-food-plans?id={{ $requisition->id }}"><button class="btn btn-success btn-xs"><i class="fa fa-star"></i> Invoices</button></a>
-                            <a href="/new-ingredients-requisitions?id={{ $requisition->id_pelayaran }}"><button class="btn btn-success btn-xs" style="background-color: blue;"><i class="fa fa-plus"></i> Bahan</button></a>
+                            @if($requisition->status==2)
+                              <a href="/new-food-plans?id={{ $requisition->id }}"><button class="btn btn-success btn-xs" style="background-color: orange;"><i class="fa fa-print"></i> Cetak</button></a>
+                            @endif
+                            <a href="/new-ingredients-requisitions?id={{ $requisition->id }}&id_pelayaran={{ $requisition->id_pelayaran }}"><button class="btn btn-success btn-xs" style="background-color: blue;"><i class="fa fa-plus"></i> Bahan</button></a>
                           </td>
 
                       </tr>
@@ -201,6 +205,48 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /END modal Hapus -->
+
+      <!-- Modal status -->
+    <div class="modal fade" id="modalStatus{{ $requisition->id }}" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header alert alert-warning">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Ubah Status</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form" method="POST">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id" value="{{ $requisition->id }}">
+
+                <div class="form-group">
+                    <select name="status" class="form-control">
+                    @if($requisition->status==0)
+                      <option value="0" selected="">Menunggu</option>
+                      <option value="1">Revisi</option>
+                      <option value="2">Diterima</option>
+                    @elseif($requisition->status==1)
+                      <option value="0">Menunggu</option>
+                      <option value="1" selected="">Revisi</option>
+                      <option value="2">Diterima</option>
+                    @elseif($requisition->status==2)
+                      <option value="0">Menunggu</option>
+                      <option value="1">Revisi</option>
+                      <option value="2" selected="">Diterima</option>
+                    @endif
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </div>
+            </form>
+          </div>
+          
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /END modal status -->
 <!-- END MODAL COLLECTIONS -->
 @endforeach
 @endsection

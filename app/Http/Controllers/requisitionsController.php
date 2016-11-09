@@ -16,8 +16,8 @@ class requisitionsController extends Controller
 
 	public function dataBahan(Request $request)
 	{
-		$requisitions = requisitions::with('voyages.rutes')->where('id_pelayaran', $request->id)->first();
-		$rv = requisitions::with('vendors')->where('id_pelayaran', $request->id)->first();
+		$requisitions = requisitions::with('voyages.rutes')->where('id_pelayaran', $request->id_pelayaran)->first();
+		$rv = requisitions::with('vendors')->where('id_pelayaran', $request->id_pelayaran)->first();
 		$pelabuhans = pelabuhans::all();
 		$detail_requisitions = detail_requisitions::with('ingredients.pembelian')->where('id_req', $request->id)->get();
 		$ingredients = ingredients::with('pembelian')->get();
@@ -28,7 +28,7 @@ class requisitionsController extends Controller
 	public function tambahBahan(Request $request)
 	{
 		$detail_requisitions = new detail_requisitions;
-		$detail_requisitions->id_req = $request->id;
+		$detail_requisitions->id_req = $request->id_req;
 		$detail_requisitions->id_bahan = $request->id_bahan;
 		$detail_requisitions->jumlah = $request->jumlah;
 		$detail_requisitions->harga = $request->harga;
@@ -99,6 +99,15 @@ class requisitionsController extends Controller
     	$requisitions = requisitions::find($request->id);
     	$requisitions->deskripsi = $request->deskripsi;
     	$requisitions->vendor = $request->vendor;
+    	$requisitions->save();
+
+    	return redirect('/requisitions?success=0');
+    }
+
+    public function ubahstatus(Request $request)
+    {
+    	$requisitions = requisitions::find($request->id);
+    	$requisitions->status = $request->status;
     	$requisitions->save();
 
     	return redirect('/requisitions?success=0');

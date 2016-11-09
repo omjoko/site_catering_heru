@@ -21,6 +21,7 @@ Route::get('/home', 'HomeController@index');
 
 //requiusitions
 Route::get('/requisitions', 'requisitionsController@tampil');
+Route::post('/requisitions', 'requisitionsController@ubahstatus');
 Route::put('/requisitions', 'requisitionsController@ubah');
 Route::delete('/requisitions', 'requisitionsController@hapus');
 
