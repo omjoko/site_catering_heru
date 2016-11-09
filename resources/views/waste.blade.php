@@ -38,6 +38,8 @@
                         <th>Jenis</th>
                         <th>Berat</th>
                         <th></th>
+                        <th hidden=""></th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -56,6 +58,44 @@
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $waste->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $waste->id }}"><i class="fa fa-trash-o "></i></button>
                         </td>
+                        <td hidden="">
+                          <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="pull-left">
+                            <tr>
+                              <td colspan="2"><b><u>PELAYARAN</u></b></d>
+                            </tr>
+                            <tr>
+                              <th style="text-align:center;">Asal</th>
+                              <th style="text-align:center;">Tujuan</th>
+                            </tr>
+                              @foreach($voyages as $voyage)
+                              @if($waste->id_voyages==$voyage->id)
+                              <tr style="text-align:left;">
+                                <td>
+                                    @foreach($pelabuhans as $pelabuhan)
+                                      @if($pelabuhan->id_pelabuhan==$voyage->asal)
+                                       {{ $pelabuhan->nama_pelabuhan }}
+                                      @endif
+                                    @endforeach   
+                                </td>
+                                <td>
+                                    @foreach($pelabuhans as $pelabuhan)
+                                      @if($pelabuhan->id_pelabuhan==$voyage->tujuan)
+                                       {{ $pelabuhan->nama_pelabuhan }}
+                                      @endif
+                                    @endforeach 
+                                </td>
+                                <td>
+                                  {{ $voyage->keberangkatan }}
+                                </td>
+                                <td>
+                                  {{ $voyage->nama_kapal }}
+                                </td>
+                              </tr>
+                              @endif
+                              @endforeach
+                          </table>
+                        </td>             
+                        
                     </tr>
                     @endforeach
                     </tbody>
@@ -115,56 +155,62 @@
                     <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Pelayaran</label>
                         <div class="col-sm-10">
-                          <table class="display table table-bordered table-hover">
-                             <thead>
-                                 <tr>
-                                     <th>No</th>
-                                     <th>Asal</th>
-                                     <th>Tujuan</th>
-                                     <th>Keberangkatan</th>
-                                     <th>Kapal</th>
-                                 </tr>
-                             </thead>
-                             <tbody>
-                                 @foreach($voyages as $no => $voyage)
-                                 <tr>
-                                     <td>
-                                       <div class="radio">
-                                           <label><input type="radio" id='regular' name="id_voyages">{{ $no+1 }}</label>
-                                       </div>
-                                     </td>
-                                     <td>
-                                       <div class="radiotext">
-                                           <label for='regular'>
-                                              @foreach($pelabuhans as $pelabuhan)
-                                                @foreach($rutes as rute)
-                                                  @if($pelabuhan->id_pelabuhan==$voyage->rute['asal'])
+                          <div class="adv-table">
+                            <table class="display table table-bordered table-hover">
+                               <thead>
+                                   <tr>
+                                       <th>No</th>
+                                       <th>Asal</th>
+                                       <th>Tujuan</th>
+                                       <th>Keberangkatan</th>
+                                       <th>Kapal</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                   @foreach($voyages as $no => $voyage)
+                                   <tr>
+                                       <td>
+                                         <div class="radio">
+                                             <label><input type="radio" id='regular' name="id_voyages" value="{{ $voyage->id }}">{{ $no+1 }}</label>
+                                         </div>
+                                       </td>
+                                       <td>
+                                         <div class="radiotext">
+                                             <label for='regular'>
+                                                @foreach($pelabuhans as $pelabuhan)
+                                                  @if($pelabuhan->id_pelabuhan==$voyage->asal)
                                                    {{ $pelabuhan->nama_pelabuhan }}
                                                   @endif
                                                 @endforeach
-                                              @endforeach
-                                           </label>
-                                       </div>
-                                     </td>
-                                     <td>
-                                       <div class="radiotext">
-                                           <label for='regular'>Jakarta</label>
-                                       </div>
-                                     </td>
-                                     <td>
-                                       <div class="radiotext">
-                                           <label for='regular'>2016-11-09 01:05:00</label>
-                                       </div>
-                                     </td>
-                                     <td>
-                                       <div class="radiotext">
-                                           <label for='regular'>Lauser</label>
-                                       </div>
-                                     </td>
-                                 </tr>
-                                 @endforeach
-                             </tbody>
-                          </table>
+                                             </label>
+                                         </div>
+                                       </td>
+                                       <td>
+                                         <div class="radiotext">
+                                             <label for='regular'>
+                                               @foreach($pelabuhans as $pelabuhan)
+                                                  @if($pelabuhan->id_pelabuhan==$voyage->tujuan)
+                                                   {{ $pelabuhan->nama_pelabuhan }}
+                                                  @endif
+                                                @endforeach
+                                             </label>
+                                         </div>
+                                       </td>
+                                       <td>
+                                         <div class="radiotext">
+                                             <label for='regular'>{{ $voyage->keberangkatan }}</label>
+                                         </div>
+                                       </td>
+                                       <td>
+                                         <div class="radiotext">
+                                             <label for='regular'>{{ $voyage->nama_kapal }}</label>
+                                         </div>
+                                       </td>
+                                   </tr>
+                                   @endforeach
+                               </tbody>
+                            </table>
+                          </div>
                         </div>
                     </div>
 
@@ -245,6 +291,67 @@
                           <div class="input-group">
                             <input name="berat" type="number" placeholder="" class="form-control" required="" value="{{ $waste->berat }}">
                             <div class="input-group-addon">Kg</div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-2 col-sm-2 control-label">Pelayaran</label>
+                        <div class="col-sm-10">
+                          <div class="adv-table">
+                            <table class="display table table-bordered table-hover">
+                               <thead>
+                                   <tr>
+                                       <th>No</th>
+                                       <th>Asal</th>
+                                       <th>Tujuan</th>
+                                       <th>Keberangkatan</th>
+                                       <th>Kapal</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                   @foreach($voyages as $no => $voyage)
+                                   <tr>
+                                       <td>
+                                         <div class="radio">
+                                             <label><input type="radio" id='regular' name="id_voyages" value="{{ $voyage->id }}">{{ $no+1 }}</label>
+                                         </div>
+                                       </td>
+                                       <td>
+                                         <div class="radiotext">
+                                             <label for='regular'>
+                                                @foreach($pelabuhans as $pelabuhan)
+                                                  @if($pelabuhan->id_pelabuhan==$voyage->asal)
+                                                   {{ $pelabuhan->nama_pelabuhan }}
+                                                  @endif
+                                                @endforeach
+                                             </label>
+                                         </div>
+                                       </td>
+                                       <td>
+                                         <div class="radiotext">
+                                             <label for='regular'>
+                                               @foreach($pelabuhans as $pelabuhan)
+                                                  @if($pelabuhan->id_pelabuhan==$voyage->tujuan)
+                                                   {{ $pelabuhan->nama_pelabuhan }}
+                                                  @endif
+                                                @endforeach
+                                             </label>
+                                         </div>
+                                       </td>
+                                       <td>
+                                         <div class="radiotext">
+                                             <label for='regular'>{{ $voyage->keberangkatan }}</label>
+                                         </div>
+                                       </td>
+                                       <td>
+                                         <div class="radiotext">
+                                             <label for='regular'>{{ $voyage->nama_kapal }}</label>
+                                         </div>
+                                       </td>
+                                   </tr>
+                                   @endforeach
+                               </tbody>
+                            </table>
                           </div>
                         </div>
                     </div>
@@ -335,9 +442,8 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+      var sOut = ''+aData[6]+'';
 
-      sOut += '</table>';
 
       return sOut;
   }
