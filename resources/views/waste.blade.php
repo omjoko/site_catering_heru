@@ -21,13 +21,18 @@
           	</header>
           	<div class="panel-body">
               <div class="container-fluid">
-                  <div class="container-fluid">
+                <div class="container-fluid">
                   <span class="pull-right">
                     <button class="btn btn-success" data-toggle="modal" href="#modalTambah" >
                       <span class="fa fa-plus-circle"></span> Tambah Data
                     </button>
+                    <a href="/laporan_waste">
+                      <button class="btn btn-info" data-toggle="modal" href="#modalCetak" >
+                        <span class="fa fa-print"></span> Cetak Laporan
+                      </button>
+                    </a>
                   </span>
-              </div>
+                </div>
               </div>
               <div class="adv-table">
                 <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered table-striped table-advance table-hover" id="hidden-table-info">
@@ -66,7 +71,8 @@
                             <tr>
                               <th style="text-align:center;">Asal</th>
                               <th style="text-align:center;">Tujuan</th>
-                            </tr>
+                              <th style="text-align:center;">Keberangkatan</th>
+                              <th style="text-align:center;">Nama Kapal
                               @foreach($voyages as $voyage)
                               @if($waste->id_voyages==$voyage->id)
                               <tr style="text-align:left;">
