@@ -15,6 +15,8 @@ Inventory Out
         <th>Satuan</th>
         <th>Tanggal</th>
         <th>No.Rekuisisi</th>
+        <th>Nama Gudang</th>
+
     </tr>
     </thead>
     <tbody>
@@ -28,6 +30,12 @@ Inventory Out
         <td>{{ $inventory->ingredients->pembelian['satuan']}}</td>
         <td>{{ $inventory->created_at }}</td>
         <td>R{{ $inventory->id_req }}</td>
+        <td>@foreach($storages as $storage)
+                            @if($inventory->gudang==$storage->id_storages)
+                              {{$storage->nama}}
+                            @endif
+                          @endforeach</td>
+
     </tr>
     @endforeach
     </tbody>

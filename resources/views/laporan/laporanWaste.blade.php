@@ -19,6 +19,7 @@ Jumlah Sampah
         <th>Nama Kapal</th>
         <th>Total Sampah</th>
     </tr>
+    <?php $totals0 = array(); ?>
     @foreach($wastes as $no => $waste)
     @foreach($voyages as $voyage)
       @if($waste->id_voyages==$voyage->id&&$waste->jenis_sampah==1)
@@ -69,6 +70,7 @@ Jumlah Sampah
         <th>Nama Kapal</th>
         <th>Total Sampah</th>
     </tr>
+    <?php $totals1 = array(); ?>
     @foreach($wastes as $no => $waste)
     @foreach($voyages as $voyage)
       @if($waste->id_voyages==$voyage->id&&$waste->jenis_sampah==2)

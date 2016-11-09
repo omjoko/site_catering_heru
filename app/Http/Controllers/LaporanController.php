@@ -13,6 +13,8 @@ use DB;
 use App\requisitions;
 use App\vendors;
 use App\inventorys;
+use App\storages;
+
 
 
 class LaporanController extends Controller
@@ -64,8 +66,10 @@ class LaporanController extends Controller
     public function laporanInventory(Request $request)
     {
     	$inventorys = inventorys::with('ingredients.pembelian')->get();
+        $storages = storages::all();
 
-        $view = View::make('laporan.laporanInventory', array('inventorys'=>$inventorys,'i' => 0))->render();
+
+        $view = View::make('laporan.laporanInventory', array('inventorys'=>$inventorys,'storages'=>$storages,'i' => 0))->render();
 
         $pdf = App::make('dompdf.wrapper');
 		// set ukuran kertas dan orientasi

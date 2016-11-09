@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\inventorys;
 use App\ingredients;
 use App\requisitions;
+use App\storages;
 
 class inventoryController extends Controller
 {
@@ -18,10 +19,11 @@ class inventoryController extends Controller
     {
     	$inventorys = inventorys::with('ingredients.pembelian')->get();
         $ingredients = ingredients::all();
+        $storages = storages::all();
         $requisitions = requisitions::where('status', 2)->get();
 
         // DD($requisitions);
-    	return view('inventorys.inventory', ['inventorys'=>$inventorys,'requisitions'=>$requisitions,'ingredients'=>$ingredients]);
+    	return view('inventorys.inventory', ['inventorys'=>$inventorys,'requisitions'=>$requisitions,'ingredients'=>$ingredients, 'storages'=>$storages]);
     }
 
     public function tambah(Request $request)
@@ -30,6 +32,7 @@ class inventoryController extends Controller
     	$inventorys->id_bahan = $request->id_bahan;
     	$inventorys->jumlah = $request->jumlah;
         $inventorys->id_req = $request->id_req;
+        $inventorys->gudang = $request->gudang;
     	$inventorys->save();
 
         return redirect()->action('inventoryController@tampil');
@@ -41,6 +44,7 @@ class inventoryController extends Controller
     	$inventorys->id_bahan = $request->id_bahan;
     	$inventorys->jumlah = $request->jumlah;
         $inventorys->id_req = $request->id_req;
+        $inventorys->gudang = $request->gudang;
     	$inventorys->save();
 
         return redirect()->action('inventoryController@tampil');
