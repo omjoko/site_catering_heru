@@ -8,6 +8,7 @@ use App\voyages;
 use App\pelabuhans;
 use App\kapals;
 use App\menus;
+use App\recipes;
 use App\vendors;
 use URL;
 
@@ -17,6 +18,20 @@ class foodplansController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public static function sedotMenu($value){
+
+        $menus = menus::with('resep')->where('id', $value)->first();
+        // DD($menus);
+        return $menus;
+    }
+
+    public static function sedotResep($value){
+
+        $recipes = recipes::where('ids', $value)->first();
+        // DD($recipes);
+        return $recipes;
     }
 
     public function editPlan(Request $request)

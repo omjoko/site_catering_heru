@@ -21,7 +21,7 @@ class invoicesController extends Controller
         $invoices = invoices::with('req')->get();
         $invens = invoices::with('vendor')->get();
         $vendors = vendors::all();
-        $reqs = requisitions::all();
+        $reqs = requisitions::where('status', 2)->get();
         return view('invoices.invoice',['invoices'=>$invoices, 'invens'=>$invens, 'vendors'=>$vendors, 'reqs'=>$reqs]);
     }
 
