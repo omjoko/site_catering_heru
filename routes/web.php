@@ -19,6 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+//inventory
+Route::get('/inventory', 'inventoryController@tampil');
+Route::post('/inventory', 'inventoryController@tambah');
+Route::put('/inventory', 'inventoryController@ubah');
+Route::delete('/inventory', 'inventoryController@hapus');
+
+
 //requiusitions
 Route::get('/requisitions', 'requisitionsController@tampil');
 Route::post('/requisitions', 'requisitionsController@ubahstatus');

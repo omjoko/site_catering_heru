@@ -13,7 +13,13 @@ class InventoryOut extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('inventorys', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('id_bahan');
+            $table->integer('jumlah');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class InventoryOut extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('inventorys');
     }
 }
