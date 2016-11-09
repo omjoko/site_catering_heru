@@ -15,4 +15,16 @@ class invoices extends Model
      {
           return $this->hasMany('App\detail_invoices', 'id_invoices', 'id');
      }
+
+     public function req()
+     {
+          return $this->hasOne('App\requisitions', 'id', 'id_requisitions');
+     }
+
+     public function vendor()
+    {
+     return $this->belongsTo('App\invoices' , 'id');
+    }
+
+
 }

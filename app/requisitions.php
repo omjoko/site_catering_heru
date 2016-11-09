@@ -15,4 +15,9 @@ class requisitions extends Model
     {
     	return $this->belongsTo('App\voyages' , 'id_pelayaran');
     }
+
+    public function invoices()
+    {
+    	return $this->belongsTo('App\invoices' , 'id_requisitions');
+    }
 }

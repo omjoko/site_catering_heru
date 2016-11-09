@@ -10,7 +10,7 @@ class inventoryController extends Controller
     public function tampil(Request $request)
     {
     	$inventorys = inventorys::all();
-    	return view();
+    	return view('');
     }
 
     public function tambah(Request $$request)

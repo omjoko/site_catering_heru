@@ -19,6 +19,19 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+//invoice
+Route::get('/invoices', 'invoicesController@tampil');
+Route::post('/invoices', 'invoicesController@tambah');
+Route::put('/invoices', 'invoicesController@ubah');
+Route::delete('/invoices', 'invoicesController@hapus');
+
+Route::get('/new-invoices', 'invoicesController@tampilInvoices');
+Route::post('/new-invoices', 'invoicesController@tambahInvoices');
+Route::put('/new-invoices', 'invoicesController@ubahInvoices');
+Route::delete('/new-invoices', 'invoicesController@hapusInvoices');
+
+
+
 //inventory
 Route::get('/inventory', 'inventoryController@tampil');
 Route::post('/inventory', 'inventoryController@tambah');
@@ -56,12 +69,6 @@ Route::delete('/voyages', 'voyagesController@hapus');
 
 Route::get('/new-voyages', 'voyagesController@DataNew');
 Route::post('/new-voyages', 'voyagesController@tambah');
-
-//invoice
-Route::get('/invoices', 'invoicesController@index');
-Route::post('/invoices', 'invoicesController@store');
-Route::put('/invoices', 'invoicesController@update');
-Route::delete('/invoices', 'invoicesController@destroy');
 
 //menu
 Route::get('/menus', 'menusController@sedotDataMenu');

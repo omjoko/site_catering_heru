@@ -10,4 +10,10 @@ class vendors extends Model
     {
     	return $this->hasone('App\vendors' , 'vendor' , 'id');
     }
+
+    
+    public function invoice()
+     {
+     	return $this->hasOne('App\vendors' , 'toko', 'id');
+     }
 }

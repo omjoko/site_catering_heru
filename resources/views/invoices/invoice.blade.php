@@ -17,7 +17,7 @@
     <div class="col-lg-12">
         <section class="panel">
            <header class="panel-heading">
-                Manajemen Menu
+                Manajemen Tagihan
             </header>
             <div class="panel-body">
               <div class="container-fluid">
@@ -28,89 +28,80 @@
                   </span>
               </div>
               <div class="adv-table">
-                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info" style="text-align: center;">
+                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info"  style="text-align: center;">
                     <thead>
                     <tr>
                         <th style="width: 5%;">No.</th>
-                        <th style="text-align: center;">Nama Menu</th>
-                        <th style="text-align: center;">Tipe Menu</th>
-                        <th style="text-align: center;"></th>
-                        <th hidden=""></th>
-                        <th hidden=""></th>
-                        <th hidden=""></th>
+                        <th style="width: 5%;">No. Invoice</th>
+                        <th  style="text-align: center;">Tanggal</th>
+                        <th  style="text-align: center;">No. Rekuisisi</th>
+                        <th  style="text-align: center;">Vendor</th>
+                        <th></th>
                         <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0;?>
-                    @foreach($menus as $menu)
+                    <?php $no = 0; use App\Http\Controllers\invoicesController;?>
+                    @foreach($invoices as $invoice)
                     <?php $no++; ?>
-                      <tr class="gradeX">
-                          <td>{{$no}}</td>
-                          <td>{{$menu->nama}}</td>
-                          <td>
-                              @if($menu->tipe == 0)
-                              <span class="label label-danger label-mini"> Sarapan</span>
-                              @elseif($menu->tipe==1)
-                              <span class="label label-warning label-mini"> Makan Siang</span>
-                              @elseif($menu->tipe==2)
-                              <span class="label label-success label-mini"> Makan Malam</span>
-                              @endif
-                          </td>
-                          <td>
-                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $menu->id }}"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $menu->id }}"><i class="fa fa-trash-o "></i></button>
-                          </td>
-                          <td hidden="">
-                                @foreach($menu_pembukas as $menu_pembuka)
-                                    @if($menu->menu_pembuka==$menu_pembuka->id)
-                                        {{$menu_pembuka->nama}}
-                                    @endif
-                                @endforeach                                
-                          </td>
-                          <td hidden="">
-                                @foreach($menu_utamas as $menu_utama)
-                                    @if($menu->menu_utama==$menu_utama->id)
-                                        {{$menu_utama->nama}}
-                                    @endif
-                                @endforeach                                
-                          </td>
-                          <td hidden="">
-                                @foreach($menu_penutups as $menu_penutup)
-                                    @if($menu->menu_penutup==$menu_penutup->id)
-                                        {{$menu_penutup->nama}}
-                                    @endif
-                                @endforeach                                
-                          </td>
-                          <td hidden="">
-                                @foreach($minumans as $minuman)
-                                    @if($menu->minuman==$minuman->id)
-                                    {{$minuman->nama}}
-                                    @endif
-                                @endforeach
-                                @foreach($minuman_bahan as $minumanbahan)
-                                    @if($menu->minuman==$minumanbahan->id)
-                                    {{$minumanbahan->nama}}
-                                    @endif
-                                @endforeach                              
-                          </td>
-                      </tr>
+                    <?php 
+                        $details = invoicesController::sedotDetail($invoice->id);
+                    ?>
+                    <tr>
+                        <td>{{$no}}</td>
+                        <td>H{{$invoice->id}}</td>
+                        <td>{{$invoice->created_at}}</td>
+                        <td>R{{$invoice->req['id']}}</td>
+                        <td>
+                          @foreach($vendors as$vendor)
+                            @if($invoice->toko==$vendor->id)
+                              {{$vendor->nama_vendor}}
+                            @endif
+                          @endforeach
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $invoice->id }}"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $invoice->id }}"><i class="fa fa-trash-o "></i></button>
+                            <a href="new-invoices?id={{$invoice->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Barang</button></a>
+                        </td>
+                        <td hidden="">
+                          <table class="table table-striped">
+                            <tr>
+                              <th  style="text-align: center;">No.</th>
+                              <th  style="text-align: center;">Nama Barang</th>
+                              <th  style="text-align: center;">Harga</th>
+                              <th  style="text-align: center;">Satuan</th>
+                              <th  style="text-align: center;">Banyak</th>
+                              <th  style="text-align: center;">Total</th>
+                            </tr>
+                            <?php $no_var = 0; ?>
+                            @foreach($details as $detail)
+                            <?php $no_var++; ?>
+                                <tr>
+                                  <td>{{$no_var}}</td>
+                                  <td>{{$detail->nama_barang}}</td>
+                                  <td>{{$detail->harga}}</td>
+                                  <td>{{$detail->satuan}}</td>
+                                  <td>{{$detail->banyak}}</td>
+                                  <?php $total = $detail->banyak*$detail->harga; ?>
+                                  <td>{{$total}}</td>
+                                </tr>
+                            @endforeach
+                          </table>
+                        </td>
+                    </tr>
                     @endforeach
                     </tbody>
                 </table>
               </div>
-            </div>
-        </section>
-    </div>
-</div>
 
- <!-- Modal tambah -->
+  <!-- Modal tambah -->
   <div class="modal fade" id="modalTambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Tambah Menu</h4>
+                  <h4 class="modal-title">Tambah Tagihan</h4>
               </div>
               <div class="modal-body">
 
@@ -118,67 +109,27 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Nama Menu</label>
+                        <label class="col-sm-2 col-sm-2 control-label">Nama Vendor</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nama" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Tipe Menu</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" name="tipe" required="">
-                              <option value="0">Sarapan</option>
-                              <option value="1">Makan Siang</option>                          
-                              <option value="2">Makan Malam</option>                          
+                            <select name="toko" class="form-control">
+                            @foreach($vendors as $vendor)
+                              <option value="{{$vendor->id}}">{{$vendor->nama_vendor}}</option>
+                            @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Menu Pembuka</label>
+                        <label class="col-sm-2 col-sm-2 control-label">No. Requisition</label>
                         <div class="col-sm-10">
-                            <select name="menu_pembuka" class="form-control">
-                                @foreach($menu_pembukas as $menu_pembuka)
-                                    <option value="{{$menu_pembuka->id}}">{{$menu_pembuka->nama}}</option>
-                                @endforeach
+                            <select name="id_req" class="form-control">
+                            @foreach($reqs as $req)
+                              <option value="{{$req->id}}">R{{$req->id}}</option>
+                            @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Menu Utama</label>
-                        <div class="col-sm-10">
-                            <select name="menu_utama" class="form-control">
-                                @foreach($menu_utamas as $menu_utama)
-                                    <option value="{{$menu_utama->id}}">{{$menu_utama->nama}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Menu Penutup</label>
-                        <div class="col-sm-10">
-                            <select name="menu_penutup" class="form-control">
-                                @foreach($menu_penutups as $menu_penutup)
-                                    <option value="{{$menu_penutup->id}}">{{$menu_penutup->nama}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Minuman</label>
-                        <div class="col-sm-10">
-                            <select name="minuman" class="form-control">
-                                @foreach($minumans as $minuman)
-                                    <option value="{{$minuman->id}}">{{$minuman->nama}}</option>
-                                @endforeach
-                                @foreach($minuman_bahan as $minumanbahan)
-                                    <option value="{{$minumanbahan->id}}">{{$minumanbahan->nama}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-info">Ubah</button>
+                        <button type="submit" class="btn btn-info">Tambah</button>
                     </div>
                 </form>
               </div>
@@ -187,113 +138,50 @@
   </div>
   <!-- END modal tambah-->
 
-@foreach($menus as $menu)
- <!-- Modal update -->
-  <div class="modal fade" id="modalUbah{{ $menu->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+@foreach($invoices as $invoice)
+  <!-- Modal update -->
+  <div class="modal fade" id="modalUbah{{ $invoice->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Ubah Menu</h4>
+                  <h4 class="modal-title">Ubah Tagihan</h4>
               </div>
               <div class="modal-body">
 
                 <form action="#" class="form-horizontal" method="POST" >
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <input type="hidden" name="id" value="{{ $menu->id }}">
+                    <input type="hidden" name="id" value="{{ $invoice->id }}">
 
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Nama Menu</label>
+                        <label class="col-sm-2 col-sm-2 control-label">Nama Vendor</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nama" class="form-control" value="{{ $menu->nama }}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Tipe Menu</label>
-                        <div class="col-sm-10">
-                            <select class="form-control" name="tipe" required="">
-                            @if($menu->tipe==0)
-                              <option value="0" selected="">Sarapan</option>
-                              <option value="1">Makan Siang</option>                          
-                              <option value="2">Makan Malam</option>                          
-                            @elseif($menu->tipe==1)
-                              <option value="0">Sarapan</option>
-                              <option value="1" selected="">Makan Siang</option>                          
-                              <option value="2">Makan Malam</option> 
-                            @elseif($menu->tipe==2)
-                              <option value="0">Sarapan</option>
-                              <option value="1">Makan Siang</option>                          
-                              <option value="2" selected="">Makan Malam</option> 
-                            @endif
+                            <select name="toko" class="form-control">
+                            @foreach($vendors as $vendor)
+                              @if($vendor->id==$invoice->toko)
+                              <option value="{{$vendor->id}}" selected="">{{$vendor->nama_vendor}}</option>
+                              @else
+                              <option value="{{$vendor->id}}">{{$vendor->nama_vendor}}</option>
+                              @endif
+                            @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Menu Pembuka</label>
+                        <label class="col-sm-2 col-sm-2 control-label">No. Requisition</label>
                         <div class="col-sm-10">
-                            <select name="menu_pembuka" class="form-control">
-                                @foreach($menu_pembukas as $menu_pembuka)
-                                    @if($menu->menu_pembuka==$menu_pembuka->id)
-                                        <option value="{{$menu_pembuka->id}}" selected="">{{$menu_pembuka->nama}}</option>
-                                    @else
-                                        <option value="{{$menu_pembuka->id}}" >{{$menu_pembuka->nama}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>                    
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Menu Utama</label>
-                        <div class="col-sm-10">
-                            <select name="menu_utama" class="form-control">
-                                @foreach($menu_utamas as $menu_utama)
-                                    @if($menu->menu_utama==$menu_penutup->id)
-                                        <option value="{{$menu_utama->id}}" selected="">{{$menu_utama->nama}}</option>
-                                    @else
-                                        <option value="{{$menu_utama->id}}" >{{$menu_utama->nama}}</option>
-                                    @endif
-                                @endforeach
+                            <select name="id_req" class="form-control">
+                            @foreach($reqs as $req)
+                            @if($req->id==$invoice->id_requisitions)
+                              <option value="{{$req->id}}" selected="">R{{$req->id}}</option>
+                            @else
+                              <option value="{{$req->id}}" >R{{$req->id}}</option>
+                            @endif  
+                            @endforeach
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Menu Penutup</label>
-                        <div class="col-sm-10">
-                            <select name="menu_penutup" class="form-control">
-                                @foreach($menu_penutups as $menu_penutup)
-                                    @if($menu->menu_penutup==$menu_penutup->id)
-                                        <option value="{{$menu_penutup->id}}" selected="">{{$menu_penutup->nama}}</option>
-                                    @else
-                                        <option value="{{$menu_penutup->id}}" >{{$menu_penutup->nama}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Minuman</label>
-                        <div class="col-sm-10">
-                            <select name="minuman" class="form-control">
-                                @foreach($minumans as $minuman)
-                                    @if($menu->minuman==$minuman->id)
-                                    <option value="{{$minuman->id}}" selected="">{{$minuman->nama}}</option>
-                                    @else()
-                                    <option value="{{$minuman->id}}" >{{$minuman->nama}}</option>
-                                    @endif
-                                @endforeach
-                                @foreach($minuman_bahan as $minumanbahan)
-                                @if($menu->minuman==$minumanbahan->id)
-                                    <option value="{{$minumanbahan->id}}" selected="">{{$minumanbahan->nama}}</option>
-                                    @else
-                                    <option value="{{$minumanbahan->id}}">{{$minumanbahan->nama}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-info">Ubah</button>
                     </div>
@@ -305,7 +193,7 @@
   <!-- END modal update-->
 
   <!-- Modal Hapus -->
-    <div class="modal fade" id="modalHapus{{ $menu->id }}" tabindex="-1" role="dialog">
+    <div class="modal fade" id="modalHapus{{ $invoice->id }}" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header alert alert-danger" style="background-color: red;">
@@ -316,10 +204,10 @@
             <form class="form-horizontal" role="form" method="POST">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="hidden" name="id" value="{{ $menu->id }}">
+                <input type="hidden" name="id" value="{{ $invoice->id }}">
 
                 <center>
-                    <p>Apakah anda yakin ingin menghapus Menu : <b>{{ $menu->nama }}</b>?</p>
+                    <p>Apakah anda yakin ingin menghapus bahan : <b>H{{ $invoice->id }}</b>?</p>
                 </center>
 
                 <div class="modal-footer">
@@ -332,8 +220,13 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /END modal Hapus -->
+  @endforeach
 <!-- END MODAL COLLECTIONS -->
-@endforeach
+
+            </div>
+        </section>
+    </div>
+</div>
 @endsection
 
 @push('js')
@@ -372,19 +265,14 @@
 
 <!--common script for all pages-->
 <script src="js/common-scripts.js"></script>
+
 <script type="text/javascript">
+
   /* Formating function for row details */
-  function fnFormatDetails ( oTable, nTr )
+  function fnFormatDetails ( oTable, nTr, id_bahan )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-      sOut += '<tr><th colspan="3" style="text-align:center;">Isi Menu</th></tr>';
-      sOut += '<tr style="text-align:left;"><td>Menu Pembuka</td><td>:</td<<td"> <strong>'+aData[5]+'</strong> </td></tr>';
-      sOut += '<tr style="text-align:left;"><td>Menu Utama</td><td>:</td<td"> <strong>'+aData[6]+'</strong> </td></tr>';
-      sOut += '<tr style="text-align:left;"><td>Menu Penutup</td><td>:</td<td"> <strong>'+aData[7]+'</strong> </td></tr>';
-      sOut += '<tr style="text-align:left;"><td>Minuman</td><td>:</td<td"> <strong>'+aData[8]+'</strong> </td></tr>';
-      sOut += '</table>';
-
+      var sOut = aData[7];
       return sOut;
   }
 
@@ -399,6 +287,10 @@
 
       $('#hidden-table-info thead tr').each( function () {
           this.insertBefore( nCloneTh, this.childNodes[0] );
+      } );
+
+      $('#example tr').each( function () {
+
       } );
 
       $('#hidden-table-info tbody tr').each( function () {
