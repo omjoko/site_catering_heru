@@ -19,18 +19,17 @@ class WasteController extends Controller
                     ->get();
 
         $voyages = DB::table('voyages')
+        			->join('rutes', 'voyages.id_rute', '=', 'rutes.id')
+        			->join('kapals', 'voyages.id_kapal', '=', 'kapals.id')
+        			->select('voyages.*', 'rutes.asal as asal', 'rutes.tujuan as tujuan', 'kapals.nama_kapal as nama_kapal')
         			->get();
 
         $pelabuhans = DB::table('pelabuhans')
         			->get();
 
-        $rutes =DB::table('rutes')
-        			->get();
-
     	return view('waste', ['wastes' => $wastes,
     						  'voyages' => $voyages,
-    						  'pelabuhans' => $pelabuhans
-    						  'rutes' => $rutes]);
+    						  'pelabuhans' => $pelabuhans]);
     }
 
     public function store(Request $request) {
@@ -41,7 +40,7 @@ class WasteController extends Controller
             'nama_sampah' => $data['nama_sampah'],
             'jenis_sampah' => $data['jenis_sampah'],
             'berat' => $data['berat'],
-            'id_voyages' => $data['id_voyages']
+            'id_voyages' => $data['id_voyages'],
         ]);   
 
     	return redirect()->action('WasteController@index');
@@ -57,7 +56,7 @@ class WasteController extends Controller
                     'nama_sampah' => $data['nama_sampah'],
 		            'jenis_sampah' => $data['jenis_sampah'],
 		            'berat' => $data['berat'],
-		            'id_voyages' => $data['id_voyages']
+		            'id_voyages' => $data['id_voyages'],
                     ]);
 
     	return redirect()->action('WasteController@index');
