@@ -21,7 +21,15 @@ Route::get('/home', 'HomeController@index');
 
 //requiusitions
 Route::get('/requisitions', 'requisitionsController@tampil');
-Route::get('/new-ingredients-requisitions', 'requisitionsController@newIng');
+Route::put('/requisitions', 'requisitionsController@ubah');
+Route::delete('/requisitions', 'requisitionsController@hapus');
+
+Route::get('/new-ingredients-requisitions', 'requisitionsController@dataBahan');
+Route::post('/new-ingredients-requisitions', 'requisitionsController@tambahBahan');
+Route::put('/new-ingredients-requisitions', 'requisitionsController@ubahBahan');
+Route::delete('/new-ingredients-requisitions', 'requisitionsController@hapusBahan');
+
+
 
 //food-plan
 Route::get('/food-plans', 'foodplansController@dataFP');

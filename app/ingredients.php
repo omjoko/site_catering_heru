@@ -34,4 +34,9 @@ class ingredients extends Model
      {
           return $this->hasOne('App\menus', 'minuman', 'id');
      }
+
+     public function ingredients()
+      {
+          return $this->belongsTo('App\detail_requisitions', 'id_bahan' , 'id');
+      }      
 }

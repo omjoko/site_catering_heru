@@ -20,7 +20,14 @@
                 Manajemen Perencanaan Makanan
             </header>
             <div class="panel-body">
-
+              @if($_GET['success']==1)
+                    <div class="alert alert-block alert-danger fade in">
+                        <button data-dismiss="alert" class="close close-sm" type="button">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        <strong> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Data Sudah Ada , Silahkan Pilih Perencanaan Makan Lainnya.</strong>
+                    </div>
+              @endif
               <div class="container-fluid">
                   <span class="pull-right" style="margin-right: 10px;">
                             <a href="/food-plans?success=3"><button class="btn btn-success" data-toggle="modal">
@@ -33,33 +40,64 @@
                     <thead>
                     <tr>
                         <th style="width: 5%;">No.</th>
-                        <th style="width: 5%;">No.Rekuisisi</th>
+                        <th style="width: 5%;">No. Rekuisisi</th>
                         <th style="text-align: center;">Deskripsi</th>
                         <th style="text-align: center;">Vendor</th>
+                        <th hidden=""></th>
                         <th style="text-align: center;">Total</th>
                         <th style="text-align: center;">Status</th>
                         <th></th>
-                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0; use App\Http\Controllers\foodplansController;?>
+                    <?php $no = 0; use App\Http\Controllers\requisitionsController;?>
                     @foreach($requisitions as $requisition)
                     <?php $no++; ?>
                     <?php 
-                        $FP = foodplansController::sedotFP($requisition->id);
+                        $DR = requisitionsController::sedot_detail($requisition->id_pelayaran);
                     ?>                                            
                       <tr class="gradeX">
                           <td>{{$no}}</td>
                           <td>
-                             {{$requisition->id}}
+                             R{{$requisition->id}}
                           </td>
                           <td>
                              {{$requisition->deskripsi}}
                           </td>
                           <td>
-                              {{$requisition->vendors['nama_vendor']}}</td>
-                          <td>0</td>
+                              {{$requisition->vendors['nama_vendor']}}
+                          </td>
+                          <?php $totals = array();?>
+                          <td hidden="">
+                                <table class="display table table-bordered table-striped table-advance table-hover">
+                                    <tr>
+                                        <th style="width: 5%;">No.</th>
+                                        <th>Nama bahan</th>
+                                        <th>Jumlah</th>
+                                        <th>Satuan</th>
+                                        <th>Harga</th>
+                                        <th>Total</th>
+                                        <th style="width: 10%"></th>
+                                    </tr>
+                                    <?php $nos = 0; ?>
+                                    @foreach($DR as $detail_requisition)
+                                    <?php $nos++; ?>
+                                        <tr>
+                                          <td>{{ $nos }}</td>
+                                          <td>{{ $detail_requisition->ingredients[0]['nama'] }}</td>
+                                          <td>{{ $detail_requisition->jumlah }}</td>
+                                          <td>
+                                              {{ $detail_requisition->ingredients[0]->pembelian['satuan'] }}
+                                          </td>
+                                          <td>{{ $detail_requisition->harga }}</td>
+                                          <?php $total = $detail_requisition->jumlah*$detail_requisition->harga; ?>
+                                          <td>{{$total}}</td>
+                                        </tr>
+                                      <?php $totals[] = $total;  ?>
+                                    @endforeach
+                                </table>
+                          </td>                          
+                          <td>{{array_sum($totals)}}</td>
                           <td>
                               @if($requisition->status==0)
                               <span class="label label-primary label-mini"> Menunggu</span>
@@ -67,19 +105,15 @@
                               <span class="label label-danger label-mini"> Revisi</span>
                               @elseif($requisition->status==2)
                               <span class="label label-success label-mini"> Disetujui</span>
-
                               @endif
                           </td>
                           <td>
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $requisition->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $requisition->id }}"><i class="fa fa-trash-o "></i></button>
                             <a href="/new-food-plans?id={{ $requisition->id }}"><button class="btn btn-success btn-xs"><i class="fa fa-star"></i> Invoices</button></a>
-                            <a href="/new-food-plans?id={{ $requisition->id }}"><button class="btn btn-success btn-xs" style="background-color: blue;"><i class="fa fa-plus"></i> Bahan</button></a>
-                            
+                            <a href="/new-ingredients-requisitions?id={{ $requisition->id_pelayaran }}"><button class="btn btn-success btn-xs" style="background-color: blue;"><i class="fa fa-plus"></i> Bahan</button></a>
                           </td>
-                          <td hidden="">
 
-                          </td>                      
                       </tr>
                     @endforeach
                     </tbody>
@@ -89,6 +123,86 @@
         </section>
     </div>
 </div>
+
+@foreach($requisitions as $requisition)
+ <!-- Modal update -->
+  <div class="modal fade" id="modalUbah{{ $requisition->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Ubah Perencanaan Pelayaran</h4>
+              </div>
+              <div class="modal-body">
+
+                <form action="#" class="form-horizontal" method="POST" >
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="id" value="{{ $requisition->id }}">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Vendor</label>
+                        <div class="col-sm-10">
+                          <select name="vendor" class="form-control">
+                          @foreach($vendors as $vendor)
+                            @if($requisition->vendors['id']==$vendor->id)
+                              <option value="{{$vendor->id}}" selected="">{{$vendor->nama_vendor}}</option>
+                            @else
+                              <option value="{{$vendor->id}}">{{$vendor->nama_vendor}}</option>
+                            @endif
+                            @endforeach
+                          </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Deskripsi</label>
+                        <div class="col-sm-10">
+                          <textarea name="deskripsi" type="text" class="form-control" rows="5"  required>{{$requisition->deskripsi}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">Ubah</button>
+                    </div>
+                </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- END modal update-->
+
+  <!-- Modal Hapus -->
+    <div class="modal fade" id="modalHapus{{ $requisition->id }}" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header alert alert-danger" style="background-color: red;">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Warning!</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form" method="POST">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id" value="{{ $requisition->id }}">
+
+                <center>
+                    <p>Apakah anda yakin ingin menghapus Pengadaan dari vendor</p><p> <b>
+                          {{$requisition->vendors['nama_vendor']}}
+                             </b>?</p>
+                </center>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                    <button type="submit" class="btn btn-danger">Ya</button>
+                </div>
+            </form>
+          </div>
+          
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /END modal Hapus -->
+<!-- END MODAL COLLECTIONS -->
+@endforeach
 @endsection
 
 @push('js')
@@ -132,7 +246,7 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = aData[8];
+      var sOut = aData[5];
 
 
       return sOut;

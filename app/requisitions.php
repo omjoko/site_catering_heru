@@ -13,6 +13,6 @@ class requisitions extends Model
 
     public function voyages()
     {
-    	return $this->belongsTo('App\vendors' , 'id_pelayaran');
+    	return $this->belongsTo('App\voyages' , 'id_pelayaran');
     }
 }

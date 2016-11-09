@@ -255,6 +255,7 @@
                           <textarea name="deskripsi" type="text" class="form-control" rows="5" required=""></textarea>
                         </div>
                     </div>
+                    
                     <!-- status masih menunggu -->
                     <input type="hidden" name="status" value="0">
                     <!-- status masih menunggu -->

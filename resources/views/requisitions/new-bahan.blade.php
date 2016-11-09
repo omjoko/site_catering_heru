@@ -17,7 +17,7 @@
     <div class="col-lg-12">
         <section class="panel">
            <header class="panel-heading">
-                Tambahkan Variasi Bahan
+                Tambahkan Bahan Pengadaan
             </header>
             <div class="panel-body">
                 <div class="row">
@@ -35,20 +35,46 @@
                                 @endif
                               @endforeach</strong></h5>
                   </div>
-	              <form class="form-horizontal tasi-form" method="post">
-	              <div class="form-group">
-	                  <label class="col-sm-2 col-sm-2 control-label">Bahan Makanan</label>
-	                  <div class="col-sm-10">
-	                      <select name="id_bahan" class="form-control">
+                  <div class="col-xs-6 col-sm-3">
+                    <h5>Vendor : <strong style="color: red;">{{$rv->vendors['nama_vendor']}}</strong></h5>
+                  </div>
+                  <div class="col-xs-6 col-sm-3">
+                    <h5>No.Rekuisisi : <strong style="color: red;">R{{$rv->id}}</strong></h5>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <form class="form-horizontal tasi-form" method="post">
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Bahan Makanan</label>
+                    <div class="col-sm-10">
+                        <select name="id_bahan" class="form-control">
                          @foreach($ingredients as $ingredient)
                             <option value="{{$ingredient->id}}">{{$ingredient->nama}}</option> 
                          @endforeach
                         </select>
-	                  </div>
-	              </div>
-	              <div class="form-group">
-	              		 <span class="pull-right" style="margin-right: 10px;">
-	              		 <button class="btn btn-success" type="submit" data-toggle="modal">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
+                    <div class="col-sm-10">
+                            <input type="number" name="jumlah" min="0" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Harga</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon">Rp. </span>
+                                <input type="number" name="harga" min="0" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                     <span class="pull-right" style="margin-right: 10px;">
+                     <button class="btn btn-success" type="submit" data-toggle="modal">
                                Tambah Data <span class="fa fa-chevron-right"></span>
                             </button>
                       </span>
@@ -56,11 +82,11 @@
                       <input type="hidden" name="id_req" value="{{$requisitions->id}}">
                 </form>
                       <span class="pull-left" style="margin-left: 10px;">
-                           <a href="/ingredients"><button type="button" class="btn btn-danger" data-toggle="modal">
-                                    <span class="fa fa-chevron-left"></span> Batal
+                           <a href="/requisitions?success=0"><button type="button" class="btn btn-danger" data-toggle="modal">
+                                    <span class="fa fa-chevron-left"></span> Kembali
                                   </button></a>
                          </span>
-	              </div>
+                </div>
                 <div class="container-fluid">
                     <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered table-striped table-advance table-hover" id="hidden-table-info">
                           <thead>
@@ -77,75 +103,50 @@
                           <tbody>
                           <?php $no = 0; ?>
                           @foreach($detail_requisitions as $detail_requisition)
-                          <?php $no++ ?>
+                          <?php $no++; ?>
                           <tr>
                               <td>{{ $no }}</td>
-                              <td>{{ $detail_requisition->nama }}</td>
+                              <td>{{ $detail_requisition->ingredients[0]['nama'] }}</td>
+                              <td>{{ $detail_requisition->jumlah }}</td>
                               <td>
-                                  @if($variant->bahan_utama == 0)
-                                  <span class="label label-danger label-mini"> Tidak</span>
-                                  @else
-                                  <span class="label label-success label-mini"> Ya</span>
-                                  @endif
+                                  {{ $detail_requisition->ingredients[0]->pembelian['satuan'] }}
                               </td>
-                              <td>{{ $variant->deskripsi }}</td>
+                              <td>{{ $detail_requisition->harga }}</td>
+                              <?php $total = $detail_requisition->jumlah*$detail_requisition->harga; ?>
+                              <td>{{$total}}</td>
                               <td>
-                                  <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{$variant->id}}"><i class="fa fa-pencil"></i></button>
-                                  <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{$variant->id}}"><i class="fa fa-trash-o "></i></button>
+                                  <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{$detail_requisition->id}}"><i class="fa fa-pencil"></i></button>
+                                  <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{$detail_requisition->id}}"><i class="fa fa-trash-o "></i></button>
                               </td>
                                 <!-- Modal update -->
-                                <div class="modal fade" id="modalUbah{{ $variant->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="modalUbah{{ $detail_requisition->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                <h4 class="modal-title">Ubah Varian</h4>
+                                                <h4 class="modal-title">Ubah Bahan Pengadaan </h4>
                                             </div>
                                             <div class="modal-body">
 
                                               <form action="#" class="form-horizontal" method="POST" >
                                                   <input type="hidden" name="_method" value="PUT">
                                                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                  <input type="hidden" name="id_varian" value="{{ $variant->id }}">
+                                                  <input type="hidden" name="id_req" value="{{ $detail_requisition->id }}">
 
-                                                      <label class="control-label">Variasi Bahan</label>
-                                                      <div class="">
-                                                          <input type="text" class="form-control" name="nama" value="{{$variant->nama}}">
-                                                      </div>
-                                                      <label class="control-label">Bahan Utama</label>
-                                                      <div class="">
-                                                      @if($variant->bahan_utama==1)
-                                                          <div class="radio">
-                                                              <label>
-                                                                  <input type="radio" name="bahan_utama" value="1" checked>
-                                                                  <span> Ya </span>
-                                                              </label>
+                                                      <label class="control-label">Bahan Makanan</label>
+                                                          <select name="id_bahan" class="form-control">
+                                                           @foreach($ingredients as $ingredient)
+                                                              <option value="{{$ingredient->id}}">{{$ingredient->nama}}</option> 
+                                                           @endforeach
+                                                          </select>
+                                                      <label class="control-label">Jumlah</label>
+                                                              <input type="number" name="jumlah" min="0" class="form-control" value="{{ $detail_requisition->jumlah }}">
+                                                      <label class="control-label">Harga</label>
+                                                              <div class="input-group">
+                                                                  <span class="input-group-addon">Rp. </span>
+                                                                  <input type="number" name="harga" min="0" class="form-control" value="{{ $detail_requisition->harga }}">
+                                                              </div>
                                                           </div>
-                                                          <div class="radio">
-                                                              <label>
-                                                                  <input type="radio" name="bahan_utama" value="0">
-                                                                  <span> Tidak </span>
-                                                              </label>
-                                                          </div>
-                                                      @else
-                                                          <div class="radio">
-                                                              <label>
-                                                                  <input type="radio" name="bahan_utama" value="1" >
-                                                                  <span> Ya </span>
-                                                              </label>
-                                                          </div>
-                                                          <div class="radio">
-                                                              <label>
-                                                                  <input type="radio" name="bahan_utama" value="0" checked>
-                                                                  <span> Tidak </span>
-                                                              </label>
-                                                          </div>
-                                                      @endif
-                                                      </div>
-                                                      <label class="control-label">Deskripsi</label>
-                                                      <div class="">
-                                                          <textarea name="deskripsi" class="form-control" rows="5">{{$variant->deskripsi}}</textarea>
-                                                      </div>
 
                                                   <div class="modal-footer">
                                                       <button type="submit" class="btn btn-info">Ubah</button>
@@ -158,7 +159,7 @@
                                 <!-- END modal update-->
 
                                 <!-- Modal Hapus -->
-                                  <div class="modal fade" id="modalHapus{{ $variant->id }}" tabindex="-1" role="dialog">
+                                  <div class="modal fade" id="modalHapus{{ $detail_requisition->id }}" tabindex="-1" role="dialog">
                                     <div class="modal-dialog modal-sm">
                                       <div class="modal-content">
                                         <div class="modal-header alert alert-danger" style="background-color: red;">
@@ -169,10 +170,10 @@
                                           <form class="form-horizontal" role="form" method="POST">
                                               <input type="hidden" name="_method" value="DELETE">
                                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                              <input type="hidden" name="id_varian" value="{{ $variant->id }}">
+                                              <input type="hidden" name="id_req" value="{{ $detail_requisition->id }}">
 
                                               <center>
-                                                  <p>Apakah anda yakin ingin menghapus Varian bahan : <b>{{ $variant->nama }}</b>?</p>
+                                                  <p>Apakah anda yakin ingin menghapus : <p><b>{{ $detail_requisition->ingredients[0]['nama'] }}</b>?</p></p>
                                               </center>
 
                                               <div class="modal-footer">
@@ -191,7 +192,7 @@
                           </tbody>
                       </table>                  
                 </div>
-            </div>
+                </div>
             </div>
             </div>
         </section>

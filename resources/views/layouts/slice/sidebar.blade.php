@@ -39,7 +39,7 @@
                       </a>
                   </li>                  
                   <li class="{{ Request::is('requisitions') ? 'active' : '' }}">
-                      <a href="requisitions">
+                      <a href="requisitions?success=0">
                           <i class="fa fa-cube"></i>
                           <span>Draft PO / Requisition</span>
                       </a>
