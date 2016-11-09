@@ -16,7 +16,7 @@ class ShipStorage extends Migration
         Schema::create('storages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama');
-            $table->tinyInt('tipe');
+            $table->tinyInteger('tipe');
             $table->integer('id_kapal');
             $table->timestamps();
             $table->softDeletes();
