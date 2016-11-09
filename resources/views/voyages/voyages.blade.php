@@ -340,12 +340,12 @@
       var aData = oTable.fnGetData( nTr );
       var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="pull-right">';
       sOut += '<tr><th colspan="3" style="text-align:center;">Daftar Kelas Penumpang</th></tr>';
-      sOut += '<tr style="text-align:left;"><td>Kelas Eksekutif</td><td>:</td<<td"> <strong>'+aData[9]+'</strong> </td></tr>';
-      sOut += '<tr style="text-align:left;"><td>Kelas Bisnis</td><td>:</td<td"> <strong>'+aData[10]+'</strong> </td></tr>';
-      sOut += '<tr style="text-align:left;"><td>Kelas Ekonomi 1</td><td>:</td<td"> <strong>'+aData[11]+'</strong> </td></tr>';
-      sOut += '<tr style="text-align:left;"><td>Kelas Ekonomi 2</td><td>:</td<td"> <strong>'+aData[12]+'</strong> </td></tr>';
+      sOut += '<tr style="text-align:left;"><td>Kelas Eksekutif</td><td>:</td<<td"> <strong>'+aData[10]+'</strong> </td></tr>';
+      sOut += '<tr style="text-align:left;"><td>Kelas Bisnis</td><td>:</td<td"> <strong>'+aData[11]+'</strong> </td></tr>';
+      sOut += '<tr style="text-align:left;"><td>Kelas Ekonomi 1</td><td>:</td<td"> <strong>'+aData[12]+'</strong> </td></tr>';
+      sOut += '<tr style="text-align:left;"><td>Kelas Ekonomi 2</td><td>:</td<td"> <strong>'+aData[13]+'</strong> </td></tr>';
       sOut += '</table>';
-      sOut += aData[13];
+      sOut += aData[14];
 
       return sOut;
   }
