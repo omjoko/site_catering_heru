@@ -14,7 +14,9 @@ class invoicesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('isFinance');
+        $this->middleware('isCaptain');
+        $this->middleware('isManager');
     }
     
     public function tampil(Request $request)	{

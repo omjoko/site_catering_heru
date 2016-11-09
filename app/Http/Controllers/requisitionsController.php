@@ -14,6 +14,12 @@ use URL;
 class requisitionsController extends Controller
 {
 
+	public function __construct()
+    {
+        $this->middleware('isSteward');
+    	$this->middleware('isManager');
+    }
+
 	public function dataBahan(Request $request)
 	{
 		$requisitions = requisitions::with('voyages.rutes')->where('id_pelayaran', $request->id_pelayaran)->first();

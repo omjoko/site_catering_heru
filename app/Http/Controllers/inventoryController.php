@@ -9,6 +9,11 @@ use App\requisitions;
 
 class inventoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('isCaptain');
+    }
+
     public function tampil(Request $request)
     {
     	$inventorys = inventorys::with('ingredients.pembelian')->get();

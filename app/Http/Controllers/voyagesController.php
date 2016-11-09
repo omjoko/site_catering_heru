@@ -14,7 +14,7 @@ class voyagesController extends Controller
 
         public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('isSteward');
     }
 
 	public function DataVoyages(Request $request)

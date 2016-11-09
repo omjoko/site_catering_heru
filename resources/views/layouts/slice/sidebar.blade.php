@@ -3,6 +3,7 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
+                  @if(Auth::user()->privilege==5)
                   <li class="sub-menu">
                       <a href="javascript:;" class="{{ Request::is('user', 'recipes', 'ingredients', 'categorys', 'measurements', 'menus', 'vendors', 'kapal', 'penyimpanan', 'pelabuhan', 'rute') ? 'active' : '' }}">
                           <i class="fa fa-list"></i>
@@ -26,6 +27,8 @@
                           <li class="{{ Request::is('rute') ? 'active' : '' }}"><a href="rute">Rute</a></li>
                       </ul>
                   </li>
+                  @endif
+                  @if(Auth::user()->privilege==1 || Auth::user()->privilege==5)
                   <li  class="{{ Request::is('voyages') ? 'active' : '' }}">
                       <a href="/voyages?success=1">
                           <i class="fa fa-paper-plane"></i>
@@ -37,31 +40,40 @@
                           <i class="fa fa-spoon"></i>
                           <span>Food Planning</span>
                       </a>
-                  </li>                  
+                  </li>
+                  @endif
+                  @if(Auth::user()->privilege==1 || Auth::user()->privilege==4 || Auth::user()->privilege==5)                  
                   <li class="{{ Request::is('requisitions') ? 'active' : '' }}">
                       <a href="requisitions?success=0">
                           <i class="fa fa-cube"></i>
                           <span>Draft PO / Requisition</span>
                       </a>
                   </li>
+                  @endif
+                  @if(Auth::user()->privilege==2 || Auth::user()->privilege==3 || Auth::user()->privilege==4 || Auth::user()->privilege==5)
                   <li class="{{ Request::is('invoices') ? 'active' : '' }}">
                       <a href="invoices">
                           <i class="fa fa-file-text"></i>
                           <span>Invoice</span>
                       </a>
-                  </li>                  
+                  </li>
+                  @endif
+                  @if(Auth::user()->privilege==3 || Auth::user()->privilege==5)                  
                   <li class="{{ Request::is('inventory') ? 'active' : '' }}">
                       <a href="inventory">
                           <i class="fa fa-sign-out"></i>
                           <span>Inventory Out</span>
                       </a>
                   </li>
+                  @endif
+                  @if(Auth::user()->privilege==1 || Auth::user()->privilege==3 || Auth::user()->privilege==4 || Auth::user()->privilege==5)
                   <li>
                       <a href="waste" class="{{ Request::is('waste') ? 'active' : '' }}">
                           <i class="fa fa-leaf"></i>
                           <span>Waste</span>
                       </a>
                   </li>
+                  @endif
               </ul>
               <!-- sidebar menu end-->
           </div>

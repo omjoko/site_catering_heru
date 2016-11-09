@@ -23,6 +23,17 @@
               <div class="container-fluid">
                 <div class="container-fluid">
                   <span class="pull-right">
+                    @if(Auth::user()->privilege==1)
+                    <button class="btn btn-success" data-toggle="modal" href="#modalTambah" >
+                      <span class="fa fa-plus-circle"></span> Tambah Data
+                    </button>
+                    @elseif(Auth::user()->privilege==3 || Auth::user()->privilege==4)
+                    <a href="/laporan_waste">
+                      <button class="btn btn-info" data-toggle="modal" href="#modalCetak" >
+                        <span class="fa fa-print"></span> Cetak Laporan
+                      </button>
+                    </a>
+                    @else
                     <button class="btn btn-success" data-toggle="modal" href="#modalTambah" >
                       <span class="fa fa-plus-circle"></span> Tambah Data
                     </button>
@@ -31,6 +42,7 @@
                         <span class="fa fa-print"></span> Cetak Laporan
                       </button>
                     </a>
+                    @endif
                   </span>
                 </div>
               </div>
@@ -60,8 +72,13 @@
                         @endif
                         <td>{{ $waste->berat }} Kg</td>
                         <td>
+                            @if(Auth::user()->privilege==3)
+                            <button disabled="" class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $waste->id }}"><i class="fa fa-pencil"></i></button>
+                            <button disabled="" class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $waste->id }}"><i class="fa fa-trash-o "></i></button>
+                            @else
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $waste->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $waste->id }}"><i class="fa fa-trash-o "></i></button>
+                            @endif
                         </td>
                         <td hidden="">
                           <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="pull-left">
