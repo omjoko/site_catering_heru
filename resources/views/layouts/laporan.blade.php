@@ -62,7 +62,6 @@
         </div> -->
         <div style="margin-bottom:30px;">
             <center><b>Laporan @yield('judul')</b></center>
-            <center><b>Pada Tanggal : @yield('tanggal')</b></center>
         </div>
 
     </div>

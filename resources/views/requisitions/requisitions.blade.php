@@ -113,7 +113,7 @@
                             <button class="btn btn-warning btn-xs" data-toggle="modal" href="#modalStatus{{ $requisition->id }}"><i class="fa fa-pencil "></i> Status</button>
                             <a href="/new-food-plans?id={{ $requisition->id }}"><button class="btn btn-success btn-xs"><i class="fa fa-star"></i> Invoices</button></a>
                             @if($requisition->status==2)
-                              <a href="/new-food-plans?id={{ $requisition->id }}"><button class="btn btn-success btn-xs" style="background-color: orange;"><i class="fa fa-print"></i> Cetak</button></a>
+                              <a href="/laporan_requisition?id={{ $requisition->id }}"><button class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalCetak" title="Cetak" style="background-color: orange;"><i class="fa fa-print"></i> Cetak</button></a>
                             @endif
                             <a href="/new-ingredients-requisitions?id={{ $requisition->id }}&id_pelayaran={{ $requisition->id_pelayaran }}"><button class="btn btn-success btn-xs" style="background-color: blue;"><i class="fa fa-plus"></i> Bahan</button></a>
                           </td>
@@ -247,6 +247,8 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /END modal status -->
+
+  
 <!-- END MODAL COLLECTIONS -->
 @endforeach
 @endsection
