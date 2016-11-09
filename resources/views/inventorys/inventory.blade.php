@@ -22,6 +22,11 @@
           	<div class="panel-body">
               <div class="container-fluid">
                   <div class="container-fluid">
+                  <span class="pull-left">
+                    <a href="laporan_inventory"><button class="btn btn-primary" data-toggle="modal">
+                      <span class="fa fa-print"></span> Cetak
+                    </button></a>
+                  </span>
                   <span class="pull-right">
                     <button class="btn btn-success" data-toggle="modal" href="#modalTambah" >
                       <span class="fa fa-plus-circle"></span> Tambah Data

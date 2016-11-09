@@ -12,6 +12,8 @@ use DB;
 
 use App\requisitions;
 use App\vendors;
+use App\inventorys;
+
 
 class LaporanController extends Controller
 {
@@ -53,6 +55,19 @@ class LaporanController extends Controller
 													   	 'i' => 0))->render(); 
 		// panggil fungsi dompdf
 		$pdf = App::make('dompdf.wrapper');
+		// set ukuran kertas dan orientasi
+		$pdf->loadHTML($view)->setPaper('a4');
+		// cetak
+		return $pdf->stream();
+    }
+
+    public function laporanInventory(Request $request)
+    {
+    	$inventorys = inventorys::with('ingredients.pembelian')->get();
+
+        $view = View::make('laporan.laporanInventory', array('inventorys'=>$inventorys,'i' => 0))->render();
+
+        $pdf = App::make('dompdf.wrapper');
 		// set ukuran kertas dan orientasi
 		$pdf->loadHTML($view)->setPaper('a4');
 		// cetak

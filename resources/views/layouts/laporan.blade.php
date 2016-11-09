@@ -60,8 +60,8 @@
 <!--         <div class="kopsurat">
             <center><img src="images/kop-surat.png" ></center>
         </div> -->
-        <div style="margin-bottom:30px;">
-            <center><b>Laporan @yield('judul')</b></center>
+        <div style="margin-top:100px;">
+            <center><b><u>Laporan @yield('judul')</u></b></center>
         </div>
 
     </div>
