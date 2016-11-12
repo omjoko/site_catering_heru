@@ -111,7 +111,6 @@
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $requisition->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $requisition->id }}"><i class="fa fa-trash-o "></i></button>
                             <button class="btn btn-warning btn-xs" data-toggle="modal" href="#modalStatus{{ $requisition->id }}"><i class="fa fa-pencil "></i> Status</button>
-                            <a href="/new-food-plans?id={{ $requisition->id }}"><button class="btn btn-success btn-xs"><i class="fa fa-star"></i> Invoices</button></a>
                             @if($requisition->status==2)
                               <a href="/laporan_requisition?id={{ $requisition->id }}"><button class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalCetak" title="Cetak" style="background-color: orange;"><i class="fa fa-print"></i> Cetak</button></a>
                             @endif

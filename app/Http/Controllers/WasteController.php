@@ -22,6 +22,7 @@ class WasteController extends Controller
         			->join('rutes', 'voyages.id_rute', '=', 'rutes.id')
         			->join('kapals', 'voyages.id_kapal', '=', 'kapals.id')
         			->select('voyages.*', 'rutes.asal as asal', 'rutes.tujuan as tujuan', 'kapals.nama_kapal as nama_kapal')
+                    ->where('deleted_at' , '=' , null)
         			->get();
 
         $pelabuhans = DB::table('pelabuhans')

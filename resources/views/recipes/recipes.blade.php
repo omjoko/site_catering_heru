@@ -67,28 +67,7 @@
                             <a href="new-ingredients-recipe?id={{$recipe->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Bahan</button></a>
                           </td>
                           <td hidden="">
-                            <div class="col-md-4">
-                              <table class="table table-striped">
-                                <tr>
-                                  <th  style="text-align: center;">No.</th>
-                                  <th  style="text-align: center;">Bahan</th>
-                                  <th  style="text-align: center;">Jumlah</th>
-                                  <th  style="text-align: center;">Banyak</th>
-                                </tr>
-                                <?php $no_var = 0; ?>
-                                @foreach($bahan_reseps as $bahan_resep)
-                                <?php $no_var++; ?>
-                                    <tr>
-                                      <td>{{$no_var}}</td>
-                                      <td>{{ $bahan_resep->bahan['nama'] }}</td>
-                                      <td>{{ $bahan_resep->jumlah }}</td>
-                                      <td>{{ $bahan_resep->satuan }}</td>
-                                @endforeach
-                              </table>
-                            </div>
-                            <div class="pull-right">
-                              <img src="{{$recipe->gambar}}" class="img-responsive" width="640" height="320">
-                            </div>
+                            
                           </td>
                       </tr>
                     @endforeach
@@ -280,7 +259,29 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = aData[6];
+      var sOut = '<div class="col-md-4">';       
+          sOut +='       <table class="table table-striped">';
+          sOut +='                      <tr>';
+          sOut +='                        <th  style="text-align: center;">No.</th>';
+          sOut +='                        <th  style="text-align: center;">Bahan</th>';
+          sOut +='                        <th  style="text-align: center;">Jumlah</th>';
+          sOut +='                        <th  style="text-align: center;">Banyak</th>';
+          sOut +='                      </tr>';
+      var no = 0;
+                                @foreach($bahan_reseps as $bahan_resep)
+                            no++;
+          sOut +='                          <tr>';
+          sOut +='                            <td>'+no+'</td>';
+          sout +="                            <td>{{ $bahan_resep->bahan['nama'] }}</td>";
+          sOut +='                            <td>{{ $bahan_resep->jumlah }}</td>';
+          sOut +='                            <td>{{ $bahan_resep->satuan }}</td>';
+          sOut +='                          </tr>';
+                                @endforeach
+          sOut +='                    </table>';
+          sOut +='</div>'
+          sOut +='                  <div class="pull-right">';
+          sOut +='                    <img src="{{$recipe->gambar}}" class="img-responsive" width="640" height="320">';
+         sOut +='                  </div>';
 
       return sOut;
   }
