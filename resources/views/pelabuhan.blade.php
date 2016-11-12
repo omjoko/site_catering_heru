@@ -30,7 +30,7 @@
               </div>
               </div>
               <div class="adv-table">
-                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered table-striped table-advance table-hover" id="hidden-table-info">
+                <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered table-striped table-advance table-hover">
                     <thead>
                     <tr>
                         <th>No</th>

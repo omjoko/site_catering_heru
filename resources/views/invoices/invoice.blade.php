@@ -33,11 +33,10 @@
                     <tr>
                         <th style="width: 5%;">No.</th>
                         <th style="width: 5%;">No. Invoice</th>
-                        <th  style="text-align: center;">Tanggal</th>
-                        <th  style="text-align: center;">No. Rekuisisi</th>
-                        <th  style="text-align: center;">Vendor</th>
+                        <th style="text-align: center;">Tanggal</th>
+                        <th style="text-align: center;">No. Rekuisisi</th>
+                        <th style="text-align: center;">Vendor</th>
                         <th></th>
-                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -63,31 +62,6 @@
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $invoice->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $invoice->id }}"><i class="fa fa-trash-o "></i></button>
                             <a href="new-invoices?id={{$invoice->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Barang</button></a>
-                        </td>
-                        <td hidden="">
-                          <table class="table table-striped">
-                            <tr>
-                              <th  style="text-align: center;">No.</th>
-                              <th  style="text-align: center;">Nama Barang</th>
-                              <th  style="text-align: center;">Harga</th>
-                              <th  style="text-align: center;">Satuan</th>
-                              <th  style="text-align: center;">Banyak</th>
-                              <th  style="text-align: center;">Total</th>
-                            </tr>
-                            <?php $no_var = 0; ?>
-                            @foreach($details as $detail)
-                            <?php $no_var++; ?>
-                                <tr>
-                                  <td>{{$no_var}}</td>
-                                  <td>{{$detail->nama_barang}}</td>
-                                  <td>{{$detail->harga}}</td>
-                                  <td>{{$detail->satuan}}</td>
-                                  <td>{{$detail->banyak}}</td>
-                                  <?php $total = $detail->banyak*$detail->harga; ?>
-                                  <td>{{$total}}</td>
-                                </tr>
-                            @endforeach
-                          </table>
                         </td>
                     </tr>
                     @endforeach
@@ -272,7 +246,29 @@
   function fnFormatDetails ( oTable, nTr, id_bahan )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = aData[7];
+      var sOut = '<table class="table table-striped">';
+          sOut +='                  <tr>';
+          sOut +='                    <th  style="text-align: center;">No.</th>';
+          sOut +='                    <th  style="text-align: center;">Nama Barang</th>';
+          sOut +='                    <th  style="text-align: center;">Harga</th>';
+          sOut +='                    <th  style="text-align: center;">Satuan</th>';
+          sOut +='                    <th  style="text-align: center;">Banyak</th>';
+          sOut +='                    <th  style="text-align: center;">Total</th>';
+          sOut +='                  </tr>';
+      var no_var = 0;
+                            @foreach($details as $detail)
+                            no_var++;
+          sOut +='                      <tr>';
+          sOut +='                        <td>'+no_var+'</td>';
+          sOut +='                        <td>{{ $detail->nama_barang }}</td>';
+          sOut +='                        <td>{{ $detail->harga }}</td>';
+          sOut +='                        <td>{{ $detail->satuan }}</td>';
+          sOut +='                        <td>{{ $detail->banyak }}</td>';
+                            <?php $total = $detail->banyak*$detail->harga; ?>
+          sOut +='                        <td>{{ $total }}</td>';
+          sOut +='                      </tr>';
+                            @endforeach
+          sOut +='                </table>';
       return sOut;
   }
 

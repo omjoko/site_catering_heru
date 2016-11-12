@@ -25,7 +25,7 @@
                         <button data-dismiss="alert" class="close close-sm" type="button">
                             <i class="fa fa-times"></i>
                         </button>
-                        <strong>Rute</strong> yang kamu masuk kan tidak ditemukan! . Periksa kembali atau <a href="/rute">Tambahkan Rute Baru!</a>
+                        <strong>Rute</strong> yang kamu masukkan tidak ditemukan! . Periksa kembali atau <a href="/rute">Tambahkan Rute Baru!</a>
                     </div>
                     @endif
               <div class="container-fluid">
@@ -109,29 +109,7 @@
                               {{$voyage->ekonomi2}}                  
                           </td>
                           <td hidden="">
-                              <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="pull-left">
-                                <tr>
-                                  <td colspan="2"><b><u>DAFTAR PEMBERHENTIAN</u></b></d>
-                                </tr>
-                                <tr>
-                                  <th style="text-align:center;">Pemberhentian</th>
-                                  <th style="text-align:center;">Durasi</th>
-                                </tr>
-                                  @foreach($transits as $transit)
-                                  <tr style="text-align:left;">
-                                    <td>
-                                        @foreach($pelabuhans as $pelabuhan)
-                                          @if($pelabuhan->id_pelabuhan==$transit->id_pelabuhan)
-                                           {{$pelabuhan->nama_pelabuhan}}
-                                          @endif
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        {{$transit->est_transit}} Hari
-                                    </td>
-                                  </tr>
-                                  @endforeach
-                              </table>
+                              
                           </td>                      
                       </tr>
                     @endforeach
@@ -345,8 +323,27 @@
       sOut += '<tr style="text-align:left;"><td>Kelas Ekonomi 1</td><td>:</td<td"> <strong>'+aData[12]+'</strong> </td></tr>';
       sOut += '<tr style="text-align:left;"><td>Kelas Ekonomi 2</td><td>:</td<td"> <strong>'+aData[13]+'</strong> </td></tr>';
       sOut += '</table>';
-      sOut += aData[14];
-
+          sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="pull-left">';
+          sOut +='                  <tr>';
+          sOut +='                    <td colspan="2"><b><u>DAFTAR PEMBERHENTIAN</u></b></d>';
+          sOut +='                  </tr>';
+          sOut +='                  <tr>';
+          sOut +='                    <th  style="text-align: center;">Pemberhentian</th>';
+          sOut +='                    <th  style="text-align: center;">Variasi Bahan</th>';
+          sOut +='                  </tr>';
+      var no = 0;
+                            @foreach($transits as $transit)
+                            no++;
+          sOut +='                      <tr style="text-align:left;">';
+                                          @foreach($pelabuhans as $pelabuhan)
+                                            @if($pelabuhan->id_pelabuhan==$transit->id_pelabuhan)
+          sOut +='                        <td>{{ $pelabuhan->nama_pelabuhan }}</td>';
+                                            @endif
+                                          @endforeach
+          sOut +='                        <td>{{ $transit->est_transit }} Hari</td>';
+          sOut +='                      </tr>';
+                            @endforeach
+          sOut +='</table>';
       return sOut;
   }
 

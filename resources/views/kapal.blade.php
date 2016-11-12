@@ -39,7 +39,6 @@
                         <th>No. IMO</th>
                         <th>Kapasitas</th>
                         <th></th>
-                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -64,28 +63,6 @@
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $kapal->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $kapal->id }}"><i class="fa fa-trash-o "></i></button>
                             <a href="/storages?id={{ $kapal->id }}"><button class="btn btn-success btn-xs" data-toggle="modal"><i class="fa fa-plus"></i> Penyimpanan</button></a>
-                        </td>
-                        <td hidden="">
-                        <table class="display table table-bordered table-striped table-advance table-hover">
-                          <tr>
-                            <th>No.</th>
-                            <th>Nama Penyimpanan</th>
-                            <th>Tipe Penyimpanan</th>
-                          </tr>
-                          @foreach($storages as $no=> $storage)
-                              <tr>
-                                <td>{{$no+1}}</td>
-                                <td>{{$storage->nama}}</td>
-                                    @if($storage->tipe==0)
-                                      <td><span class="label label-primary label-mini">Freezer</span></td>
-                                    @elseif($storage->tipe==1)
-                                      <td><span class="label label-info label-mini">Gudang Utama</span></td>
-                                    @elseif($storage->tipe==2)
-                                      <td><span class="label label-inverse label-mini">Gudang Biasa</span></td>
-                                    @endif
-                              </tr>
-                          @endforeach
-                        </table>
                         </td>
                     </tr>
                     @endforeach
@@ -348,8 +325,30 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = aData[7]
-
+      var sOut = '<table class="display table table-bordered table-striped table-advance table-hover">';
+          sOut +='                  <tr>';
+          sOut +='                    <th  style="text-align: center;">No.</th>';
+          sOut +='                    <th  style="text-align: center;">Nama Penyimpanan</th>';
+          sOut +='                    <th  style="text-align: center;">Tipe Penyimpanan</th>';
+          sOut +='                  </tr>';
+      var no = 0;
+                            @foreach($storages as $storage)
+                            no++;
+          sOut +='                      <tr>';
+          sOut +='                        <td>'+no+'</td>';
+          sOut +='                        <td>{{ $storage->nama }}</td>';
+          sOut +='                        <td>';
+                                      @if($storage->tipe==0)
+          sOut +='                            <span class="label label-primary label-mini">Freezer</span>';
+                                      @elseif($storage->tipe==1)
+          sOut +='                            <span class="label label-info label-mini">Gudang Utama</span>';
+                                      @elseif($storage->tipe==2)
+          sOut +='                            <span class="label label-inverse label-mini">Gudang Biasa</span>';
+                                      @endif
+          sOut +='                        </td>';
+          sOut +='                      </tr>';
+                            @endforeach
+          sOut +='                </table>';
       return sOut;
   }
 

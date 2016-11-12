@@ -18,8 +18,13 @@ class UserController extends Controller
 
     	$users = DB::table('users')
                     ->get();
+        $counts = DB::table('users')
+                    ->select(DB::raw('count(privilege) as privilege_count'))
+                    ->where('privilege', 5)
+                    ->first();
 
-    	return view('user', ['users' => $users]);
+    	return view('user', ['users' => $users,
+                            'counts' => $counts]);
     }
 
     public function store(Request $request) {

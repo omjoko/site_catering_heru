@@ -36,7 +36,6 @@
                         <th style="text-align: center;">Tujuan</th>
                         <th style="text-align: center;">Estimasi Total</th>
                         <th style="text-align: center;"></th>
-                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,28 +65,6 @@
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $rute->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $rute->id }}"><i class="fa fa-trash-o "></i></button>
                             <a href="transit?id={{ $rute->id }}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Transit</button></a>
-                        </td>
-                        <td hidden="">
-                          <table class="table table-striped">
-                            <tr>
-                              <th  style="text-align: center;">No</th>
-                              <th  style="text-align: center;">Nama Pelabuhan</th>
-                              <th  style="text-align: center;">Estimasi Transit</th>
-                            </tr>
-                            @foreach($transits as $no => $transit)
-                                <tr>
-                                  <td>{{ $no+1 }}</td>
-                                  <td>
-                                      @foreach($pelabuhans as $pelabuhan)
-                                        @if($transit->id_pelabuhan==$pelabuhan->id_pelabuhan)
-                                          {{ $pelabuhan->nama_pelabuhan }}
-                                        @endif
-                                      @endforeach                                        
-                                  </td>
-                                  <td>{{ $transit->est_transit }}</td>
-                                </tr>
-                            @endforeach
-                          </table>
                         </td>
                       </tr>
                       @endforeach
@@ -302,7 +279,26 @@
   function fnFormatDetails ( oTable, nTr, id_bahan )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = aData[6];
+      var sOut = '<table class="table table-striped">';
+          sOut +='                  <tr>';
+          sOut +='                    <th  style="text-align: center;">No.</th>';
+          sOut +='                    <th  style="text-align: center;">Nama Pelabuhan</th>';
+          sOut +='                    <th  style="text-align: center;">Estimasi Transit</th>';
+          sOut +='                  </tr>';
+      var no = 0;
+                            @foreach($transits as $transit)
+                            no++;
+          sOut +='                      <tr>';
+          sOut +='                        <td>'+no+'</td>';
+                                            @foreach($pelabuhans as $pelabuhan)
+                                              @if($transit->id_pelabuhan==$pelabuhan->id_pelabuhan)
+          sOut +='                                      <td>{{ $pelabuhan->nama_pelabuhan }}</td>';
+                                              @endif
+                                            @endforeach
+          sOut +='                        <td>{{ $transit->est_transit }}</td>';
+          sOut +='                      </tr>';
+                            @endforeach
+          sOut +='                </table>';
       return sOut;
   }
 
