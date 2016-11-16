@@ -13,6 +13,9 @@ use DB;
 use App\requisitions;
 use App\vendors;
 use App\inventorys;
+use App\storages;
+use App\Waste;
+
 
 
 class LaporanController extends Controller
@@ -36,7 +39,10 @@ class LaporanController extends Controller
 
     public function laporanWaste(Request $request){
 
-    	$wastes = DB::table('wastes')
+    	$wastes = Waste::with('voyages.kapals')
+                    ->join('voyages', 'wastes.id_voyages', '=' , 'voyages.id')
+                    ->where("voyages.deleted_at", null)
+                    ->select('wastes.*','voyages.id as hole')
                     ->get();
 
         $voyages = DB::table('voyages')
@@ -63,9 +69,19 @@ class LaporanController extends Controller
 
     public function laporanInventory(Request $request)
     {
-    	$inventorys = inventorys::with('ingredients.pembelian')->get();
+    	$inventorys = inventorys::with('ingredients.pembelian')
+                        ->join('requisitions','inventorys.id_req','=','requisitions.id')
+                        ->join('voyages','requisitions.id_pelayaran','=','voyages.id')
+                        ->join('ingredients','inventorys.id_bahan','=','ingredients.id')
+                        ->join('storages','inventorys.gudang','=','storages.id_storages')
+                        ->select('inventorys.*','requisitions.id as id_req','voyages.id as id_voy','ingredients.id as id_ing','storages.id_storages as id_stor')
+                        ->where('voyages.deleted_at','=',null)
+                        ->where('voyages.deleted_at','=',null)
+                        ->get();
+        $storages = storages::all();
 
-        $view = View::make('laporan.laporanInventory', array('inventorys'=>$inventorys,'i' => 0))->render();
+
+        $view = View::make('laporan.laporanInventory', array('inventorys'=>$inventorys,'storages'=>$storages,'i' => 0))->render();
 
         $pdf = App::make('dompdf.wrapper');
 		// set ukuran kertas dan orientasi

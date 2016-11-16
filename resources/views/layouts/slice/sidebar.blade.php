@@ -44,7 +44,7 @@
                   @endif
                   @if(Auth::user()->privilege==1 || Auth::user()->privilege==4 || Auth::user()->privilege==5)                  
                   <li class="{{ Request::is('requisitions') ? 'active' : '' }}">
-                      <a href="requisitions?success=0">
+                      <a href="/requisitions?success=0">
                           <i class="fa fa-cube"></i>
                           <span>Draft PO / Requisition</span>
                       </a>
@@ -68,7 +68,7 @@
                   @endif
                   @if(Auth::user()->privilege==1 || Auth::user()->privilege==3 || Auth::user()->privilege==4 || Auth::user()->privilege==5)
                   <li>
-                      <a href="waste" class="{{ Request::is('waste') ? 'active' : '' }}">
+                      <a href="/waste" class="{{ Request::is('waste') ? 'active' : '' }}">
                           <i class="fa fa-leaf"></i>
                           <span>Waste</span>
                       </a>

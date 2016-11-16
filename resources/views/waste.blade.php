@@ -81,42 +81,7 @@
                             @endif
                         </td>
                         <td hidden="">
-                          <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="pull-left">
-                            <tr>
-                              <td colspan="2"><b><u>PELAYARAN</u></b></d>
-                            </tr>
-                            <tr>
-                              <th style="text-align:center;">Asal</th>
-                              <th style="text-align:center;">Tujuan</th>
-                              <th style="text-align:center;">Keberangkatan</th>
-                              <th style="text-align:center;">Nama Kapal
-                              @foreach($voyages as $voyage)
-                              @if($waste->id_voyages==$voyage->id)
-                              <tr style="text-align:left;">
-                                <td>
-                                    @foreach($pelabuhans as $pelabuhan)
-                                      @if($pelabuhan->id_pelabuhan==$voyage->asal)
-                                       {{ $pelabuhan->nama_pelabuhan }}
-                                      @endif
-                                    @endforeach   
-                                </td>
-                                <td>
-                                    @foreach($pelabuhans as $pelabuhan)
-                                      @if($pelabuhan->id_pelabuhan==$voyage->tujuan)
-                                       {{ $pelabuhan->nama_pelabuhan }}
-                                      @endif
-                                    @endforeach 
-                                </td>
-                                <td>
-                                  {{ $voyage->keberangkatan }}
-                                </td>
-                                <td>
-                                  {{ $voyage->nama_kapal }}
-                                </td>
-                              </tr>
-                              @endif
-                              @endforeach
-                          </table>
+                          
                         </td>             
                         
                     </tr>
@@ -465,7 +430,25 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = ''+aData[6]+'';
+      var array = <?php echo json_encode($wastes);?>;
+      console.log(array);
+      // var sOut = array;
+      var sOut = '<table class="table table-striped" style="text-align: center;">';
+          sOut +=                  '<tr>';
+          sOut +=                    '<td colspan="3" style="background-color:maroon; color:white;"><b><u>PELAYARAN</u></b></d>';
+          sOut +=                  '</tr>';
+          sOut +=                  '<tr>';
+          sOut +=                    '<th style="text-align:center;background-color:gray; color:white;">Nama Pelayaran</th>';
+          sOut +=                    '<th style="text-align:center;background-color:gray; color:white;">Keberangkatan</th>';
+          sOut +=                    '<th style="text-align:center;background-color:gray; color:white;">Nama Kapal';
+                              for(i=0;i<array.length;i++){
+          sOut +=                      '<tr style="text-align:center;">';
+          sOut +=                        '<td>'+array[i]["voyages"][0]["nama"]+'</td>';
+          sOut +=                        '<td>'+array[i]["voyages"][0]["keberangkatan"]+'</td>';
+          sOut +=                        '<td>'+array[i]["voyages"][0]["kapals"]["nama_kapal"]+'</td>';
+          sOut +=                      '</tr>';
+                              }
+          sOut +=                '</table>';
 
 
       return sOut;

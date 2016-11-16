@@ -29,7 +29,7 @@ class voyagesController extends Controller
 
 	public static function DataTransit($value)
 	{
-		$transits = Transit::where('id_rute',$value)->get();
+		$transits = Transit::with('pelabuhans')->where('id_rute',$value)->get();
 		// DD($transits);
 		return $transits;
 	}

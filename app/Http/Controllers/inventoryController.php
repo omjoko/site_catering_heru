@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\inventorys;
 use App\ingredients;
 use App\requisitions;
+use App\storages;
 
 class inventoryController extends Controller
 {
@@ -16,12 +17,25 @@ class inventoryController extends Controller
 
     public function tampil(Request $request)
     {
-    	$inventorys = inventorys::with('ingredients.pembelian')->get();
+    	$inventorys = inventorys::with('ingredients.pembelian')
+                        ->join('requisitions','inventorys.id_req','=','requisitions.id')
+                        ->join('voyages','requisitions.id_pelayaran','=','voyages.id')
+                        ->join('ingredients','inventorys.id_bahan','=','ingredients.id')
+                        ->join('storages','inventorys.gudang','=','storages.id_storages')
+                        ->select('inventorys.*','requisitions.id as id_req','voyages.id as id_voy','ingredients.id as id_ing','storages.id_storages as id_stor')
+                        ->where('voyages.deleted_at','=',null)
+                        ->where('voyages.deleted_at','=',null)
+                        ->get();
+        // DD($inventorys);
         $ingredients = ingredients::all();
-        $requisitions = requisitions::where('status', 2)->get();
-
+        $storages = storages::all();
+        $requisitions = requisitions::with('voyages')
+                        ->join('voyages','requisitions.id_pelayaran', '=' ,'voyages.id')
+                        ->select('requisitions.*','voyages.id as hole')
+                        ->where(['status'=> 2,'voyages.deleted_at'=>null])
+                        ->get();
         // DD($requisitions);
-    	return view('inventorys.inventory', ['inventorys'=>$inventorys,'requisitions'=>$requisitions,'ingredients'=>$ingredients]);
+    	return view('inventorys.inventory', ['inventorys'=>$inventorys,'requisitions'=>$requisitions,'ingredients'=>$ingredients, 'storages'=>$storages]);
     }
 
     public function tambah(Request $request)
@@ -30,6 +44,7 @@ class inventoryController extends Controller
     	$inventorys->id_bahan = $request->id_bahan;
     	$inventorys->jumlah = $request->jumlah;
         $inventorys->id_req = $request->id_req;
+        $inventorys->gudang = $request->gudang;
     	$inventorys->save();
 
         return redirect()->action('inventoryController@tampil');
@@ -41,6 +56,7 @@ class inventoryController extends Controller
     	$inventorys->id_bahan = $request->id_bahan;
     	$inventorys->jumlah = $request->jumlah;
         $inventorys->id_req = $request->id_req;
+        $inventorys->gudang = $request->gudang;
     	$inventorys->save();
 
         return redirect()->action('inventoryController@tampil');

@@ -18,7 +18,7 @@ class RuteController extends Controller
 
     public static function sedotTransit($value)
     {
-        $transits = Transit::with('rutes')->where('id_rute', $value)->get();
+        $transits = Transit::with('pelabuhans')->where('id_rute', $value)->get();
         return $transits;
     }
 

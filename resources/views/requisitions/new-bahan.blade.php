@@ -39,7 +39,7 @@
                     <h5>Vendor : <strong style="color: red;">{{$rv->vendors['nama_vendor']}}</strong></h5>
                   </div>
                   <div class="col-xs-6 col-sm-3">
-                    <h5>No.Rekuisisi : <strong style="color: red;">R{{$rv->id}}</strong></h5>
+                    <h5>No.Rekuisisi : <strong style="color: red;">R{{$_GET['id']}}</strong></h5>
                   </div>
                 </div>
                 <div class="form-group">
@@ -79,7 +79,7 @@
                             </button>
                       </span>
                       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                      <input type="hidden" name="id_req" value="{{$requisitions->id}}">
+                      <input type="hidden" name="id_req" value="{{$_GET['id']}}">
                 </form>
                       <span class="pull-left" style="margin-left: 10px;">
                            <a href="/requisitions?success=0"><button type="button" class="btn btn-danger" data-toggle="modal">

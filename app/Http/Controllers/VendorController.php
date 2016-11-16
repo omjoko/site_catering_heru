@@ -18,7 +18,7 @@ class VendorController extends Controller
     	$vendors = DB::table('vendors')
                     ->get();
 
-    	return view('vendor', ['vendors' => $vendors]);
+    	return view('vendors', ['vendors' => $vendors]);
     }
 
     public function store(Request $request) {

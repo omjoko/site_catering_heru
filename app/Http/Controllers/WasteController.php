@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use DB;
+use App\Waste;
 
 class WasteController extends Controller
 {
@@ -15,13 +16,18 @@ class WasteController extends Controller
     
     public function index()	{
 
-    	$wastes = DB::table('wastes')
+    	$wastes = Waste::with('voyages.kapals')
+                    ->join('voyages', 'wastes.id_voyages', '=' , 'voyages.id')
+                    ->where("voyages.deleted_at", null)
+                    ->select('wastes.*','voyages.id as hole')
                     ->get();
+                    // DD($wastes);
 
         $voyages = DB::table('voyages')
         			->join('rutes', 'voyages.id_rute', '=', 'rutes.id')
         			->join('kapals', 'voyages.id_kapal', '=', 'kapals.id')
         			->select('voyages.*', 'rutes.asal as asal', 'rutes.tujuan as tujuan', 'kapals.nama_kapal as nama_kapal')
+                    ->where('deleted_at' , null)
         			->get();
 
         $pelabuhans = DB::table('pelabuhans')

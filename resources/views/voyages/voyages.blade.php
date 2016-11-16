@@ -56,11 +56,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0; use App\Http\Controllers\voyagesController;?>
+                    <?php $no = 0; $ke=0; use App\Http\Controllers\voyagesController; $arrayVoy = array(); ?>
                     @foreach($voyages as $voyage)
                     <?php $no++; ?>
                     <?php 
                         $transits = voyagesController::DataTransit($voyage->id_rute);
+                        $arrayVoy[] = $transits;
                     ?>                    
                       <tr class="gradeX">
                           <td>{{$no}}</td>
@@ -109,31 +110,10 @@
                               {{$voyage->ekonomi2}}                  
                           </td>
                           <td hidden="">
-                              <table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="pull-left">
-                                <tr>
-                                  <td colspan="2"><b><u>DAFTAR PEMBERHENTIAN</u></b></d>
-                                </tr>
-                                <tr>
-                                  <th style="text-align:center;">Pemberhentian</th>
-                                  <th style="text-align:center;">Durasi</th>
-                                </tr>
-                                  @foreach($transits as $transit)
-                                  <tr style="text-align:left;">
-                                    <td>
-                                        @foreach($pelabuhans as $pelabuhan)
-                                          @if($pelabuhan->id_pelabuhan==$transit->id_pelabuhan)
-                                           {{$pelabuhan->nama_pelabuhan}}
-                                          @endif
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        {{$transit->est_transit}} Hari
-                                    </td>
-                                  </tr>
-                                  @endforeach
-                              </table>
+                              {{$ke}}
                           </td>                      
                       </tr>
+                      <?php $ke++; ?>
                     @endforeach
                     </tbody>
                 </table>
@@ -338,14 +318,33 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="pull-right">';
+      var kes = aData[14];
+      var arrayVoy = <?php echo json_encode($arrayVoy);?>;
+      // console.log(arrayVoy[kes]);
+      var tableData = arrayVoy[kes];
+      // var sOut = kes;
+      var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="pull-left">';
       sOut += '<tr><th colspan="3" style="text-align:center;">Daftar Kelas Penumpang</th></tr>';
       sOut += '<tr style="text-align:left;"><td>Kelas Eksekutif</td><td>:</td<<td"> <strong>'+aData[10]+'</strong> </td></tr>';
       sOut += '<tr style="text-align:left;"><td>Kelas Bisnis</td><td>:</td<td"> <strong>'+aData[11]+'</strong> </td></tr>';
       sOut += '<tr style="text-align:left;"><td>Kelas Ekonomi 1</td><td>:</td<td"> <strong>'+aData[12]+'</strong> </td></tr>';
       sOut += '<tr style="text-align:left;"><td>Kelas Ekonomi 2</td><td>:</td<td"> <strong>'+aData[13]+'</strong> </td></tr>';
       sOut += '</table>';
-      sOut += aData[14];
+      sOut += '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="pull-right">';
+      sOut +=                          '<tr>';
+      sOut +=                            '<td colspan="2"><b><u>DAFTAR PEMBERHENTIAN</u></b></d>';
+      sOut +=                          '</tr>';
+      sOut +=                          '<tr>';
+      sOut +=                            '<th style="text-align:center;">Pemberhentian</th>';
+      sOut +=                            '<th style="text-align:center;">Durasi</th>';
+      sOut +=                          '</tr>';
+      for(i=0;i<tableData.length;i++){
+      sOut +=                            '<tr style="text-align:left;">';
+      sOut +=                              '<td>'+tableData[i]["pelabuhans"]["nama_pelabuhan"]+'</td>';
+      sOut +=                              '<td>'+tableData[i]["est_transit"]+' Hari</td>';
+      sOut +=                            '</tr>';
+      }
+      sOut +=                        '</table>';
 
       return sOut;
   }

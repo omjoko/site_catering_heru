@@ -67,6 +67,7 @@ class foodplansController extends Controller
     public static function SedotFP($value)
     {
         $FP = food_plans::where('id_pelayaran', $value)->get();
+        // DD($FP);
         return $FP;
     }
 
@@ -131,7 +132,7 @@ class foodplansController extends Controller
         return redirect('/food-plans?success=1');
     }
 
-        public function hapus(Request $request){
+    public function hapus(Request $request){
 
         $food_plans= food_plans::where(['id_pelayaran'=>$request->id, 'hari'=>$request->hari])->first();
         $food_plans->delete();

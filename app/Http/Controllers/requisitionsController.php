@@ -16,8 +16,8 @@ class requisitionsController extends Controller
 
 	public function __construct()
     {
-        $this->middleware('isSteward');
-    	$this->middleware('isManager');
+        $this->middleware('auth');
+
     }
 
 	public function dataBahan(Request $request)
@@ -26,6 +26,7 @@ class requisitionsController extends Controller
 		$rv = requisitions::with('vendors')->where('id_pelayaran', $request->id_pelayaran)->first();
 		$pelabuhans = pelabuhans::all();
 		$detail_requisitions = detail_requisitions::with('ingredients.pembelian')->where('id_req', $request->id)->get();
+		// DD($detail_requisitions);
 		$ingredients = ingredients::with('pembelian')->get();
 		// DD($detail_requisitions);
 		return view('requisitions.new-bahan',['requisitions'=>$requisitions,'pelabuhans'=>$pelabuhans,'ingredients'=>$ingredients,'detail_requisitions'=>$detail_requisitions, 'rv'=>$rv]);
@@ -68,7 +69,12 @@ class requisitionsController extends Controller
 
 	public function tampil(Request $request)
 	{
-		$requisitions = requisitions::with('vendors')->get();
+		$requisitions = requisitions::with('vendors')
+						->join('voyages', 'requisitions.id_pelayaran', '=', 'voyages.id')
+						->select('requisitions.*','voyages.id as hole')
+						->where('voyages.deleted_at', null)
+						->get();
+		// DD($requisitions);
 		$vendors = vendors::all();
 
 		return view('requisitions.requisitions' , ['requisitions'=>$requisitions,'vendors'=>$vendors]);
@@ -112,6 +118,7 @@ class requisitionsController extends Controller
 
     public function ubahstatus(Request $request)
     {
+    	// $request->id
     	$requisitions = requisitions::find($request->id);
     	$requisitions->status = $request->status;
     	$requisitions->save();

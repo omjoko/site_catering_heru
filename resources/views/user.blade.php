@@ -159,7 +159,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Tanggal Valid</label>
                         <div class="col-sm-10">
-                            <input name="tgl_valid" type="text" placeholder="" data-mask="9999-99-99" class="form-control">
+                            <input name="tgl_valid" type="date" placeholder="" data-mask="9999-99-99" class="form-control">
                             <span class="help-inline">yyyy-mm-dd</span>
                         </div>
                     </div>

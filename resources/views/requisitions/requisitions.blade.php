@@ -43,18 +43,19 @@
                         <th style="width: 5%;">No. Rekuisisi</th>
                         <th style="text-align: center;">Deskripsi</th>
                         <th style="text-align: center;">Vendor</th>
-                        <th hidden=""></th>
                         <th style="text-align: center;">Total</th>
                         <th style="text-align: center;">Status</th>
                         <th></th>
+                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0; use App\Http\Controllers\requisitionsController;?>
+                    <?php $no = 0; use App\Http\Controllers\requisitionsController; $ke = 0; $arrayDR = array(); ?>
                     @foreach($requisitions as $requisition)
                     <?php $no++; ?>
                     <?php 
                         $DR = requisitionsController::sedot_detail($requisition->id);
+                        $arrayDR[] = $DR;
                     ?>                                            
                       <tr class="gradeX">
                           <td>{{$no}}</td>
@@ -68,35 +69,10 @@
                               {{$requisition->vendors['nama_vendor']}}
                           </td>
                           <?php $totals = array();?>
-                          <td hidden="">
-                                <table class="display table table-bordered table-striped table-advance table-hover">
-                                    <tr>
-                                        <th style="width: 5%;">No.</th>
-                                        <th>Nama bahan</th>
-                                        <th>Jumlah</th>
-                                        <th>Satuan</th>
-                                        <th>Harga</th>
-                                        <th>Total</th>
-                                        <th style="width: 10%"></th>
-                                    </tr>
-                                    <?php $nos = 0; ?>
                                     @foreach($DR as $detail_requisition)
-                                    <?php $nos++; ?>
-                                        <tr>
-                                          <td>{{ $nos }}</td>
-                                          <td>{{ $detail_requisition->ingredients[0]['nama'] }}</td>
-                                          <td>{{ $detail_requisition->jumlah }}</td>
-                                          <td>
-                                              {{ $detail_requisition->ingredients[0]->pembelian['satuan'] }}
-                                          </td>
-                                          <td>{{ $detail_requisition->harga }}</td>
-                                          <?php $total = $detail_requisition->jumlah*$detail_requisition->harga; ?>
-                                          <td>{{$total}}</td>
-                                        </tr>
+                                      <?php $total = $detail_requisition->jumlah*$detail_requisition->harga; ?>
                                       <?php $totals[] = $total;  ?>
                                     @endforeach
-                                </table>
-                          </td>                          
                           <td>{{array_sum($totals)}}</td>
                           <td>
                               @if($requisition->status==0)
@@ -111,14 +87,16 @@
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $requisition->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $requisition->id }}"><i class="fa fa-trash-o "></i></button>
                             <button class="btn btn-warning btn-xs" data-toggle="modal" href="#modalStatus{{ $requisition->id }}"><i class="fa fa-pencil "></i> Status</button>
-                            <a href="/new-food-plans?id={{ $requisition->id }}"><button class="btn btn-success btn-xs"><i class="fa fa-star"></i> Invoices</button></a>
                             @if($requisition->status==2)
                               <a href="/laporan_requisition?id={{ $requisition->id }}"><button class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalCetak" title="Cetak" style="background-color: orange;"><i class="fa fa-print"></i> Cetak</button></a>
                             @endif
                             <a href="/new-ingredients-requisitions?id={{ $requisition->id }}&id_pelayaran={{ $requisition->id_pelayaran }}"><button class="btn btn-success btn-xs" style="background-color: blue;"><i class="fa fa-plus"></i> Bahan</button></a>
                           </td>
-
+                          <td hidden="">
+                            {{$ke}}
+                          </td>
                       </tr>
+                      <?php $ke++; ?>
                     @endforeach
                     </tbody>
                 </table>
@@ -294,7 +272,34 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = aData[5];
+      var kes = aData[8];
+      var arrayDR = <?php echo json_encode($arrayDR);?>;
+      console.log(arrayDR[kes]);
+      var tableData = arrayDR[kes];
+      // var sOut = kes;
+      var sOut =              '<table class="display table table-bordered table-striped table-advance table-hover">';
+          sOut +=                          '<tr>';
+          sOut +=                              '<th style="text-align: center; background-color:gray; color:white;">No.</th>';
+          sOut +=                              '<th style="text-align: center; background-color:gray; color:white;">Nama bahan</th>';
+          sOut +=                              '<th style="text-align: center; background-color:gray; color:white;">Jumlah</th>';
+          sOut +=                              '<th style="text-align: center; background-color:gray; color:white;">Satuan</th>';
+          sOut +=                              '<th style="text-align: center; background-color:gray; color:white;">Harga</th>';
+          sOut +=                              '<th style="text-align: center; background-color:gray; color:white;">Total</th>';
+          sOut +=                          '</tr>';
+                                    var no = 0;
+                                    for(i=0;i<tableData.length;i++){
+                                    no++;
+          sOut +=                              '<tr>';
+          sOut +=                                '<td>'+no+'</td>';
+          sOut +=                                '<td>'+tableData[i]["ingredients"][0]["nama"]+'</td>';
+          sOut +=                                '<td>'+tableData[i]["jumlah"]+'</td>';
+          sOut +=                                '<td>'+tableData[i]["ingredients"][0]["pembelian"]["satuan"]+'</td>';
+          sOut +=                                '<td>'+tableData[i]["harga"]+'</td>';
+                                                 var total = tableData[i]["jumlah"]*tableData[i]["harga"];
+          sOut +=                                '<td>'+total+'</td>';
+          sOut +=                              '</tr>';
+                                      }
+          sOut +=                      '</table>';
 
 
       return sOut;

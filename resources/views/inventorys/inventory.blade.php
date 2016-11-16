@@ -44,6 +44,7 @@
                         <th>Satuan</th>
                         <th>Tanggal</th>
                         <th>No.Rekuisisi</th>
+                        <th>Nama Gudang</th>
                         <th style="width: 10%"></th>
                     </tr>
                     </thead>
@@ -58,6 +59,11 @@
                         <td>{{ $inventory->ingredients->pembelian['satuan']}}</td>
                         <td>{{ $inventory->created_at }}</td>
                         <td>R{{ $inventory->id_req }}</td>
+                        <td>@foreach($storages as $storage)
+                            @if($inventory->gudang==$storage->id_storages)
+                              {{$storage->nama}}
+                            @endif
+                          @endforeach</td>
                         <td>
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $inventory->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $inventory->id }}"><i class="fa fa-trash-o "></i></button>
@@ -110,6 +116,17 @@
                         <select class="form-control" name="id_req" required="">
                           @foreach($requisitions as $requisition)
                             <option value="{{$requisition->id}}">R{{$requisition->id}}</option>
+                          @endforeach
+                        </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Nama Penyimpanan</label>
+                        <div class="col-sm-10">
+                        <select class="form-control" name="gudang" required="">
+                          @foreach($storages as $storage)
+                            <option value="{{$storage->id_storages}}">R{{$storage->nama}}</option>
                           @endforeach
                         </select>
                         </div>
@@ -177,6 +194,21 @@
                               <option value="{{$requisition->id}}" selected="">R{{$requisition->id}}</option>
                             @else 
                               <option value="{{$requisition->id}}">R{{$requisition->id}}</option>
+                            @endif
+                          @endforeach
+                        </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Nama Penyimpanan</label>
+                        <div class="col-sm-10">
+                        <select class="form-control" name="gudang" required="">
+                          @foreach($storages as $storage)
+                            @if($inventory->gudang==$storage->id_storages)
+                              <option value="{{$storage->id_storages}}" selected="">{{$storage->nama}}</option>
+                            @else
+                              <option value="{{$storage->id_storages}}" >{{$storage->nama}}</option>
                             @endif
                           @endforeach
                         </select>

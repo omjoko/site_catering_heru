@@ -28,7 +28,7 @@ PO / Rekuisisi
         <th>Harga</th>
         <th>Total</th>
     </tr>
-    <?php $nos = 0; ?>
+    <?php $nos = 0; $totals = array(); ?>
     @foreach($DR as $detail_requisition)
     <?php $nos++; ?>
         <tr>

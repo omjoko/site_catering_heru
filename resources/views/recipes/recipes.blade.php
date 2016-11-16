@@ -37,14 +37,16 @@
                         <th style="text-align: center;">Tipe Resep</th>
                         <th style="text-align: center;"></th>
                         <th hidden=""></th>
+                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0; use App\Http\Controllers\recipesController;?>
+                    <?php $no = 0; $ke=0; use App\Http\Controllers\recipesController; $arraySep = array();?>
                     @foreach($recipes as $recipe)
                     <?php $no++; ?>
                     <?php 
                         $bahan_reseps = recipesController::sedotResep($recipe->id);
+                        $arraySep[] = $bahan_reseps;
                     ?>
                       <tr class="gradeX">
                           <td>{{$no}}</td>
@@ -67,30 +69,13 @@
                             <a href="new-ingredients-recipe?id={{$recipe->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Bahan</button></a>
                           </td>
                           <td hidden="">
-                            <div class="col-md-4">
-                              <table class="table table-striped">
-                                <tr>
-                                  <th  style="text-align: center;">No.</th>
-                                  <th  style="text-align: center;">Bahan</th>
-                                  <th  style="text-align: center;">Jumlah</th>
-                                  <th  style="text-align: center;">Banyak</th>
-                                </tr>
-                                <?php $no_var = 0; ?>
-                                @foreach($bahan_reseps as $bahan_resep)
-                                <?php $no_var++; ?>
-                                    <tr>
-                                      <td>{{$no_var}}</td>
-                                      <td>{{ $bahan_resep->bahan['nama'] }}</td>
-                                      <td>{{ $bahan_resep->jumlah }}</td>
-                                      <td>{{ $bahan_resep->satuan }}</td>
-                                @endforeach
-                              </table>
-                            </div>
-                            <div class="pull-right">
-                              <img src="{{$recipe->gambar}}" class="img-responsive" width="640" height="320">
-                            </div>
+                            {{$ke}}
+                          </td>
+                          <td hidden="">
+                            {{$recipe->gambar}}
                           </td>
                       </tr>
+                      <?php $ke++; ?>
                     @endforeach
                     </tbody>
                 </table>
@@ -280,7 +265,34 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = aData[6];
+      var kes = aData[6];
+      var foto = aData[7];
+      var arraySep = <?php echo json_encode($arraySep);?>;
+      // console.log(arraySep[kes]);
+      var tableData = arraySep[kes];
+      var sOut =            '<div class="col-md-4">';
+          sOut +=                          '<table class="table table-striped">';
+          sOut +=                            '<tr>';
+          sOut +=                             '<th  style="text-align: center; background-color:#78CD51; color:white;">No.</th>';
+          sOut +=                             '<th  style="text-align: center; background-color:#78CD51; color:white;">Bahan</th>';
+          sOut +=                             '<th  style="text-align: center; background-color:#78CD51; color:white;">Jumlah</th>';
+          sOut +=                             '<th  style="text-align: center; background-color:#78CD51; color:white;">Satuan</th>';
+          sOut +=                           '</tr>';
+          var no=0;
+          for(i=0;i<tableData.length;i++){
+            no++;
+          sOut +=                               '<tr>';
+          sOut +=                                 '<td>'+no+'</td>';
+          sOut +=                                 '<td>'+tableData[i]["bahan"]["nama"]+'</td>';
+          sOut +=                                  '<td>'+tableData[i]["jumlah"]+'</td>';
+          sOut +=                                  '<td>'+tableData[i]["satuan"]+'</td>';
+          sOut +=                               '<tr>';
+          }
+          sOut +=                          '</table>';
+          sOut +=                        '</div>';
+          sOut +=                        '<div class="pull-right">';
+          sOut +=                          '<img src="'+foto+'" class="img-responsive" width="640" height="320">';
+          sOut +=                        '</div>';
 
       return sOut;
   }

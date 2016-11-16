@@ -55,6 +55,7 @@
                     <thead>
                     <tr>
                         <th style="width: 5%;">No.</th>
+                        <th style="text-align: center;">Nama Pelayaran</th>
                         <th style="text-align: center;">Asal</th>
                         <th style="text-align: center;">Tujuan</th>
                         <th style="text-align: center;">Tanggal</th>
@@ -74,6 +75,7 @@
                     ?>                                            
                       <tr class="gradeX">
                           <td>{{$no}}</td>
+                          <td>{{$voyage->nama}}</td>
                           <td>
                               @foreach($pelabuhans as $pelabuhan)
                                 @if($pelabuhan->id_pelabuhan==$voyage->rutes['asal'])
@@ -89,7 +91,7 @@
                               @endforeach
                           </td>
                           <td>{{$voyage->keberangkatan}}</td>
-                          <td>{{$voyage->est_rute}} Hari</td>
+                          <td>{{$voyage->rutes->est_rute}} Hari</td>
                           <td><?php $total = $voyage->eksekutif+$voyage->bisnis+$voyage->ekonomi1+$voyage->ekonomi2; echo $total; ?></td>
                           <td>
                              @if($_GET['success']==0)
@@ -314,7 +316,7 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = aData[8];
+      var sOut = aData[9];
 
 
       return sOut;

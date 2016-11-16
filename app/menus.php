@@ -26,6 +26,6 @@ class menus extends Model
 
      public function food_plans()
     {
-        return $this->morphToMany('App\food_plans', 'id');
+        return $this->belongsTo('App\food_plans', 'id');
     }
 }

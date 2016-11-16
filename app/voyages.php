@@ -21,4 +21,13 @@ class voyages extends Model
         return $this->hasOne('App\requisitions' , 'id_pelayaran', 'id');
     }
 
+    public function Waste() {
+          return $this->belongsTo('App\Waste', 'id_voyages', 'id');
+    }
+
+    public function kapals()
+    {
+        return $this->hasOne('App\kapals' , 'id', 'id_kapal');
+    }
+
 }

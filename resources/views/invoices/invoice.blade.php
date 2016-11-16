@@ -41,11 +41,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0; use App\Http\Controllers\invoicesController;?>
+                    <?php $no = 0; $ke=0; $arrayD = array(); use App\Http\Controllers\invoicesController;?>
                     @foreach($invoices as $invoice)
                     <?php $no++; ?>
                     <?php 
                         $details = invoicesController::sedotDetail($invoice->id);
+                        $arrayD[] = $details;
                     ?>
                     <tr>
                         <td>{{$no}}</td>
@@ -65,31 +66,10 @@
                             <a href="new-invoices?id={{$invoice->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Barang</button></a>
                         </td>
                         <td hidden="">
-                          <table class="table table-striped">
-                            <tr>
-                              <th  style="text-align: center;">No.</th>
-                              <th  style="text-align: center;">Nama Barang</th>
-                              <th  style="text-align: center;">Harga</th>
-                              <th  style="text-align: center;">Satuan</th>
-                              <th  style="text-align: center;">Banyak</th>
-                              <th  style="text-align: center;">Total</th>
-                            </tr>
-                            <?php $no_var = 0; ?>
-                            @foreach($details as $detail)
-                            <?php $no_var++; ?>
-                                <tr>
-                                  <td>{{$no_var}}</td>
-                                  <td>{{$detail->nama_barang}}</td>
-                                  <td>{{$detail->harga}}</td>
-                                  <td>{{$detail->satuan}}</td>
-                                  <td>{{$detail->banyak}}</td>
-                                  <?php $total = $detail->banyak*$detail->harga; ?>
-                                  <td>{{$total}}</td>
-                                </tr>
-                            @endforeach
-                          </table>
+                          {{$ke}}
                         </td>
                     </tr>
+                    <?php $ke++ ?>
                     @endforeach
                     </tbody>
                 </table>
@@ -272,7 +252,33 @@
   function fnFormatDetails ( oTable, nTr, id_bahan )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = aData[7];
+      var kes = aData[7];
+      var arrayD = <?php echo json_encode($arrayD);?>;
+      console.log(arrayD[kes]);
+      var tableData = arrayD[kes];
+      var sOut = '<table class="table table-striped">';
+          sOut +=                  '<tr>';
+          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">No.</th>';
+          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">Nama Barang</th>';
+          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">Harga</th>';
+          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">Satuan</th>';
+          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">Banyak</th>';
+          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">Total</th>';
+          sOut +=                  '</tr>';
+                            var no=0;
+                            for(i=0;i<tableData.length;i++){
+                            no++;
+          sOut +=                      '<tr>';
+          sOut +=                        '<td>'+no+'</td>';
+          sOut +=                        '<td>'+tableData[i]["nama_barang"]+'</td>';
+          sOut +=                        '<td>'+tableData[i]["harga"]+'</td>';
+          sOut +=                        '<td>'+tableData[i]["satuan"]+'</td>';
+          sOut +=                        '<td>'+tableData[i]["banyak"]+'</td>';
+                                   var total = tableData[i]["banyak"]*tableData[i]["harga"];
+          sOut +=                        '<td>'+total+'</td>';
+          sOut +=                      '</tr>';
+                            }
+          sOut +=                '</table>';
       return sOut;
   }
 

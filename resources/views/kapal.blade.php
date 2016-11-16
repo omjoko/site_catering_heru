@@ -43,10 +43,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php use App\Http\Controllers\KapalController; ?>
+                    <?php use App\Http\Controllers\KapalController; $ke=0; $arrayStore= array(); ?>
                     @foreach($kapals as $no => $kapal)
                     <?php 
                         $storages = KapalController::storageData($kapal->id);
+                        $arrayStore[] = $storages;
                     ?>
                     <tr>
                         <td>{{ $no+1 }}</td>
@@ -66,28 +67,10 @@
                             <a href="/storages?id={{ $kapal->id }}"><button class="btn btn-success btn-xs" data-toggle="modal"><i class="fa fa-plus"></i> Penyimpanan</button></a>
                         </td>
                         <td hidden="">
-                        <table class="display table table-bordered table-striped table-advance table-hover">
-                          <tr>
-                            <th>No.</th>
-                            <th>Nama Penyimpanan</th>
-                            <th>Tipe Penyimpanan</th>
-                          </tr>
-                          @foreach($storages as $no=> $storage)
-                              <tr>
-                                <td>{{$no+1}}</td>
-                                <td>{{$storage->nama}}</td>
-                                    @if($storage->tipe==0)
-                                      <td><span class="label label-primary label-mini">Freezer</span></td>
-                                    @elseif($storage->tipe==1)
-                                      <td><span class="label label-info label-mini">Gudang Utama</span></td>
-                                    @elseif($storage->tipe==2)
-                                      <td><span class="label label-inverse label-mini">Gudang Biasa</span></td>
-                                    @endif
-                              </tr>
-                          @endforeach
-                        </table>
+                          {{$ke}}
                         </td>
                     </tr>
+                    <?php $ke++; ?>
                     @endforeach
                     </tbody>
                 </table>
@@ -348,7 +331,33 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = aData[7]
+      var kes = aData[7];
+      var arrayStore = <?php echo json_encode($arrayStore);?>;
+      var tableData = arrayStore[kes];
+      console.log(arrayStore[kes]);
+      // var sOut = kes;
+      var sOut = '<table class="table table-striped" style="text-align: center;">';
+          sOut +=                     '<tr>';
+          sOut +=                       '<th style="text-align: center; background-color:gray; color:white;">No.</th>';
+          sOut +=                      '<th style="text-align: center; background-color:gray; color:white;">Nama Penyimpanan</th>';
+          sOut +=                        '<th style="text-align: center; background-color:gray; color:white;">Tipe Penyimpanan</th>';
+          sOut +=                      '</tr>';
+          var no = 0;
+          for(i=0;i<tableData.length;i++){
+            no++;
+          sOut +=                          '<tr>';
+          sOut +=                            '<td>'+no+'</td>';
+          sOut +=                            '<td>'+tableData[i]["nama"]+'</td>';
+            if(tableData[i]["tipe"]==0){
+            sOut +=                                  '<td><span class="label label-primary label-mini">Freezer</span></td>';
+            } else if(tableData[i]["tipe"]==1) {
+            sOut +=                                  '<td><span class="label label-info label-mini">Gudang Utama</span></td>';
+            } else if(tableData[i]["tipe"]==2) {
+            sOut +=                                  '<td><span class="label label-inverse label-mini">Gudang Biasa</span></td>';
+            }
+          sOut +=                          '</tr>';
+          } 
+          sOut +=                    '</table>';
 
       return sOut;
   }

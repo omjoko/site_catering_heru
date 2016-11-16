@@ -13,7 +13,7 @@ class food_plans extends Model
 
     public function menus()
     {
-        return $this->morphedByMany('App\menus', 'id');
+        return $this->hasMany('App\menus','id' , 'sarapan_eksekutif', 'sarapan_bisnis', 'sarapan_ekonomi1', 'sarapan_ekonomi2');
     }
 
     public function voyages()

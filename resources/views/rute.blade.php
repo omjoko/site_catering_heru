@@ -40,10 +40,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php use App\Http\Controllers\RuteController;?>
+                    <?php use App\Http\Controllers\RuteController; $ke=0; $arrayTrans = array(); ?>
                     @foreach($rutes as $no => $rute)
                     <?php 
                         $transits = RuteController::sedotTransit($rute->id);
+                        $arrayTrans[] = $transits;
                     ?>
                     <tr>
                         <td>{{ $no+1 }}</td>
@@ -61,35 +62,17 @@
                           @endif
                         @endforeach
                         </td>
-                        <td>{{ $rute->est_rute }}</td>
+                        <td>{{ $rute->est_rute }} Hari</td>
                         <td>
                             <button class="btn btn-primary btn-xs" data-toggle="modal" href="#modalUbah{{ $rute->id }}"><i class="fa fa-pencil"></i></button>
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $rute->id }}"><i class="fa fa-trash-o "></i></button>
                             <a href="transit?id={{ $rute->id }}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Transit</button></a>
                         </td>
                         <td hidden="">
-                          <table class="table table-striped">
-                            <tr>
-                              <th  style="text-align: center;">No</th>
-                              <th  style="text-align: center;">Nama Pelabuhan</th>
-                              <th  style="text-align: center;">Estimasi Transit</th>
-                            </tr>
-                            @foreach($transits as $no => $transit)
-                                <tr>
-                                  <td>{{ $no+1 }}</td>
-                                  <td>
-                                      @foreach($pelabuhans as $pelabuhan)
-                                        @if($transit->id_pelabuhan==$pelabuhan->id_pelabuhan)
-                                          {{ $pelabuhan->nama_pelabuhan }}
-                                        @endif
-                                      @endforeach                                        
-                                  </td>
-                                  <td>{{ $transit->est_transit }}</td>
-                                </tr>
-                            @endforeach
-                          </table>
+                            {{$ke}}
                         </td>
                       </tr>
+                      <?php $ke++; ?>
                       @endforeach
                     </tbody>
                 </table>
@@ -302,7 +285,27 @@
   function fnFormatDetails ( oTable, nTr, id_bahan )
   {
       var aData = oTable.fnGetData( nTr );
-      var sOut = aData[6];
+      var kes = aData[6];
+      var arrayTrans = <?php echo json_encode($arrayTrans);?>;
+      console.log(arrayTrans[kes]);
+      var tableData = arrayTrans[kes];
+      // var sOut = kes;
+      var sOut =        '<table class="table table-striped">';
+          sOut +=                  '<tr>';
+          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">No</th>';
+          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">Nama Pelabuhan</th>';
+          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">Estimasi Transit</th>';
+          sOut +=                  '</tr>';
+          var no=0;
+          for(i=0;i<tableData.length;i++){
+            no++;
+          sOut +=                      '<tr>';
+          sOut +=                        '<td>'+no+'</td>';
+          sOut +=                        '<td>'+tableData[i]["pelabuhans"]["nama_pelabuhan"]+'</td>';
+          sOut +=                        '<td>'+tableData[i]["est_transit"]+' Hari</td>';
+          sOut +=                      '</tr>';
+          }
+          sOut +=                '</table>';
       return sOut;
   }
 

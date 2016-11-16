@@ -13,6 +13,6 @@ class Transit extends Model
 
      public function pelabuhans()
      {
-     	return $this->belongsTo('App\pelabuhans', 'id_pelabuhan');
+     	return $this->belongsTo('App\pelabuhans', 'id_pelabuhan', 'id_pelabuhan');
      }
 }

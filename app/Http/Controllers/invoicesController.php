@@ -20,10 +20,20 @@ class invoicesController extends Controller
     }
     
     public function tampil(Request $request)	{
-        $invoices = invoices::with('req')->get();
+        $invoices = invoices::with('req.voyages')
+                    ->join('requisitions','invoices.id_requisitions','=','requisitions.id')
+                    ->join('voyages', 'requisitions.id_pelayaran','=','voyages.id')
+                    ->select('invoices.*','requisitions.id_pelayaran as id_req_voy', 'voyages.id as id_asli')
+                    ->where('voyages.deleted_at',null)
+                    ->get();
+        // DD($invoices);
         $invens = invoices::with('vendor')->get();
         $vendors = vendors::all();
-        $reqs = requisitions::where('status', 2)->get();
+        $reqs = requisitions::with('voyages')
+                        ->join('voyages','requisitions.id_pelayaran', '=' ,'voyages.id')
+                        ->select('requisitions.*','voyages.id as hole')
+                        ->where(['status'=> 2,'voyages.deleted_at'=>null])
+                        ->get();
         return view('invoices.invoice',['invoices'=>$invoices, 'invens'=>$invens, 'vendors'=>$vendors, 'reqs'=>$reqs]);
     }
 

@@ -36,11 +36,10 @@
                         <th  style="text-align: center;">Deskripsi</th>
                         <th  style="text-align: center;">Kategori</th>
                         <th  style="text-align: center;"></th>
-                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0; $ke=0; use App\Http\Controllers\ingredientsController; $arrayVar = array(); ?>
+                    <?php $no = 0; use App\Http\Controllers\ingredientsController; $arrayVar = array(); ?>
                     @foreach($ingredients as $ingredient)
                     <?php $no++; ?>
                     <?php 
@@ -57,16 +56,11 @@
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $ingredient->id }}"><i class="fa fa-trash-o "></i></button>
                             <a href="new-variants?id={{$ingredient->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Varian</button></a>
                         </td>
-                        <td hidden="">
-                          {{$ke}}
-                        </td>
                     </tr>
-                    <?php $ke++; ?>
                     @endforeach
                     </tbody>
                 </table>
               </div>
-
 @foreach($ingredients as $ingredient)
   <!-- Modal update -->
   <div class="modal fade" id="modalUbah{{ $ingredient->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -227,33 +221,32 @@
   /* Formating function for row details */
   function fnFormatDetails ( oTable, nTr, id_bahan )
   {
-      var aData = oTable.fnGetData( nTr );
-      var datas = aData[6];
-      var arrayVar = <?php echo json_encode($arrayVar);?>;
-      var tableData = arrayVar[datas];
       var sOut = '<table class="table table-striped">';
           sOut +=                 '<tr>';
-          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">No.</th>';
-          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">Variasi Bahan</th>';
-          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">Bahan Utama</th>';
-          sOut +=                    '<th  style="text-align: center; background-color:gray; color:white;">Deskripsi</th>';
+          sOut +=                    '<th  style="text-align: center;">No.</th>';
+          sOut +=                    '<th  style="text-align: center;">Variasi Bahan</th>';
+          sOut +=                    '<th  style="text-align: center;">Bahan Utama</th>';
+          sOut +=                    '<th  style="text-align: center;">Deskripsi</th>';
           sOut +=                  '</tr>';
-          var no = 0;
-                            for(i=0;i< tableData.length;i++){
-                              no++;
+                            <?php $no_var = 0; $length = count($arrayVar); ?>
+                            @for($i=0;$i < $length; $i++)
+                            <?php $no_var++; $lengthIn = count($arrayVar[$i]);?>
+                                @for($j=0;$j<$lengthIn; $j++)
           sOut +=                      '<tr>';
-          sOut +=                        '<td>'+no+'</td>';
-          sOut +=                        '<td>'+tableData[i]["nama"]+'</td>';  
+          sOut +=                        '<td>{{$no_var}}</td>';
+          sOut +=                        '<td>{{$arrayVar[$i][$j]["nama"]}}</td>';  
           sOut +=                        '<td>';
-                                      if(tableData[i]["bahan_utama"]==0){
+                                      @if($arrayVar[$i][$j]['bahan_utama'] == 0)
           sOut +=                            '<span class="label label-danger label-mini"> Tidak</span>';
-                                      }else{
+                                      @else
           sOut +=                            '<span class="label label-success label-mini"> Ya</span>';
-                                      }
+                                      @endif
           sOut +=                        '</td>';
-          sOut +=                        '<td>'+tableData[i]["deskripsi"]+'</td>';
+          sOut +=                        '<td>{{$arrayVar[$i][$j]["deskripsi"]}}</td>';
           sOut +=                      '</tr>';
-                                  }
+                                    <?php $no_var++; ?>
+                                @endfor
+                            @endfor
           sOut +=                '</table>';
       return sOut;
   }
