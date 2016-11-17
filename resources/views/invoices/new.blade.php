@@ -34,19 +34,19 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nama Barang</label>
                     <div class="col-sm-10">
-                        <input type="text" name="nama" class="form-control">
+                        <input type="text" name="nama" class="form-control" required="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
                     <div class="col-sm-10">
-                            <input type="number" name="banyak" min="0" class="form-control">
+                            <input type="number" name="banyak" min="0" class="form-control" required="">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Satuan</label>
                     <div class="col-sm-10">
-                          <select class="form-control" name="satuan">
+                          <select class="form-control" name="satuan" required="">
                             @foreach($measurements as $satuan)
                             <option value="{{$satuan->satuan}}">{{$satuan->satuan}}</option>
                             @endforeach
@@ -59,7 +59,7 @@
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon">Rp. </span>
-                                <input type="number" name="harga" min="0" class="form-control">
+                                <input type="number" name="harga" min="0" class="form-control" required="">
                             </div>
                         </div>
                     </div>
@@ -144,19 +144,19 @@
                                                 <div class="form-group">
                                                     <label class="col-sm-2 col-sm-2 control-label">Nama Barang</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" name="nama" class="form-control" value="{{$DI->nama_barang}}">
+                                                        <input type="text" name="nama" class="form-control" value="{{$DI->nama_barang}}" required="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
                                                     <div class="col-sm-10">
-                                                            <input type="number" name="banyak" min="0" class="form-control" value="{{$DI->banyak}}">
+                                                            <input type="number" name="banyak" min="0" class="form-control" value="{{$DI->banyak}}" required="">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="col-sm-2 col-sm-2 control-label">Satuan</label>
                                                     <div class="col-sm-10">
-                                                          <select class="form-control" name="satuan">
+                                                          <select class="form-control" name="satuan" required="">
                                                             @foreach($measurements as $satuan)
                                                               @if($satuan->satuan==$DI->satuan)
                                                               <option value="{{$satuan->satuan}}" selected="">{{$satuan->satuan}}</option>
@@ -173,7 +173,7 @@
                                                         <div class="col-sm-10">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon">Rp. </span>
-                                                                <input type="number" name="harga" min="0" class="form-control" value="{{$DI->harga}}">
+                                                                <input type="number" name="harga" min="0" class="form-control" value="{{$DI->harga}}" required="">
                                                             </div>
                                                         </div>
                                                     </div>

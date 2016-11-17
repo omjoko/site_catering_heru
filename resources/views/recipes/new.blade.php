@@ -29,7 +29,7 @@
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Nama Resep</label>
 	                  <div class="col-sm-10">
-	                      <input type="text" name="nama" class="form-control">
+	                      <input type="text" name="nama" class="form-control" required="">
 	                  </div>
 	              </div>
 	              <div class="form-group">

@@ -171,26 +171,26 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Tanggal Berangkat</label>
                         <div class="col-sm-10">
-                            <input type="date" name="tgl_keberangkatan" class="form-control" value="{{$tgl}}">
+                            <input type="date" name="tgl_keberangkatan" class="form-control" value="{{$tgl}}" required="">
                         </div>
                     </div>
                     <?php $jam = substr($voyage->keberangkatan, 11); ?>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Jam Berangkat</label>
                         <div class="col-sm-10">
-                            <input type="time" name="jam_keberangkatan" class="form-control" value="{{$jam}}">
+                            <input type="time" name="jam_keberangkatan" class="form-control" value="{{$jam}}" required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Nama Pelayaran</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nama" class="form-control" value="{{$voyage->nama}}">
+                            <input type="text" name="nama" class="form-control" value="{{$voyage->nama}}" required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Kapal</label>
                         <div class="col-sm-10">
-                            <select name="id_kapal" class="form-control">
+                            <select name="id_kapal" class="form-control" required="">
                             @foreach($kapals as $kapal)
                                 @if($kapal->id==$voyage->id_kapal)
                                   <option value="{{$kapal->id}}" selected="">{{$kapal->nama_kapal}}</option>
@@ -209,25 +209,25 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Eksekutif</label>
                         <div class="col-sm-10">
-                            <input type="number" name="eksekutif" class="form-control" value="{{$voyage->eksekutif}}">
+                            <input type="number" name="eksekutif" class="form-control" value="{{$voyage->eksekutif}}" min="0" required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Bisnis</label>
                         <div class="col-sm-10">
-                            <input type="number" name="bisnis" class="form-control" value="{{$voyage->bisnis}}">
+                            <input type="number" name="bisnis" class="form-control" value="{{$voyage->bisnis}}" min="0" required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Ekonomi 1</label>
                         <div class="col-sm-10">
-                            <input type="number" name="ekonomi1" class="form-control" value="{{$voyage->ekonomi1}}">
+                            <input type="number" name="ekonomi1" class="form-control" value="{{$voyage->ekonomi1}}" min="0" required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Ekonomi 2</label>
                         <div class="col-sm-10">
-                            <input type="number" name="ekonomi2" class="form-control" value="{{$voyage->ekonomi2}}">
+                            <input type="number" name="ekonomi2" class="form-control" value="{{$voyage->ekonomi2}}" min="0" required="">
                         </div>
                     </div>                    
                     <div class="modal-footer">

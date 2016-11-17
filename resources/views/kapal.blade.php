@@ -126,13 +126,13 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">No. IMO</label>
                         <div class="col-sm-10">
-                            <input name="no_imo" type="text" placeholder="" class="form-control">
+                            <input name="no_imo" type="text" placeholder="" class="form-control" required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Kapasitas</label>
                         <div class="col-sm-10">
-                            <input name="kapasitas" type="text" placeholder="" class="form-control">
+                            <input name="kapasitas" type="number" placeholder="" class="form-control" required="">
                         </div>
                     </div>
 

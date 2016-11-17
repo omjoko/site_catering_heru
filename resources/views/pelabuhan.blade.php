@@ -86,7 +86,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Alamat</label>
                         <div class="col-sm-10">
-                            <input name="alamat" type="text" placeholder="" class="form-control">
+                            <input name="alamat" type="text" placeholder="" class="form-control" required="">
                         </div>
                     </div>
                     <div class="form-group">
@@ -98,7 +98,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Kota</label>
                         <div class="col-sm-10">
-                            <input name="kota" type="text" placeholder="" class="form-control">
+                            <input name="kota" type="text" placeholder="" class="form-control" required="">
                         </div>
                     </div>
 
@@ -139,19 +139,19 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Alamat</label>
                         <div class="col-sm-10">
-                            <input name="alamat" type="text" placeholder="" class="form-control" value="{{ $pelabuhan->alamat }}">
+                            <input name="alamat" type="text" placeholder="" class="form-control" value="{{ $pelabuhan->alamat }}" required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Telepon</label>
                         <div class="col-sm-10">
-                            <input name="telepon" type="text" placeholder="" class="form-control" required="" value="{{ $pelabuhan->telepon }}">
+                            <input name="telepon" type="text" placeholder="" class="form-control" required="" value="{{ $pelabuhan->telepon }}" required="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Kota</label>
                         <div class="col-sm-10">
-                            <input name="kota" type="text" placeholder="" class="form-control" value="{{ $pelabuhan->kota }}">
+                            <input name="kota" type="text" placeholder="" class="form-control" value="{{ $pelabuhan->kota }}" required="">
                         </div>
                     </div>
 

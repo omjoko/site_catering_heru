@@ -91,7 +91,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Nama Vendor</label>
                         <div class="col-sm-10">
-                            <select name="toko" class="form-control">
+                            <select name="toko" class="form-control" required="">
                             @foreach($vendors as $vendor)
                               <option value="{{$vendor->id}}">{{$vendor->nama_vendor}}</option>
                             @endforeach
@@ -101,7 +101,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">No. Requisition</label>
                         <div class="col-sm-10">
-                            <select name="id_req" class="form-control">
+                            <select name="id_req" class="form-control" required="">
                             @foreach($reqs as $req)
                               <option value="{{$req->id}}">R{{$req->id}}</option>
                             @endforeach
@@ -137,7 +137,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Nama Vendor</label>
                         <div class="col-sm-10">
-                            <select name="toko" class="form-control">
+                            <select name="toko" class="form-control" required="">
                             @foreach($vendors as $vendor)
                               @if($vendor->id==$invoice->toko)
                               <option value="{{$vendor->id}}" selected="">{{$vendor->nama_vendor}}</option>
@@ -151,7 +151,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">No. Requisition</label>
                         <div class="col-sm-10">
-                            <select name="id_req" class="form-control">
+                            <select name="id_req" class="form-control" required="">
                             @foreach($reqs as $req)
                             @if($req->id==$invoice->id_requisitions)
                               <option value="{{$req->id}}" selected="">R{{$req->id}}</option>

@@ -38,7 +38,7 @@
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Nama Bahan</label>
 	                  <div class="col-sm-10">
-                      <select name="id_bahan" class="form-control">
+                      <select name="id_bahan" class="form-control" required="">
                         @foreach($reseps as $resep)
                             <option value="{{$resep->id}}">{{$resep->nama}}</option>
                         @endforeach
@@ -48,13 +48,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
                     <div class="col-sm-10">
-                        <input type="number" name="jumlah" class="form-control" min="0">
+                        <input type="number" name="jumlah" class="form-control" min="0" value="0" required="">
                     </div>
                 </div>
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Satuan</label>
 	                  <div class="col-sm-10">
-                      <select name="satuan" class="form-control">
+                      <select name="satuan" class="form-control" required="">
                         @foreach($reseps as $resep)
                             <option value="{{$resep->resep->satuan}}">{{$resep->resep->satuan}}</option>
                         @endforeach
@@ -123,7 +123,7 @@
 
                                                             <label class="control-label">Nama Bahan</label>
                                                             <div class="">
-                                                              <select name="id_bahan" class="form-control">
+                                                              <select name="id_bahan" class="form-control" required="">
                                                                 @foreach($reseps as $resep)
                                                                   @if($resep->id==$recipe->id)
                                                                     <option value="{{$resep->id}}" selected="">{{$resep->nama}}</option>
@@ -135,11 +135,11 @@
                                                             </div>
                                                             <label class="control-label">Jumlah</label>
                                                             <div class="">
-                                                                <input type="number" name="jumlah" class="form-control" min="0" value="{{$recipe->jumlah}}">
+                                                                <input type="number" name="jumlah" class="form-control" min="0" value="{{$recipe->jumlah}}" required="">
                                                             </div>
                                                             <label class="control-label">Satuan</label>
                                                             <div class="">
-                                                              <select name="satuan" class="form-control">
+                                                              <select name="satuan" class="form-control" required="">
                                                                 @foreach($reseps as $resep)
                                                                   @if($resep->resep->satuan==$recipe->satuan)
                                                                     <option value="{{$resep->resep->satuan}}" selected="">{{$resep->resep->satuan}}</option>

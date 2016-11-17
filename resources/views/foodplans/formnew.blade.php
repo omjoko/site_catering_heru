@@ -53,8 +53,22 @@
                     <label class="col-sm-2 col-sm-2 control-label">Hari</label>
                     <div class="col-sm-10">
                         <select name="hari" class="form-control">
+                            <?php $hari = 1; ?>
                             @for($i=0;$i<$voyages->rutes['est_rute'];$i++)
-                            <option value="{{$i+1}}">Hari ke- {{$i+1}}</option>
+                              @if(!$day->isEmpty())
+                                  @foreach($day as $no => $days)
+                                @if($day[$no]->hari == $hari)
+                                @else
+                                  @if($hari<=$voyages->rutes['est_rute'])
+                                  <option value="{{$hari}}">Hari ke- {{$hari}}</option>
+                                  @endif
+                                @endif
+                              <?php $hari++ ?>
+                              @endforeach
+                              @else
+                                  <option value="{{$hari}}">Hari ke- {{$hari}}</option>
+                                  <?php $hari++ ?>
+                              @endif
                             @endfor
                         </select>
                     </div>
