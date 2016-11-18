@@ -38,7 +38,7 @@
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Variasi Bahan</label>
 	                  <div class="col-sm-10">
-	                      <input type="text" class="form-control" name="nama" required="">
+	                      <input type="text" class="form-control" name="nama">
 	                  </div>
 	              </div>
                 <div class="form-group">
@@ -61,7 +61,7 @@
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Deskripsi</label>
 	                  <div class="col-sm-10">
-                        <textarea name="deskripsi" class="form-control" rows="5" required=""></textarea>
+                        <textarea name="deskripsi" class="form-control" rows="5"></textarea>
 	                  </div>
 	              </div>
 	              <div class="form-group">
@@ -126,7 +126,7 @@
 
                                                       <label class="control-label">Variasi Bahan</label>
                                                       <div class="">
-                                                          <input type="text" class="form-control" name="nama" value="{{$variant->nama}}" required="">
+                                                          <input type="text" class="form-control" name="nama" value="{{$variant->nama}}">
                                                       </div>
                                                       <label class="control-label">Bahan Utama</label>
                                                       <div class="">
@@ -160,7 +160,7 @@
                                                       </div>
                                                       <label class="control-label">Deskripsi</label>
                                                       <div class="">
-                                                          <textarea name="deskripsi" class="form-control" rows="5" required="">{{$variant->deskripsi}}</textarea>
+                                                          <textarea name="deskripsi" class="form-control" rows="5">{{$variant->deskripsi}}</textarea>
                                                       </div>
 
                                                   <div class="modal-footer">

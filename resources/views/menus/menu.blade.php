@@ -121,7 +121,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Nama Menu</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nama" class="form-control" required="">
+                            <input type="text" name="nama" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -137,7 +137,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Menu Pembuka</label>
                         <div class="col-sm-10">
-                            <select name="menu_pembuka" class="form-control" required="">
+                            <select name="menu_pembuka" class="form-control">
                                 @foreach($menu_pembukas as $menu_pembuka)
                                     <option value="{{$menu_pembuka->id}}">{{$menu_pembuka->nama}}</option>
                                 @endforeach
@@ -147,7 +147,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Menu Utama</label>
                         <div class="col-sm-10">
-                            <select name="menu_utama" class="form-control" required="">
+                            <select name="menu_utama" class="form-control">
                                 @foreach($menu_utamas as $menu_utama)
                                     <option value="{{$menu_utama->id}}">{{$menu_utama->nama}}</option>
                                 @endforeach
@@ -157,7 +157,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Menu Penutup</label>
                         <div class="col-sm-10">
-                            <select name="menu_penutup" class="form-control" required="">
+                            <select name="menu_penutup" class="form-control">
                                 @foreach($menu_penutups as $menu_penutup)
                                     <option value="{{$menu_penutup->id}}">{{$menu_penutup->nama}}</option>
                                 @endforeach
@@ -167,7 +167,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Minuman</label>
                         <div class="col-sm-10">
-                            <select name="minuman" class="form-control" required="">
+                            <select name="minuman" class="form-control">
                                 @foreach($minumans as $minuman)
                                     <option value="{{$minuman->id}}">{{$minuman->nama}}</option>
                                 @endforeach
@@ -207,7 +207,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Nama Menu</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nama" class="form-control" value="{{ $menu->nama }}" required="">
+                            <input type="text" name="nama" class="form-control" value="{{ $menu->nama }}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -233,7 +233,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Menu Pembuka</label>
                         <div class="col-sm-10">
-                            <select name="menu_pembuka" class="form-control" required="">
+                            <select name="menu_pembuka" class="form-control">
                                 @foreach($menu_pembukas as $menu_pembuka)
                                     @if($menu->menu_pembuka==$menu_pembuka->id)
                                         <option value="{{$menu_pembuka->id}}" selected="">{{$menu_pembuka->nama}}</option>
@@ -247,7 +247,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Menu Utama</label>
                         <div class="col-sm-10">
-                            <select name="menu_utama" class="form-control" required="">
+                            <select name="menu_utama" class="form-control">
                                 @foreach($menu_utamas as $menu_utama)
                                     @if($menu->menu_utama==$menu_utama->id)
                                         <option value="{{$menu_utama->id}}" selected="">{{$menu_utama->nama}}</option>
@@ -261,7 +261,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Menu Penutup</label>
                         <div class="col-sm-10">
-                            <select name="menu_penutup" class="form-control" required="">
+                            <select name="menu_penutup" class="form-control">
                                 @foreach($menu_penutups as $menu_penutup)
                                     @if($menu->menu_penutup==$menu_penutup->id)
                                         <option value="{{$menu_penutup->id}}" selected="">{{$menu_penutup->nama}}</option>
@@ -275,7 +275,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Minuman</label>
                         <div class="col-sm-10">
-                            <select name="minuman" class="form-control" required="">
+                            <select name="minuman" class="form-control">
                                 @foreach($minumans as $minuman)
                                     @if($menu->minuman==$minuman->id)
                                     <option value="{{$minuman->id}}" selected="">{{$minuman->nama}}</option>

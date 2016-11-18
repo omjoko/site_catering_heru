@@ -119,7 +119,7 @@
           <div class="modal-content">
               <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Ubah Rekuisisi</h4>
+                  <h4 class="modal-title">Ubah Perencanaan Pelayaran</h4>
               </div>
               <div class="modal-body">
 
@@ -131,7 +131,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Vendor</label>
                         <div class="col-sm-10">
-                          <select name="vendor" class="form-control" required="">
+                          <select name="vendor" class="form-control">
                           @foreach($vendors as $vendor)
                             @if($requisition->vendors['id']==$vendor->id)
                               <option value="{{$vendor->id}}" selected="">{{$vendor->nama_vendor}}</option>

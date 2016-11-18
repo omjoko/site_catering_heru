@@ -55,7 +55,7 @@
                   <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Pemberhentian</label>
                       <div class="col-sm-10">
-                          <select class="form-control m-bot15" name="id_pelabuhan" required="">
+                          <select class="form-control m-bot15" name="id_pelabuhan">
                             @foreach($pelabuhans as $pelabuhan)
                             <option value="{{ $pelabuhan->id_pelabuhan }}">{{ $pelabuhan->nama_pelabuhan }}</option>
                             @endforeach
@@ -65,7 +65,7 @@
                   <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Estimasi</label>
                       <div class="col-sm-10">
-                          <input type="number" class="form-control" name="est_transit" required="">
+                          <input type="number" class="form-control" name="est_transit">
                       </div>
                   </div>
                   {{ $rutes->id_rutes }}
@@ -140,7 +140,7 @@
                       <div class="form-group">
                           <label class="col-sm-2 col-sm-2 control-label">Pemberhentian</label>
                           <div class="col-sm-10">
-                                <select name="id_pelabuhan" class="form-control" required="">
+                                <select name="id_pelabuhan" class="form-control">
                                 @foreach($pelabuhans as $pelabuhan)
                                   @if($transit->id_pelabuhan==$pelabuhan->id_pelabuhan)
                                     <option value="{{ $pelabuhan->id_pelabuhan }}" selected="">{{ $pelabuhan->nama_pelabuhan }}</option>
@@ -154,7 +154,7 @@
                       <div class="form-group">
                           <label class="col-sm-2 col-sm-2 control-label">Estimasi</label>
                           <div class="col-sm-10">
-                              <input type="text" class="form-control" name="est_transit" value="{{ $transit->est_transit }}" required="">
+                              <input type="text" class="form-control" name="est_transit" value="{{ $transit->est_transit }}">
                           </div>
                       </div>
 

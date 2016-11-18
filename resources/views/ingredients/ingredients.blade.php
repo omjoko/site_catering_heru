@@ -135,7 +135,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Deskripsi</label>
                         <div class="col-sm-10">
-                          <textarea class="form-control" name="deskripsi" rows="5" required="">{{$ingredient->deskripsi}}</textarea>
+                          <textarea class="form-control" name="deskripsi" rows="5">{{$ingredient->deskripsi}}</textarea>
                         </div>
                     </div>
                     <div class="modal-footer">

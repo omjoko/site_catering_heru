@@ -97,7 +97,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Asal</label>
                         <div class="col-sm-10">
-                            <select class="form-control m-bot15" name="asal" required="">
+                            <select class="form-control m-bot15" name="asal">
                               @foreach($pelabuhans as $pelabuhan)
                               <option value="{{ $pelabuhan->id_pelabuhan }}">{{ $pelabuhan->nama_pelabuhan }}</option>
                               @endforeach
@@ -107,7 +107,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Tujuan</label>
                         <div class="col-sm-10">
-                            <select class="form-control m-bot15" name="tujuan" required="">
+                            <select class="form-control m-bot15" name="tujuan">
                               @foreach($pelabuhans as $pelabuhan)
                               <option value="{{ $pelabuhan->id_pelabuhan }}">{{ $pelabuhan->nama_pelabuhan }}</option>
                               @endforeach
@@ -153,7 +153,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Asal</label>
                         <div class="col-sm-10">                              
-                              <select class="form-control" name="asal" required="">
+                              <select class="form-control" name="asal">
                               @foreach($pelabuhans as $pelabuhan)
                                 @if($rute->asal==$pelabuhan->id_pelabuhan)
                                   <option value="{{ $pelabuhan->id_pelabuhan }}" selected="">{{ $pelabuhan->nama_pelabuhan }}</option>
@@ -167,7 +167,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Tujuan</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="tujuan" required="">
+                            <select class="form-control" name="tujuan">
                             @foreach($pelabuhans as $pelabuhan)
                                 @if($rute->tujuan==$pelabuhan->id_pelabuhan)
                                   <option value="{{ $pelabuhan->id_pelabuhan }}" selected="">{{ $pelabuhan->nama_pelabuhan }}</option>

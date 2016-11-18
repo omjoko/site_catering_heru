@@ -56,14 +56,14 @@
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Tanggal Berangkat</label>
 	                  <div class="col-sm-10">
-                        <input type="text" name="tgl_keberangkatan" class="form-control form-control-inline input-medium default-date-picker" size="16" required="">
+                        <input type="text" name="tgl_keberangkatan" class="form-control form-control-inline input-medium default-date-picker" size="16">
 	                  </div>
 	              </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Jam Berangkat</label>
                     <div class="col-sm-10">
                         <div class="input-group bootstrap-timepicker">
-                            <input type="text" class="form-control timepicker-24" name="jam_keberangkatan" required="">
+                            <input type="text" class="form-control timepicker-24" name="jam_keberangkatan">
                               <span class="input-group-btn">
                               <button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
                               </span>
@@ -73,13 +73,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nama Pelayaran</label>
                     <div class="col-sm-10">
-                        <input type="text" name="nama" class="form-control" required="">
+                        <input type="text" name="nama" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Kapal</label>
                     <div class="col-sm-10">
-                        <select name="id_kapal" class="form-control" required="">
+                        <select name="id_kapal" class="form-control">
                         @foreach($kapals as $kapal)
                             <option value="{{$kapal->id}}">{{$kapal->nama_kapal}}</option>
                           @endforeach
@@ -94,25 +94,25 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Eksekutif</label>
                     <div class="col-sm-10">
-                        <input type="number" name="eksekutif" class="form-control" min="0" value="0" required="">
+                        <input type="number" name="eksekutif" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Bisnis</label>
                     <div class="col-sm-10">
-                        <input type="number" name="bisnis" class="form-control" min="0" value="0" required="">
+                        <input type="number" name="bisnis" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Ekonomi 1</label>
                     <div class="col-sm-10">
-                        <input type="number" name="ekonomi1" class="form-control" min="0" value="0" required="">
+                        <input type="number" name="ekonomi1" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Ekonomi 2</label>
                     <div class="col-sm-10">
-                        <input type="number" name="ekonomi2" class="form-control" min="0" value="0" required="">
+                        <input type="number" name="ekonomi2" class="form-control">
                     </div>
                 </div>
 	              <div class="form-group">

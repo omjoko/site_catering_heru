@@ -28,13 +28,13 @@
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Nama bahan</label>
 	                  <div class="col-sm-10">
-	                      <input type="text" class="form-control" name="nama" required="">
+	                      <input type="text" class="form-control" name="nama">
 	                  </div>
 	              </div>
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Kategori</label>
 	                  <div class="col-sm-10">
-                        <select class="form-control" name="id_kategori" required="">
+                        <select class="form-control" name="id_kategori">
                           @foreach($categorys as $category)
                             <option value="{{$category->id}}">{{$category->nama}}</option>
                           @endforeach
@@ -44,7 +44,7 @@
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Satuan Resep</label>
 	                  <div class="col-sm-10">
-                        <select class="form-control" name="satuan_resep" required="">
+                        <select class="form-control" name="satuan_resep">
                           @foreach($measurements as $measurement)
                             <option value="{{$measurement->id}}">{{$measurement->satuan}}</option>
                           @endforeach
@@ -54,7 +54,7 @@
 	              <div class="form-group">
 	                  <label class="col-sm-2 col-sm-2 control-label">Satuan Pembelian</label>
 	                  <div class="col-sm-10">
-                        <select class="form-control" name="satuan_pembelian" required="">
+                        <select class="form-control" name="satuan_pembelian">
                           @foreach($measurements as $measurement)
                             <option value="{{$measurement->id}}">{{$measurement->satuan}}</option>
                           @endforeach
@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Deskripsi</label>
                     <div class="col-sm-10">
-                      <textarea class="form-control" name="deskripsi" rows="5" required=""></textarea>
+                      <textarea class="form-control" name="deskripsi" rows="5"></textarea>
                     </div>
                 </div>
 	              <div class="form-group">

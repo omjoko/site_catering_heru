@@ -8,9 +8,8 @@ use App\voyages;
 use App\pelabuhans;
 use App\kapals;
 use App\menus;
-use App\vendors;
 use App\recipes;
-use App\ingredients;
+use App\vendors;
 use URL;
 
 class foodplansController extends Controller
@@ -19,16 +18,6 @@ class foodplansController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
-
-    public static function sedotMResep ($value){
-        $resep = recipes::where('id', $value)->first();
-        return $resep;
-    }
-
-    public static function sedotMBahan ($value){
-        $bahan = ingredients::where('id', $value)->first();
-        return $bahan;
     }
 
     public static function sedotMenu($value){
@@ -68,7 +57,7 @@ class foodplansController extends Controller
 	{    
         $voyages = voyages::with('rutes')->get();
 		$pelabuhans = pelabuhans::all();
-		$sarapans = menus::with('resep')->where('tipe', 0)->get();
+		$sarapans = menus::where('tipe', 0)->get();
 		$siangs = menus::where('tipe', 1)->get();
 		$malams = menus::where('tipe', 2)->get();
 
@@ -77,7 +66,7 @@ class foodplansController extends Controller
 
     public static function SedotFP($value)
     {
-        $FP = food_plans::where('id_pelayaran', $value)->orderBy('hari', 'asc')->get();
+        $FP = food_plans::where('id_pelayaran', $value)->get();
         // DD($FP);
         return $FP;
     }
@@ -85,14 +74,12 @@ class foodplansController extends Controller
     public function DataNew(Request $request)
     {
     	$voyages = voyages::with('rutes')->where('id', $request->id)->first();
-        $day= food_plans::where('id_pelayaran',$request->id)->select('food_plans.hari')->orderBy('hari', 'asc')->get();
-        // DD($day);
 		$pelabuhans = pelabuhans::all();
 		$sarapans = menus::where('tipe', 0)->get();
 		$makansiangs = menus::where('tipe', 1)->get();
 		$makanmalams = menus::where('tipe', 2)->get();
 
-		return view('foodplans.formnew', ['voyages'=>$voyages,'pelabuhans'=>$pelabuhans, 'sarapans'=>$sarapans,'makansiangs'=>$makansiangs,'makanmalams'=>$makanmalams,'day'=>$day]);
+		return view('foodplans.formnew', ['voyages'=>$voyages,'pelabuhans'=>$pelabuhans, 'sarapans'=>$sarapans,'makansiangs'=>$makansiangs,'makanmalams'=>$makanmalams]);
     }
 
     public function tambah(Request $request)
@@ -119,8 +106,7 @@ class foodplansController extends Controller
     	$food_plans->hari = $request->hari;
     	$food_plans->save();
 
-        $url = URL::previous();
-        return redirect($url);
+        return redirect('/food-plans?success=1');
         }
     }
 

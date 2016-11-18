@@ -129,7 +129,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-10">
-                            <input name="email1" type="email" placeholder="" class="form-control" required="">
+                            <input name="email1" type="email" placeholder="" class="form-control">
                             <span class="help-inline">johndoe@domain.com</span>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Telepon</label>
                         <div class="col-sm-10">
-                            <input name="telepon" type="text" placeholder="" class="form-control" required="">
+                            <input name="telepon" type="text" placeholder="" class="form-control">
                             <span class="help-inline">089693685702</span>
                         </div>
                     </div>

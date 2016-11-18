@@ -47,7 +47,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Bahan Makanan</label>
                     <div class="col-sm-10">
-                        <select name="id_bahan" class="form-control" required="">
+                        <select name="id_bahan" class="form-control">
                          @foreach($ingredients as $ingredient)
                             <option value="{{$ingredient->id}}">{{$ingredient->nama}}</option> 
                          @endforeach
@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Jumlah</label>
                     <div class="col-sm-10">
-                            <input type="number" name="jumlah" min="0" class="form-control" value="0">
+                            <input type="number" name="jumlah" min="0" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
@@ -66,7 +66,7 @@
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-addon">Rp. </span>
-                                <input type="number" name="harga" min="0" class="form-control" value="0" required="">
+                                <input type="number" name="harga" min="0" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -140,11 +140,11 @@
                                                            @endforeach
                                                           </select>
                                                       <label class="control-label">Jumlah</label>
-                                                              <input type="number" name="jumlah" min="0" class="form-control" value="{{ $detail_requisition->jumlah }}" required="">
+                                                              <input type="number" name="jumlah" min="0" class="form-control" value="{{ $detail_requisition->jumlah }}">
                                                       <label class="control-label">Harga</label>
                                                               <div class="input-group">
                                                                   <span class="input-group-addon">Rp. </span>
-                                                                  <input type="number" name="harga" min="0" class="form-control" value="{{ $detail_requisition->harga }}" required="">
+                                                                  <input type="number" name="harga" min="0" class="form-control" value="{{ $detail_requisition->harga }}">
                                                               </div>
                                                           </div>
 

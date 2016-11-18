@@ -108,7 +108,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Nama Resep</label>
                         <div class="col-sm-10">
-                            <input type="text" name="nama" class="form-control" value="{{ $recipe->nama }}" required="">
+                            <input type="text" name="nama" class="form-control" value="{{ $recipe->nama }}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -120,7 +120,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Tipe Resep</label>
                         <div class="col-sm-10">
-                            <select class="form-control" name="tipe" >
+                            <select class="form-control" name="tipe" required="">
                               @if($recipe->tipe==0)
                               <option value="0" selected="">Makanan Pembuka</option>
                               <option value="1">Makanan Utama</option>                          
@@ -296,7 +296,7 @@
           sOut +=                          '</table>';
           sOut +=                        '</div>';
           sOut +=                        '<div class="pull-right">';
-          sOut +=                          '<img src="'+foto+'" class="img img-responsive" width="640" height="320">';
+          sOut +=                          '<img src="'+foto+'" class="img-responsive" width="640" height="320">';
           sOut +=                        '</div>';
 =======
       var sOut = '<div class="col-md-4">';       

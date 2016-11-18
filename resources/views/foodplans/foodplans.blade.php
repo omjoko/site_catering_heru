@@ -124,28 +124,28 @@
                                     <td>
                                     @foreach($sarapans as $sarapan)
                                       @if($sarapan->id==$f->sarapan_eksekutif)
-                                          <a data-toggle="modal" href="#ModalSarapan{{$sarapan->id}}">{{$sarapan->nama}}</a>
+                                          {{$sarapan->nama}}
                                       @endif
                                     @endforeach
                                     </td>
                                     <td>
                                       @foreach($sarapans as $sarapan)
                                       @if($sarapan->id==$f->sarapan_bisnis)
-                                          <a data-toggle="modal" href="#ModalSarapan{{$sarapan->id}}">{{$sarapan->nama}}</a>
+                                          {{$sarapan->nama}}
                                       @endif
                                     @endforeach
                                     </td>
                                     <td>
                                       @foreach($sarapans as $sarapan)
                                       @if($sarapan->id==$f->sarapan_ekonomi1)
-                                          <a data-toggle="modal" href="#ModalSarapan{{$sarapan->id}}">{{$sarapan->nama}}</a>
+                                          {{$sarapan->nama}}
                                       @endif
                                     @endforeach
                                     </td>
                                     <td>
                                       @foreach($sarapans as $sarapan)
                                       @if($sarapan->id==$f->sarapan_ekonomi2)
-                                          <a data-toggle="modal" href="#ModalSarapan{{$sarapan->id}}">{{$sarapan->nama}}</a>
+                                          {{$sarapan->nama}}
                                       @endif
                                     @endforeach
                                     </td>
@@ -155,28 +155,28 @@
                                     <td>
                                       @foreach($siangs as $siang)
                                       @if($siang->id==$f->siang_eksekutif)
-                                            <a data-toggle="modal" href="#ModalSiang{{$siang->id}}">{{$siang->nama}}</a>
+                                          {{$siang->nama}}
                                       @endif
                                     @endforeach
                                     </td>
                                     <td>
                                        @foreach($siangs as $siang)
                                       @if($siang->id==$f->siang_bisnis)
-                                            <a data-toggle="modal" href="#ModalSiang{{$siang->id}}">{{$siang->nama}}</a>
+                                          {{$siang->nama}}
                                       @endif
                                     @endforeach
                                     </td>
                                     <td>
                                        @foreach($siangs as $siang)
                                       @if($siang->id==$f->siang_ekonomi1)
-                                            <a data-toggle="modal" href="#ModalSiang{{$siang->id}}">{{$siang->nama}}</a>
+                                          {{$siang->nama}}
                                       @endif
                                     @endforeach
                                     </td>
                                     <td>
                                        @foreach($siangs as $siang)
                                       @if($siang->id==$f->siang_ekonomi2)
-                                            <a data-toggle="modal" href="#ModalSiang{{$siang->id}}">{{$siang->nama}}</a>
+                                          {{$siang->nama}}
                                       @endif
                                     @endforeach
                                     </td>
@@ -186,28 +186,28 @@
                                     <td>
                                       @foreach($malams as $malam)
                                       @if($malam->id==$f->malam_eksekutif)
-                                            <a data-toggle="modal" href="#ModalMalam{{$malam->id}}">{{$malam->nama}}</a>
+                                          {{$malam->nama}}
                                       @endif
                                     @endforeach
                                     </td>
                                     <td>
                                       @foreach($malams as $malam)
                                       @if($malam->id==$f->malam_bisnis)
-                                            <a data-toggle="modal" href="#ModalMalam{{$malam->id}}">{{$malam->nama}}</a>
+                                          {{$malam->nama}}
                                       @endif
                                     @endforeach
                                     </td>
                                     <td>
                                      @foreach($malams as $malam)
                                       @if($malam->id==$f->malam_ekonomi1)
-                                            <a data-toggle="modal" href="#ModalMalam{{$malam->id}}">{{$malam->nama}}</a>
+                                          {{$malam->nama}}
                                       @endif
                                     @endforeach
                                     </td>
                                     <td>
                                       @foreach($malams as $malam)
                                       @if($malam->id==$f->malam_ekonomi2)
-                                            <a data-toggle="modal" href="#ModalMalam{{$malam->id}}">{{$malam->nama}}</a>
+                                          {{$malam->nama}}
                                       @endif
                                     @endforeach
                                     </td>
@@ -228,208 +228,6 @@
     </div>
 </div>
 
-@foreach($sarapans as $sarapan)
- <!-- Modal sarapan -->
-  <div class="modal fade" id="ModalSarapan{{ $sarapan->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Menu {{$sarapan->nama}}</h4>
-              </div>
-              <div class="modal-body">
-
-                <form class="form-horizontal" method="POST">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                  <input type="hidden" name="id_pelayaran" value="{{$voyage->id}}">
-                  <?php 
-                    $pembuka = foodplansController::sedotMResep($sarapan->menu_pembuka);
-                    $utama = foodplansController::sedotMResep($sarapan->menu_utama); 
-                    $penutup = foodplansController::sedotMResep($sarapan->menu_penutup); 
-                    $minuman = foodplansController::sedotMResep($sarapan->minuman); 
-                    if ($minuman==null) {
-                      $minuman = foodplansController::sedotMBahan($sarapan->minuman);
-                    }
-                  ?>
-
-                  <table cellpadding="0" cellspacing="0" border="10" class="display table table-bordered" style="text-align: center;">
-                      <tr>
-                        <th  style="text-align: center; background-color: gray; color: white;">Menu Pembuka</th>
-                        <th  style="text-align: center; background-color: gray; color: white;">Menu Utama</th>                        
-                      </tr>
-                      <tr>
-                        <td style="color:red; font-size: medium;"><u><strong>@if($pembuka->nama==null)@else{{$pembuka->nama}}@endif</strong></u></td>
-                        <td style="color:red; font-size: medium;"><u><strong>@if($utama->nama==null)@else{{$utama->nama}}@endif</strong></u></td>
-                      </tr>
-                      <tr>
-                        <td>@if($pembuka->gambar==null)<img class="img" src="img/noimagefound.jpg" height="150" width="150">@else<img class="img" src="{{$pembuka->gambar}}" height="150" width="150">@endif</td>
-                        <td>@if($utama->gambar==null)<img class="img" src="img/noimagefound.jpg" height="150" width="150">@else<img class="img" src="{{$utama->gambar}}" height="150" width="150">@endif</td>
-                      </tr>
-                      <tr>
-                        <th  style="text-align: center; background-color: gray; color: white;">Menu Penutup</th>
-                        <th  style="text-align: center; background-color: gray; color: white;">Minuman</th>
-                      </tr>
-                      <tr>
-                        <td style="color:red; font-size: medium;"><u><strong>@if($penutup->nama==null)@else{{$penutup->nama}}@endif</strong></u></td>
-                        <td style="color:red; font-size: medium;"><u><strong>@if($minuman->nama==null)@else{{$minuman->nama}}@endif</strong></u></td>
-                      </tr>
-                      <tr>
-                         <td>@if($utama->gambar==null)<img class="img" src="img/noimagefound.jpg" height="150" width="150">@else<img class="img" src="{{$penutup->gambar}}" height="150" width="150">@endif</td>
-                        @if($minuman->gambar==null)
-                          <td><img class="img" src="img/noimagefound.jpg" height="150" width="150"></td>
-                        @else
-                          <td><img class="img" src="{{$minuman->gambar}}" height="150" width="150"></td>
-                        @endif
-                      </tr>
-                  </table>
-
-                    <div class="modal-footer">
-                    </div>
-                </form>
-
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- END modal sarapan-->    
-@endforeach
-
-@foreach($siangs as $siang)
- <!-- Modal siang -->
-  <div class="modal fade" id="ModalSiang{{ $siang->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Menu {{$siang->nama}}</h4>
-              </div>
-              <div class="modal-body">
-
-                <form class="form-horizontal" method="POST">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                  <input type="hidden" name="id_pelayaran" value="{{$voyage->id}}">
-                  <?php 
-                    $pembuka = foodplansController::sedotMResep($siang->menu_pembuka);
-                    $utama = foodplansController::sedotMResep($siang->menu_utama); 
-                    $penutup = foodplansController::sedotMResep($siang->menu_penutup); 
-                    $minuman = foodplansController::sedotMResep($siang->minuman); 
-                    if ($minuman==null) {
-                      $minuman = foodplansController::sedotMBahan($siang->minuman);
-                    }
-                  ?>
-
-                  <table cellpadding="0" cellspacing="0" border="10" class="display table table-bordered" style="text-align: center;">
-                      <tr>
-                        <th  style="text-align: center; background-color: gray; color: white;">Menu Pembuka</th>
-                        <th  style="text-align: center; background-color: gray; color: white;">Menu Utama</th>                        
-                      </tr>
-                      <tr>
-                        <td style="color:red; font-size: medium;"><u><strong>@if($pembuka->nama==null)@else{{$pembuka->nama}}@endif</strong></u></td>
-                        <td style="color:red; font-size: medium;"><u><strong>@if($utama->nama==null)@else{{$utama->nama}}@endif</strong></u></td>
-                      </tr>
-                      <tr>
-                        <td>@if($pembuka->gambar==null)<img class="img" src="img/noimagefound.jpg" height="150" width="150">@else<img class="img" src="{{$pembuka->gambar}}" height="150" width="150">@endif</td>
-                        <td>@if($utama->gambar==null)<img class="img" src="img/noimagefound.jpg" height="150" width="150">@else<img class="img" src="{{$utama->gambar}}" height="150" width="150">@endif</td>
-                      </tr>
-                      <tr>
-                        <th  style="text-align: center; background-color: gray; color: white;">Menu Penutup</th>
-                        <th  style="text-align: center; background-color: gray; color: white;">Minuman</th>
-                      </tr>
-                      <tr>
-                        <td style="color:red; font-size: medium;"><u><strong>@if($penutup->nama==null)@else{{$penutup->nama}}@endif</strong></u></td>
-                        <td style="color:red; font-size: medium;"><u><strong>@if($minuman->nama==null)@else{{$minuman->nama}}@endif</strong></u></td>
-                      </tr>
-                      <tr>
-                        <td>@if($utama->gambar==null)<img class="img" src="img/noimagefound.jpg" height="150" width="150">@else<img class="img" src="{{$penutup->gambar}}" height="150" width="150">@endif</td>
-                        @if($minuman->gambar==null)
-                          <td><img class="img" src="img/noimagefound.jpg" height="150" width="150"></td>
-                        @else
-                          <td><img class="img" src="{{$minuman->gambar}}" height="150" width="150"></td>
-                        @endif
-                      </tr>
-                  </table>
-                    
-                    
-                    
-                    <div class="modal-footer">
-                    </div>
-                </form>
-
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- END modal siang-->    
-@endforeach
-
-@foreach($malams as $malam)
- <!-- Modal malam -->
-  <div class="modal fade" id="ModalMalam{{ $malam->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Menu {{$malam->nama}}</h4>
-              </div>
-              <div class="modal-body">
-
-                <form class="form-horizontal" method="POST">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                  <input type="hidden" name="id_pelayaran" value="{{$voyage->id}}">
-                  <?php 
-                    $pembuka = foodplansController::sedotMResep($malam->menu_pembuka);
-                    $utama = foodplansController::sedotMResep($malam->menu_utama); 
-                    $penutup = foodplansController::sedotMResep($malam->menu_penutup); 
-                    $minuman = foodplansController::sedotMResep($malam->minuman); 
-                    if ($minuman==null) {
-                      $minuman = foodplansController::sedotMBahan($malam->minuman);
-                    }
-                  ?>
-
-                  <table cellpadding="0" cellspacing="0" border="10" class="display table table-bordered" style="text-align: center;">
-                      <tr>
-                        <th  style="text-align: center; background-color: gray; color: white;">Menu Pembuka</th>
-                        <th  style="text-align: center; background-color: gray; color: white;">Menu Utama</th>                        
-                      </tr>
-                      <tr>
-                        <td style="color:red; font-size: medium;"><u><strong>@if($pembuka->nama==null)@else{{$pembuka->nama}}@endif</strong></u></td>
-                        <td style="color:red; font-size: medium;"><u><strong>@if($utama->nama==null)@else{{$utama->nama}}@endif</strong></u></td>
-                      </tr>
-                      <tr>
-                        <td>@if($pembuka->gambar==null)<img class="img" src="img/noimagefound.jpg" height="150" width="150">@else<img class="img" src="{{$pembuka->gambar}}" height="150" width="150">@endif</td>
-                        <td>@if($utama->gambar==null)<img class="img" src="img/noimagefound.jpg" height="150" width="150">@else<img class="img" src="{{$utama->gambar}}" height="150" width="150">@endif</td>
-                      </tr>
-                      <tr>
-                        <th  style="text-align: center; background-color: gray; color: white;">Menu Penutup</th>
-                        <th  style="text-align: center; background-color: gray; color: white;">Minuman</th>
-                      </tr>
-                      <tr>
-                        <td style="color:red; font-size: medium;"><u><strong>@if($penutup->nama==null)@else{{$penutup->nama}}@endif</strong></u></td>
-                        <td style="color:red; font-size: medium;"><u><strong>@if($minuman->nama==null)@else{{$minuman->nama}}@endif</strong></u></td>
-                      </tr>
-                      <tr>
-                        <td>@if($utama->gambar==null)<img class="img" src="img/noimagefound.jpg" height="150" width="150">@else<img class="img" src="{{$penutup->gambar}}" height="150" width="150">@endif</td>
-                        @if($minuman->gambar==null)
-                          <td><img class="img" src="img/noimagefound.jpg" height="150" width="150"></td>
-                        @else
-                          <td><img class="img" src="{{$minuman->gambar}}" height="150" width="150"></td>
-                        @endif
-                      </tr>
-                  </table>
-                    
-                    
-                    
-                    <div class="modal-footer">
-                    </div>
-                </form>
-
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- END modal malam-->    
-@endforeach
-
 @foreach($voyages as $voyage)
  <!-- Modal Tambah -->
   <div class="modal fade" id="ModalTambah{{ $voyage->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -449,7 +247,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Vendor</label>
                         <div class="col-sm-10">
-                          <select name="vendor" class="form-control" required="">
+                          <select name="vendor" class="form-control">
                           @foreach($vendors as $vendor)
                             <option value="{{$vendor->id}}">{{$vendor->nama_vendor}}</option>
                             @endforeach

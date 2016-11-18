@@ -47,13 +47,13 @@
                   <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Nama Penyimpanan</label>
                       <div class="col-sm-10">
-                          <input type="text" name="nama_kapal" class="form-control" required="">
+                          <input type="text" name="nama_kapal" class="form-control">
                       </div>
                   </div>
                   <div class="form-group">
                       <label class="col-sm-2 col-sm-2 control-label">Tipe Penyimpanan</label>
                       <div class="col-sm-10">
-                          <select name="tipe" class="form-control" required="">
+                          <select name="tipe" class="form-control">
                             <option value="0">Freezer</option>
                             <option value="1">Gudang Utama</option>
                             <option value="2">Gudang Biasa</option>

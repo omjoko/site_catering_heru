@@ -52,7 +52,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Hari</label>
                     <div class="col-sm-10">                    
-                        <select name="hari" class="form-control" required="">
+                        <select name="hari" class="form-control">
                             @for($i=0;$i<$voyages->rutes['est_rute'];$i++)
                               @if($i+1==$food_plans->hari)
                               <option value="{{$i+1}}">Hari ke- {{$i+1}}</option>
@@ -69,7 +69,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label"> Sarapan Eksekutif</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="sarapan_eksekutif" required="">
+                        <select class="form-control" name="sarapan_eksekutif">
                                 @foreach($sarapans as $sarapan)
                                 @if($sarapan->id==$food_plans->sarapan)
                                   <option value="{{$sarapan->id}}" selected="">
@@ -87,7 +87,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label"> Sarapan Bisnis</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="sarapan_bisnis" required="">
+                        <select class="form-control" name="sarapan_bisnis">
                                 @foreach($sarapans as $sarapan)
                                 @if($sarapan->id==$food_plans->sarapan)
                                   <option value="{{$sarapan->id}}" selected="">
@@ -105,7 +105,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Sarapan Ekonomi 1</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="sarapan_ekonomi1" required="">
+                        <select class="form-control" name="sarapan_ekonomi1">
                                 @foreach($sarapans as $sarapan)
                                 @if($sarapan->id==$food_plans->sarapan)
                                   <option value="{{$sarapan->id}}" selected="">
@@ -123,7 +123,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Sarapan Ekonomi 2</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="sarapan_ekonomi2" required="">
+                        <select class="form-control" name="sarapan_ekonomi2">
                                 @foreach($sarapans as $sarapan)
                                 @if($sarapan->id==$food_plans->sarapan)
                                   <option value="{{$sarapan->id}}" selected="">
@@ -146,7 +146,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label"> Makan Siang Eksekutif</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="siang_eksekutif" required="">
+                        <select class="form-control" name="siang_eksekutif">
                                 @foreach($makansiangs as $makansiang)
                                 @if($makansiang->id==$food_plans->siang)
                                 <option value="{{$makansiang->id}}" selected="">
@@ -164,7 +164,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label"> Makan Siang Bisnis</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="siang_bisnis" required="">
+                        <select class="form-control" name="siang_bisnis">
                                 @foreach($makansiangs as $makansiang)
                                 @if($makansiang->id==$food_plans->siang)
                                 <option value="{{$makansiang->id}}" selected="">
@@ -182,7 +182,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label"> Makan Siang Ekonomi 1</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="siang_ekonomi1" required="">
+                        <select class="form-control" name="siang_ekonomi1">
                                 @foreach($makansiangs as $makansiang)
                                 @if($makansiang->id==$food_plans->siang)
                                 <option value="{{$makansiang->id}}" selected="">
@@ -200,7 +200,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label"> Makan Siang Ekonomi 2</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="siang_ekonomi2" required="">
+                        <select class="form-control" name="siang_ekonomi2">
                                 @foreach($makansiangs as $makansiang)
                                 @if($makansiang->id==$food_plans->siang)
                                 <option value="{{$makansiang->id}}" selected="">
@@ -223,7 +223,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label"> Makan Malam Eksekutif</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="malam_eksekutif" required="">
+                        <select class="form-control" name="malam_eksekutif">
                                 @foreach($makanmalams as $makanmalam)
                                 @if($makanmalam->id==$food_plans->malam)
                                 <option value="{{$makanmalam->id}}" selected="">
@@ -241,7 +241,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label"> Makan Malam Bisnis</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="malam_bisnis" required="">
+                        <select class="form-control" name="malam_bisnis">
                                 @foreach($makanmalams as $makanmalam)
                                 @if($makanmalam->id==$food_plans->malam)
                                 <option value="{{$makanmalam->id}}" selected="">
@@ -259,7 +259,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Makan Malam Ekonomi1</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="malam_ekonomi1" required="">
+                        <select class="form-control" name="malam_ekonomi1">
                                 @foreach($makanmalams as $makanmalam)
                                 @if($makanmalam->id==$food_plans->malam)
                                 <option value="{{$makanmalam->id}}" selected="">
@@ -277,7 +277,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Makan Malam Ekonomi2</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="malam_ekonomi2" required="">
+                        <select class="form-control" name="malam_ekonomi2">
                                 @foreach($makanmalams as $makanmalam)
                                 @if($makanmalam->id==$food_plans->malam)
                                 <option value="{{$makanmalam->id}}" selected="">
