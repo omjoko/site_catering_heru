@@ -39,7 +39,6 @@
                         <th>No. IMO</th>
                         <th>Kapasitas</th>
                         <th></th>
-                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,9 +65,12 @@
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $kapal->id }}"><i class="fa fa-trash-o "></i></button>
                             <a href="/storages?id={{ $kapal->id }}"><button class="btn btn-success btn-xs" data-toggle="modal"><i class="fa fa-plus"></i> Penyimpanan</button></a>
                         </td>
+<<<<<<< HEAD
                         <td hidden="">
                           {{$ke}}
                         </td>
+=======
+>>>>>>> origin/master
                     </tr>
                     <?php $ke++; ?>
                     @endforeach
@@ -331,6 +333,7 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
+<<<<<<< HEAD
       var kes = aData[7];
       var arrayStore = <?php echo json_encode($arrayStore);?>;
       var tableData = arrayStore[kes];
@@ -359,6 +362,32 @@
           } 
           sOut +=                    '</table>';
 
+=======
+      var sOut = '<table class="display table table-bordered table-striped table-advance table-hover">';
+          sOut +='                  <tr>';
+          sOut +='                    <th  style="text-align: center;">No.</th>';
+          sOut +='                    <th  style="text-align: center;">Nama Penyimpanan</th>';
+          sOut +='                    <th  style="text-align: center;">Tipe Penyimpanan</th>';
+          sOut +='                  </tr>';
+      var no = 0;
+                            @foreach($storages as $storage)
+                            no++;
+          sOut +='                      <tr>';
+          sOut +='                        <td>'+no+'</td>';
+          sOut +='                        <td>{{ $storage->nama }}</td>';
+          sOut +='                        <td>';
+                                      @if($storage->tipe==0)
+          sOut +='                            <span class="label label-primary label-mini">Freezer</span>';
+                                      @elseif($storage->tipe==1)
+          sOut +='                            <span class="label label-info label-mini">Gudang Utama</span>';
+                                      @elseif($storage->tipe==2)
+          sOut +='                            <span class="label label-inverse label-mini">Gudang Biasa</span>';
+                                      @endif
+          sOut +='                        </td>';
+          sOut +='                      </tr>';
+                            @endforeach
+          sOut +='                </table>';
+>>>>>>> origin/master
       return sOut;
   }
 

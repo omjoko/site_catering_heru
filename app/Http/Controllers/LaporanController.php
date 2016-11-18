@@ -14,7 +14,10 @@ use App\requisitions;
 use App\vendors;
 use App\inventorys;
 use App\storages;
+<<<<<<< HEAD
 use App\Waste;
+=======
+>>>>>>> origin/master
 
 
 
@@ -69,6 +72,7 @@ class LaporanController extends Controller
 
     public function laporanInventory(Request $request)
     {
+<<<<<<< HEAD
     	$inventorys = inventorys::with('ingredients.pembelian')
                         ->join('requisitions','inventorys.id_req','=','requisitions.id')
                         ->join('voyages','requisitions.id_pelayaran','=','voyages.id')
@@ -78,6 +82,9 @@ class LaporanController extends Controller
                         ->where('voyages.deleted_at','=',null)
                         ->where('voyages.deleted_at','=',null)
                         ->get();
+=======
+    	$inventorys = inventorys::with('ingredients.pembelian')->get();
+>>>>>>> origin/master
         $storages = storages::all();
 
 

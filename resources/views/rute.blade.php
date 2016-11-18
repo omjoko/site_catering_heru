@@ -36,7 +36,6 @@
                         <th style="text-align: center;">Tujuan</th>
                         <th style="text-align: center;">Estimasi Total</th>
                         <th style="text-align: center;"></th>
-                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -68,9 +67,12 @@
                             <button class="btn btn-danger btn-xs" data-toggle="modal" href="#modalHapus{{ $rute->id }}"><i class="fa fa-trash-o "></i></button>
                             <a href="transit?id={{ $rute->id }}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Transit</button></a>
                         </td>
+<<<<<<< HEAD
                         <td hidden="">
                             {{$ke}}
                         </td>
+=======
+>>>>>>> origin/master
                       </tr>
                       <?php $ke++; ?>
                       @endforeach
@@ -285,6 +287,7 @@
   function fnFormatDetails ( oTable, nTr, id_bahan )
   {
       var aData = oTable.fnGetData( nTr );
+<<<<<<< HEAD
       var kes = aData[6];
       var arrayTrans = <?php echo json_encode($arrayTrans);?>;
       console.log(arrayTrans[kes]);
@@ -306,6 +309,28 @@
           sOut +=                      '</tr>';
           }
           sOut +=                '</table>';
+=======
+      var sOut = '<table class="table table-striped">';
+          sOut +='                  <tr>';
+          sOut +='                    <th  style="text-align: center;">No.</th>';
+          sOut +='                    <th  style="text-align: center;">Nama Pelabuhan</th>';
+          sOut +='                    <th  style="text-align: center;">Estimasi Transit</th>';
+          sOut +='                  </tr>';
+      var no = 0;
+                            @foreach($transits as $transit)
+                            no++;
+          sOut +='                      <tr>';
+          sOut +='                        <td>'+no+'</td>';
+                                            @foreach($pelabuhans as $pelabuhan)
+                                              @if($transit->id_pelabuhan==$pelabuhan->id_pelabuhan)
+          sOut +='                                      <td>{{ $pelabuhan->nama_pelabuhan }}</td>';
+                                              @endif
+                                            @endforeach
+          sOut +='                        <td>{{ $transit->est_transit }}</td>';
+          sOut +='                      </tr>';
+                            @endforeach
+          sOut +='                </table>';
+>>>>>>> origin/master
       return sOut;
   }
 

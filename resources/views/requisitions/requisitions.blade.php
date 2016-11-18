@@ -69,10 +69,16 @@
                               {{$requisition->vendors['nama_vendor']}}
                           </td>
                           <?php $totals = array();?>
+<<<<<<< HEAD
                                     @foreach($DR as $detail_requisition)
                                       <?php $total = $detail_requisition->jumlah*$detail_requisition->harga; ?>
                                       <?php $totals[] = $total;  ?>
                                     @endforeach
+=======
+                          <td hidden="">
+                                
+                          </td>                          
+>>>>>>> origin/master
                           <td>{{array_sum($totals)}}</td>
                           <td>
                               @if($requisition->status==0)
@@ -272,6 +278,7 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
+<<<<<<< HEAD
       var kes = aData[8];
       var arrayDR = <?php echo json_encode($arrayDR);?>;
       console.log(arrayDR[kes]);
@@ -302,6 +309,33 @@
           sOut +=                      '</table>';
 
 
+=======
+      var sOut = '<table class="display table table-bordered table-striped table-hover">';
+          sOut +='                  <tr>';
+          sOut +='                    <th  style="text-align: center; width: 5%;">No.</th>';
+          sOut +='                    <th  style="text-align: center;">Nama Bahan</th>';
+          sOut +='                    <th  style="text-align: center;">Jumlah</th>';
+          sOut +='                    <th  style="text-align: center;">Satuan</th>';
+          sOut +='                    <th  style="text-align: center;">Harga</th>';
+          sOut +='                    <th  style="text-align: center;">Total</th>';
+          sOut +='                    <th  style="text-align: center; width: 10%"></th>';
+          sOut +='                  </tr>';
+      var no = 0;
+                            @foreach($DR as $detail_requisition)
+                            no++;
+          sOut +='                      <tr>';
+          sOut +='                        <td>'+no+'</td>';
+          sOut +='                        <td>{{ $detail_requisition->ingredients[0]['nama'] }}</td>';
+          sOut +='                        <td>{{ $detail_requisition->jumlah }}</td>';
+          sOut +='                        {{ $detail_requisition->ingredients[0]->pembelian['satuan'] }}';
+          sOut +='                        <td>{{ $detail_requisition->harga }}</td>';
+                            <?php $total = $detail_requisition->jumlah*$detail_requisition->harga; ?>
+          sOut +='                        <td>{{ $total }}</td>';
+          sOut +='                      </tr>';
+                            <?php $totals[] = $total;  ?>
+                            @endforeach
+          sOut +='                </table>';
+>>>>>>> origin/master
       return sOut;
   }
 

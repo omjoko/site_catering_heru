@@ -228,6 +228,7 @@
   function fnFormatDetails ( oTable, nTr, id_bahan )
   {
       var aData = oTable.fnGetData( nTr );
+<<<<<<< HEAD
       var datas = aData[6];
       var arrayVar = <?php echo json_encode($arrayVar);?>;
       var tableData = arrayVar[datas];
@@ -255,6 +256,32 @@
           sOut +=                      '</tr>';
                                   }
           sOut +=                '</table>';
+=======
+      var sOut = '<table class="table table-striped">';
+          sOut +='                  <tr>';
+          sOut +='                    <th  style="text-align: center;">No.</th>';
+          sOut +='                    <th  style="text-align: center;">Variasi Bahan</th>';
+          sOut +='                    <th  style="text-align: center;">Bahan Utama</th>';
+          sOut +='                    <th  style="text-align: center;">Deskripsi</th>';
+          sOut +='                  </tr>';
+      var no = 0;
+                            @foreach($variant as $var)
+                            no++;
+          sOut +='                      <tr>';
+          sOut +='                        <td>'+no+'</td>';
+          sOut +='                        <td>{{$var->nama}}</td>';
+          sOut +='                        <td>';
+                                      @if($var->bahan_utama == 0)
+          sOut +='                            <span class="label label-danger label-mini"> Tidak</span>';
+                                      @else
+          sOut +='                            <span class="label label-success label-mini"> Ya</span>';
+                                      @endif
+          sOut +='                        </td>';
+          sOut +='                        <td>{{$var->deskripsi}}</td>';
+          sOut +='                      </tr>';
+                            @endforeach
+          sOut +='                </table>';
+>>>>>>> origin/master
       return sOut;
   }
 

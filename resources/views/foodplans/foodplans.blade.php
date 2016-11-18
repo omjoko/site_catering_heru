@@ -62,7 +62,6 @@
                         <th style="text-align: center;">Durasi</th>
                         <th style="text-align: center;">Total Penumpang</th>
                         <th></th>
-                        <th hidden=""></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -100,6 +99,7 @@
                             @if($_GET['success']==3)
                             <button class="btn btn-success btn-xs" data-toggle="modal" href="#ModalTambah{{ $voyage->id }}"><i class="fa fa-star "></i> Requisition</button>
                             @endif
+<<<<<<< HEAD
                           </td>
                           <td hidden="">
                                 <table cellpadding="0" cellspacing="0" border="10" class="display table table-bordered" id="hidden-table-info" style="text-align: center;">
@@ -215,6 +215,9 @@
                                   @endforeach
                                 </table>
                           </td>                      
+=======
+                          </td>                  
+>>>>>>> origin/master
                       </tr>
                     @endforeach
                     </tbody>
@@ -518,10 +521,106 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
+<<<<<<< HEAD
       var sOut = aData[9];
+=======
+        @foreach($voyages as $voyage)
+        <?php 
+            $FP = foodplansController::sedotFP($voyage->id);
+            $vendors = foodplansController::sedotVendor();
+        ?>                                            
+      var sOut = '<table cellpadding="0" cellspacing="0" border="10" class="display table table-bordered" style="text-align: center;">';
+          sOut +='                  <tr>';
+          sOut +='                    <th style="text-align: center; background-color: gray; color: white;"></th>';
+          sOut +='                    <th style="text-align: center; background-color: gray; color: white;">EKSEKUTIF</th>';
+          sOut +='                    <th style="text-align: center; background-color: gray; color: white;">BISNIS</th>';
+          sOut +='                    <th style="text-align: center; background-color: gray; color: white;">EKONOMI 1</th>';
+          sOut +='                    <th style="text-align: center; background-color: gray; color: white;">EKONOMI 2</th>';
+          sOut +='                  </tr>';
+                            @foreach($FP as $f)
+          sOut +='                      <tr>';
+          sOut +='                        <td style="background-color: #FF6C60; color: white;">';
+          sOut +='                        <a href="edit-food-plans?hari={{ $f->hari }}&id={{ $voyage->id }}"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> Ubah Plan</button></a>';
+          sOut +='                        <a href="delete-food-plans?hari={{ $f->hari }}&id={{ $voyage->id }}"><button class="btn btn-warning btn-xs"><i class="fa fa-trash-o "></i></button></a>';
+          sOut +='                        </td>';
+          sOut +='                        <td colspan="4" style="background-color: #FF6C60; color: white;">Hari Ke-{{ $f->hari }}</td>';
+          sOut +='                      </tr>';
+          sOut +='                      <tr>';
+          sOut +='                        <td style="background-color: gray; color: white;">SARAPAN</td>';
+                                          @foreach($sarapans as $sarapan)
+                                            @if($sarapan->id==$f->sarapan_eksekutif)
+          sOut +='                        <td>{{ $sarapan->nama }}</td>';
+                                            @endif
+                                          @endforeach
+                                          @foreach($sarapans as $sarapan)
+                                            @if($sarapan->id==$f->sarapan_bisnis)
+          sOut +='                        <td>{{ $sarapan->nama }}</td>';
+                                            @endif
+                                          @endforeach
+                                          @foreach($sarapans as $sarapan)
+                                            @if($sarapan->id==$f->sarapan_ekonomi1)
+          sOut +='                        <td>{{ $sarapan->nama }}</td>';
+                                            @endif
+                                          @endforeach
+                                          @foreach($sarapans as $sarapan)
+                                            @if($sarapan->id==$f->sarapan_ekonomi2)
+          sOut +='                        <td>{{ $sarapan->nama }}</td>';
+                                            @endif
+                                          @endforeach
+          sOut +='                      </tr>';
+          sOut +='                      <tr>';
+          sOut +='                        <td style="background-color: gray; color: white;">MAKAN SIANG</td>';
+                                          @foreach($siangs as $siang)
+                                            @if($siang->id==$f->siang_eksekutif)
+          sOut +='                        <td>{{ $siang->nama }}</td>';
+                                            @endif
+                                          @endforeach
+                                          @foreach($siangs as $siang)
+                                            @if($siang->id==$f->siang_bisnis)
+          sOut +='                        <td>{{ $siang->nama }}</td>';
+                                            @endif
+                                          @endforeach
+                                          @foreach($siangs as $siang)
+                                            @if($siang->id==$f->siang_ekonomi1)
+          sOut +='                        <td>{{ $siang->nama }}</td>';
+                                            @endif
+                                          @endforeach
+                                          @foreach($siangs as $siang)
+                                            @if($siang->id==$f->siang_ekonomi2)
+          sOut +='                        <td>{{ $siang->nama }}</td>';
+                                            @endif
+                                          @endforeach
+          sOut +='                      </tr>';
+          sOut +='                      <tr>';
+          sOut +='                        <td style="background-color: gray; color: white;">MAKAN MALAM</td>';
+                                          @foreach($malams as $malam)
+                                            @if($malam->id==$f->malam_eksekutif)
+          sOut +='                        <td>{{ $malam->nama }}</td>';
+                                            @endif
+                                          @endforeach
+                                          @foreach($malams as $malam)
+                                            @if($malam->id==$f->malam_bisnis)
+          sOut +='                        <td>{{ $malam->nama }}</td>';
+                                            @endif
+                                          @endforeach
+                                          @foreach($malams as $malam)
+                                            @if($malam->id==$f->malam_ekonomi1)
+          sOut +='                        <td>{{ $malam->nama }}</td>';
+                                            @endif
+                                          @endforeach
+                                          @foreach($malams as $malam)
+                                            @if($malam->id==$f->malam_ekonomi2)
+          sOut +='                        <td>{{ $malam->nama }}</td>';
+                                            @endif
+                                          @endforeach
+          sOut +='                      </tr>';
+>>>>>>> origin/master
 
+                            @endforeach
+          sOut +='                </table>';
 
       return sOut;
+      @endforeach
   }
 
   $(document).ready(function() {

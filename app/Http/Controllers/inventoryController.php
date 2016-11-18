@@ -29,11 +29,16 @@ class inventoryController extends Controller
         // DD($inventorys);
         $ingredients = ingredients::all();
         $storages = storages::all();
+<<<<<<< HEAD
         $requisitions = requisitions::with('voyages')
                         ->join('voyages','requisitions.id_pelayaran', '=' ,'voyages.id')
                         ->select('requisitions.*','voyages.id as hole')
                         ->where(['status'=> 2,'voyages.deleted_at'=>null])
                         ->get();
+=======
+        $requisitions = requisitions::where('status', 2)->get();
+
+>>>>>>> origin/master
         // DD($requisitions);
     	return view('inventorys.inventory', ['inventorys'=>$inventorys,'requisitions'=>$requisitions,'ingredients'=>$ingredients, 'storages'=>$storages]);
     }

@@ -69,10 +69,14 @@
                             <a href="new-ingredients-recipe?id={{$recipe->id}}"><button class="btn btn-success btn-xs"><i class="fa fa-plus"></i> Bahan</button></a>
                           </td>
                           <td hidden="">
+<<<<<<< HEAD
                             {{$ke}}
                           </td>
                           <td hidden="">
                             {{$recipe->gambar}}
+=======
+                            
+>>>>>>> origin/master
                           </td>
                       </tr>
                       <?php $ke++; ?>
@@ -265,6 +269,7 @@
   function fnFormatDetails ( oTable, nTr )
   {
       var aData = oTable.fnGetData( nTr );
+<<<<<<< HEAD
       var kes = aData[6];
       var foto = aData[7];
       var arraySep = <?php echo json_encode($arraySep);?>;
@@ -293,6 +298,31 @@
           sOut +=                        '<div class="pull-right">';
           sOut +=                          '<img src="'+foto+'" class="img img-responsive" width="640" height="320">';
           sOut +=                        '</div>';
+=======
+      var sOut = '<div class="col-md-4">';       
+          sOut +='       <table class="table table-striped">';
+          sOut +='                      <tr>';
+          sOut +='                        <th  style="text-align: center;">No.</th>';
+          sOut +='                        <th  style="text-align: center;">Bahan</th>';
+          sOut +='                        <th  style="text-align: center;">Jumlah</th>';
+          sOut +='                        <th  style="text-align: center;">Banyak</th>';
+          sOut +='                      </tr>';
+      var no = 0;
+                                @foreach($bahan_reseps as $bahan_resep)
+                            no++;
+          sOut +='                          <tr>';
+          sOut +='                            <td>'+no+'</td>';
+          sout +="                            <td>{{ $bahan_resep->bahan['nama'] }}</td>";
+          sOut +='                            <td>{{ $bahan_resep->jumlah }}</td>';
+          sOut +='                            <td>{{ $bahan_resep->satuan }}</td>';
+          sOut +='                          </tr>';
+                                @endforeach
+          sOut +='                    </table>';
+          sOut +='</div>'
+          sOut +='                  <div class="pull-right">';
+          sOut +='                    <img src="{{$recipe->gambar}}" class="img-responsive" width="640" height="320">';
+         sOut +='                  </div>';
+>>>>>>> origin/master
 
       return sOut;
   }
